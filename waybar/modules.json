@@ -1,0 +1,16 @@
+
+{
+
+    "custom/arch": {
+        "format": " 󰣇 ",
+        "on-click": "wofi --show drun"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "disable-scroll": false,
+        "all-outputs": true,
+        "warp-on-scroll": true
+    }
+
+}

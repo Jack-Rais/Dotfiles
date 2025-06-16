@@ -1,0 +1,42 @@
+
+@import "colors.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", "Material Icons", "Symbols Nerd Font Mono";
+    font-size: 16px;
+}
+
+window#waybar {
+    background-color: alpha(@color2, 0.4);
+    
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: alpha(@color0, 0.7);
+    border-style: solid;
+}
+
+
+#custom-arch {
+    margin-left: 5px;
+    font-size: 25px;
+    background-color: transparent;
+    color: white;
+}
+
+
+#workspaces button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}
+
+#workspaces button.empty {
+    border: 2px solid alpha(@color0, 0.5);
+    background-color: alpha(@color2, 0.8);
+}
+
+#workspaces button.active {
+    background-color: alpha(@color0, 0.7);
+    border: 2px solid alpha(@color2, 0.5);
+    color: white;
+} 

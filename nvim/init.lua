@@ -9,3 +9,8 @@ vim.o.shiftwidth = 4 -- spaces per indentation level
 
 vim.opt.number = true
 vim.opt.relativenumber = true
+
+
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#FFFF00" })
+vim.api.nvim_set_hl(0, "LineNrRelative", { fg = "#00FF00" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FF0000", bold = true })

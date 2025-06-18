@@ -3,7 +3,7 @@
     "layer": "top",
     "height": 30,
     "spacing": 4,
-    "margin": "10, 10, 0, 10",    
+    "margin": "2, 2, 0, 2",    
 
     "modules-left" : [ "custom/arch" ], 
     "modules-center": [ "hyprland/workspaces" ],    

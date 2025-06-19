@@ -3,7 +3,7 @@
 
     "custom/arch": {
         "format": " 󰣇 ",
-        "on-click": "wofi --show drun"
+        "tooltip": false,
     },
 
     "hyprland/workspaces": {
@@ -11,6 +11,11 @@
         "disable-scroll": false,
         "all-outputs": true,
         "warp-on-scroll": true
+    },
+
+    "clock": {
+      "format": "{:%H:%M}",
+      "tooltip": false
     }
 
 }

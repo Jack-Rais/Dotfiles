@@ -6,6 +6,19 @@
         "tooltip": false,
     },
 
+    "cpu": {
+        "interval": 10,
+        "format": "  {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "  {}%",
+        "on-click": "kitty htop"
+    },
+    "temperature": {
+        "format": "  {temperatureC}°C"
+    },
+
     "hyprland/workspaces": {
         "format": "{name}",
         "disable-scroll": false,

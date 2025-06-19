@@ -7,8 +7,8 @@
     "height": 5,
     "margin": "2, 2, 0, 2",
 
-    "modules-left" : [ "custom/arch" ], 
-    "modules-center": [ "hyprland/workspaces" ],    
+    "modules-left" : [ "custom/arch", "cpu", "memory", "temperature" ], 
+    "modules-center": [ "hyprland/workspaces" ],
     "modules-right": [ "clock" ],
 
     "include": [

@@ -16,8 +16,9 @@ return require('packer').startup(function(use)
 	use {
 		'catppuccin/nvim', as = 'catpuccin'
 	}
-	use {
-		'nvim-treesitter/nvim-treesitter', 
-		branch = 'master',
-	}
+    use {
+    	'nvim-treesitter/nvim-treesitter', 
+    	branch = 'master',
+    }
+    use { 'neoclide/coc.nvim', branch = 'release' }
 end)

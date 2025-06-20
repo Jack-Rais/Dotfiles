@@ -4,10 +4,10 @@
     "exclusive": true,
     "pass-through": false,
 
-    "height": 5,
+    "height": 38,
     "margin": "2, 2, 0, 2",
 
-    "modules-left" : [ "custom/arch", "cpu", "memory", "temperature" ], 
+    "modules-left" : [ "custom/arch", "cpu", "memory", "temperature", "battery" ], 
     "modules-center": [ "hyprland/workspaces" ],
     "modules-right": [ "clock" ],
 

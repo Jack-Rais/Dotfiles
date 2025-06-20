@@ -9,15 +9,30 @@
     "cpu": {
         "interval": 10,
         "format": "  {usage}%",
-        "tooltip": false
     },
     "memory": {
         "format": "  {}%",
-        "on-click": "kitty htop"
     },
     "temperature": {
-        "format": "  {temperatureC}°C"
+        "format": "  {temperatureC}°C",
+        "tooltip": false
     },
+
+    "battery": {
+        "tooltip": false,
+        "hide-if-unavailable": true,
+        "states": {
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-full": "{icon}  {capacity}%",
+        "format-charging": "⚡{capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-alt": "{time}  {icon}",
+        "format-icons": ["", "", "", "", ""]        
+    },
+
 
     "hyprland/workspaces": {
         "format": "{name}",
@@ -25,10 +40,25 @@
         "all-outputs": true,
         "warp-on-scroll": true
     },
-
     "clock": {
-      "format": "{:%H:%M}",
-      "tooltip": false
-    }
+        "format": "{:%b %d %H:%M}",
+        "tooltip-format": "<span color='#FFFFFF'><tt>{calendar}</tt></span>",
+        "calendar": {
+            "mode-mon-col": 4,
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#BE95FF'><b>{}</b></span>",
+                "weeks": "<span color='#525252'><b>{}</b></span>",
+                "weekdays": "<span color='#78A9FF'><b>{}</b></span>",
+                "today": "<span color='#BE95FF' background='#161616'><b>{}</b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+        },
+        "tooltip": true
+    },
+
 
 }

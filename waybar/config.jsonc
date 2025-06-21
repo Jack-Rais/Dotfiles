@@ -9,7 +9,7 @@
 
     "modules-left" : [ "custom/arch", "cpu", "memory", "temperature", "battery" ], 
     "modules-center": [ "hyprland/workspaces" ],
-    "modules-right": [ "clock" ],
+    "modules-right": [ "pulseaudio", "pulseaudio#microphone", "network", "clock", "custom/power" ],
 
     "include": [
         "$HOME/.config/waybar/modules.json"

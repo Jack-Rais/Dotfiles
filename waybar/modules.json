@@ -40,6 +40,40 @@
         "all-outputs": true,
         "warp-on-scroll": true
     },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon} {volume}%  {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "pavucontrol -t 4",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
+        "tooltip-format": "{source_desc} | {source_volume}%",
+        "scroll-step": 5,
+    },
+
+
+    "network": {
+        "format-wifi": "   {essid}",
+        "on-click": "alacritty -e nmtui",
+        "format-ethernet": "   wired",
+        "tooltip": false,
+        "format-disconnected": ""
+    },
+
     "clock": {
         "format": "{:%b %d %H:%M}",
         "tooltip-format": "<span color='#FFFFFF'><tt>{calendar}</tt></span>",
@@ -59,6 +93,12 @@
         },
         "tooltip": true
     },
-
+    
+    "custom/power": {
+        "tooltip": true,
+        "on-click": "shutdown now",
+        "format": "",
+        "tooltip-format": "Power Menu"
+    },
 
 }

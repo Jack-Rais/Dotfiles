@@ -1,4 +1,4 @@
-* {
+*{
     background: #090B16;
     foreground: #a5aaca;
 
@@ -13,4 +13,6 @@
     color8: #73768d;
     color9: #565662;
     color10: #474F7D;
+
 }
+

@@ -1,5 +1,6 @@
 require("user")
 
+
 vim.cmd.colorscheme "catppuccin"
 
 vim.o.expandtab = true -- expand tab input with spaces characters

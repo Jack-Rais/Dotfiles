@@ -25,7 +25,8 @@ EOF
 fi
 
 WAL_COLORS="$WAL_CACHE"
-OUT_CSS="$HOME/.config/waybar/colors.css"
+OUT_CSS_WAY="$HOME/.config/waybar/colors.css"
+OUT_CSS_ROFI="$HOME/.config/rofi/colors.rasi"
 
 background=$(jq -r '.special.background' < "$WAL_COLORS")
 foreground=$(jq -r '.special.foreground' < "$WAL_COLORS")
@@ -41,7 +42,7 @@ color8=$(jq -r '.colors.color8' < "$WAL_COLORS")
 color9=$(jq -r '.colors.color9' < "$WAL_COLORS")
 color10=$(jq -r '.colors.color10' < "$WAL_COLORS")
 
-cat > "$OUT_CSS" << EOF
+cat > "$OUT_CSS_WAY" << EOF
 @define-color background $background;
 @define-color foreground $foreground;
 
@@ -56,6 +57,25 @@ cat > "$OUT_CSS" << EOF
 @define-color color8 $color8;
 @define-color color9 $color9;
 @define-color color10 $color10;
+EOF
+
+cat > "$OUT_CSS_ROFI" << EOF
+* {
+    background: $background;
+    foreground: $foreground;
+
+    color0: $color0;
+    color1: $color1;
+    color2: $color2;
+    color3: $color3;
+    color4: $color4;
+    color5: $color5;
+    color6: $color6;
+    color7: $color7;
+    color8: $color8;
+    color9: $color9;
+    color10: $color10;
+}
 EOF
 
 pkill waybar

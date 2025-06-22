@@ -1,18 +1,16 @@
-*{
-    background: #090B16;
-    foreground: #a5aaca;
+* {
+    background: #2d1a2e;
+    foreground: #968ebe;
 
-    color0: #090B16;
-    color1: #565662;
-    color2: #474F7D;
-    color3: #354C9E;
-    color4: #4F5685;
-    color5: #5A6491;
-    color6: #636B98;
-    color7: #a5aaca;
-    color8: #73768d;
-    color9: #565662;
-    color10: #474F7D;
-
+    color0: #2d1a2e;
+    color1: #B0246E;
+    color2: #E81D52;
+    color3: #ED2445;
+    color4: #D22061;
+    color5: #F89130;
+    color6: #FCAF30;
+    color7: #968ebe;
+    color8: #696385;
+    color9: #B0246E;
+    color10: #E81D52;
 }
-

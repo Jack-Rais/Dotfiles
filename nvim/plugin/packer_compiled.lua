@@ -79,13 +79,8 @@ _G.packer_plugins = {
     path = "/home/giorgio/.local/share/nvim/site/pack/packer/start/catpuccin",
     url = "https://github.com/catppuccin/nvim"
   },
-  ["coc.nvim"] = {
-    loaded = true,
-    path = "/home/giorgio/.local/share/nvim/site/pack/packer/start/coc.nvim",
-    url = "https://github.com/neoclide/coc.nvim"
-  },
   ["nvim-autopairs"] = {
-    config = { "\27LJ\2\n—\1\0\0\3\0\a\1\0176\0\0\0009\0\1\0009\0\2\0B\0\1\2\t\0\0\0X\0\5€6\0\0\0009\0\1\0009\0\3\0D\0\1\0X\0\5€6\0\4\0'\2\5\0B\0\2\0029\0\6\0D\0\1\0K\0\1\0\17autopairs_cr\19nvim-autopairs\frequire\20coc#pum#confirm\20coc#pum#visible\afn\bvim\2ß\1\1\0\a\0\r\0\0186\0\0\0'\2\1\0B\0\2\0029\1\2\0004\3\0\0B\1\2\0016\1\3\0003\2\5\0=\2\4\0016\1\6\0009\1\a\0019\1\b\1'\3\t\0'\4\n\0'\5\v\0005\6\f\0B\1\5\1K\0\1\0\1\0\3\fnoremap\2\vsilent\2\texpr\2#v:lua.confirm_with_autopairs()\t<CR>\6i\20nvim_set_keymap\bapi\bvim\0\27confirm_with_autopairs\a_G\nsetup\19nvim-autopairs\frequire\0" },
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,

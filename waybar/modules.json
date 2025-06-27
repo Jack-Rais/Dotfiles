@@ -3,15 +3,15 @@
 
     "custom/arch": {
         "format": " 󰣇 ",
-        "tooltip": false,
+        "tooltip": false
     },
 
     "cpu": {
         "interval": 10,
-        "format": "  {usage}%",
+        "format": "  {usage}%"
     },
     "memory": {
-        "format": "  {}%",
+        "format": "  {}%"
     },
     "temperature": {
         "format": "  {temperatureC}°C",
@@ -62,7 +62,7 @@
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
         "tooltip-format": "{source_desc} | {source_volume}%",
-        "scroll-step": 5,
+        "scroll-step": 5
     },
 
 
@@ -89,16 +89,16 @@
             }
         },
         "actions": {
-            "on-click-right": "mode",
+            "on-click-right": "mode"
         },
         "tooltip": true
     },
     
     "custom/power": {
         "tooltip": true,
-        "on-click": "shutdown now",
+        "on-click": "systemctl poweroff",
         "format": "",
         "tooltip-format": "Power Menu"
-    },
+    }
 
 }

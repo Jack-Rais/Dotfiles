@@ -1,6 +1,8 @@
 
 -- lua/user/lsp/servers.lua
+local M = {}
 local util = vim.lsp.util
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local function make_root_dir(markers)
   return function(bufnr, on_dir)
@@ -9,22 +11,20 @@ local function make_root_dir(markers)
     if root then
       on_dir(root)
     else
-      -- fallback: directory del file corrente
       on_dir(vim.fs.dirname(fname))
     end
   end
 end
 
-local M = {}
-
 function M.setup()
   -- Python LSP
   vim.lsp.config['pylsp'] = {
     cmd = { 'pylsp' },
+    capabilities = capabilities,
     filetypes = { 'python' },
     root_dir = make_root_dir({ 'setup.py', 'pyproject.toml', '.git' }),
     settings = {
-      pylsp = { plugins = { jedi_completion = { include_params = true } } }
+      pylsp = { plugins = { jedi_completion = { include_params = true } } },
     },
   }
   vim.lsp.enable('pylsp')
@@ -32,6 +32,7 @@ function M.setup()
   -- Rust LSP
   vim.lsp.config['rust_analyzer'] = {
     cmd = { 'rust-analyzer' },
+    capabilities = capabilities,
     filetypes = { 'rust' },
     root_dir = make_root_dir({ 'Cargo.toml', '.git' }),
   }
@@ -39,4 +40,3 @@ function M.setup()
 end
 
 return M
-

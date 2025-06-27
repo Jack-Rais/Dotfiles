@@ -1,6 +1,4 @@
 
-vim.cmd.colorscheme "catppuccin"
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -12,19 +10,32 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim', tag = '0.1.8',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-	use {
-		'catppuccin/nvim', as = 'catpuccin'
-	}
+    use 'Mofiqul/vscode.nvim'
     use {
     	'nvim-treesitter/nvim-treesitter', 
     	branch = 'master',
     }
     use {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
+        after = "nvim-cmp",
         config = function()
-            require("nvim-autopairs").setup {}
+            require("nvim-autopairs").setup {
+                check_ts = true,
+                map_cr = true
+            }
         end
     }
+    use {
+        'hrsh7th/nvim-cmp',
+        requires = {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-nvim-lua', -- utile per configurazioni Lua
+            'L3MON4D3/LuaSnip',       -- snippet engine
+            'saadparwaiz1/cmp_luasnip',
+        }
+    }
+    use { 'mbbill/undotree' }
 
 end)

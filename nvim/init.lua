@@ -2,11 +2,11 @@ require("user")
 require("user.lsp")
 
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "vscode"
 
--- vim.api.nvim_set_hl(0, "LineNr", { fg = "#FFFF00" })
--- vim.api.nvim_set_hl(0, "LineNrRelative", { fg = "#00FF00" })
--- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FF0000", bold = true })
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#FFFF00" })
+vim.api.nvim_set_hl(0, "LineNrRelative", { fg = "#00FF00" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FF0000", bold = true })
 
 
 vim.diagnostic.config({

@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Imposta origine come la directory in cui si trova questo script
-origine=origine="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+origine="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
 destinazione="$HOME/.config"
 
 echo "Origine: $origine"

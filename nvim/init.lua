@@ -1,18 +1,42 @@
-require("user")
-require("user.lsp")
 
+-- Imposta dei filepath di default
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+vim.g.lua_snippets_path = vim.fn.stdpath "config" .. "/lua/snippets"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
-vim.cmd.colorscheme "vscode"
+-- Impostare il mapleader
+vim.g.mapleader = " "
 
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#FFFF00" })
-vim.api.nvim_set_hl(0, "LineNrRelative", { fg = "#00FF00" })
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FF0000", bold = true })
+-- Installare lazy.nvim se non è già presente nel systema
+if not vim.uv.fs_stat(lazypath) then
+    local repo = "https://github.com/folke/lazy.nvim.git"
+    vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+end
 
+-- Impostare la cartella di lazy.nvim come la prima che deve caricare
+vim.opt.rtp:prepend(lazypath)
 
-vim.diagnostic.config({
-   virtual_text = true,  -- mostra errore inline
-   signs = true,         -- mostra segni in gutter
-   underline = true,
-   update_in_insert = false,
-})
+local lazy_config = require "configs.lazy"
 
+-- load plugins
+require("lazy").setup({
+    {
+        "NvChad/NvChad",
+        lazy = false,
+        branch = "v2.5",
+        import = "nvchad.plugins",
+    },
+
+    { import = "plugins" },
+}, lazy_config)
+
+-- load theme
+dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "statusline")
+
+require "options"
+require "nvchad.autocmds"
+
+vim.schedule(function()
+    require "mappings"
+end)

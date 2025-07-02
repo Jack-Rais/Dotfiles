@@ -1,0 +1,15 @@
+
+
+Prerequisiti
+	gcc
+	npm
+	neovim
+	ripgrep
+
+
+Istruzioni
+	rm -rf ~/.local/state/nvim
+	rm -rf ~/.local/share/nvim
+
+
+poi si clona

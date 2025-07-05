@@ -1,0 +1,12 @@
+
+
+polkit-gnome
+mako
+hyprpaper
+hypridle
+brightnessctl
+jq
+python-pywal
+imagemagick
+wl-paste
+rofi

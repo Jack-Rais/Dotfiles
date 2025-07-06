@@ -1,49 +1,78 @@
 #!/bin/bash
-set -euo pipefail
+
+script_path="$(readlink -f "$0")"
+script_dir="$(dirname "$script_path")"
+
+arrivo_dir="$(realpath "$script_dir/../wallpapers")"
+
+
+if [[ ! -d "$arrivo_dir" ]]; then 
+    echo "La direcory di arrivo non esiste"
+    exit 1
+fi
 
 # Controlla se ImageMagick è disponibile
-if ! command -v magick &>/dev/null && ! command -v convert &>/dev/null; then
-    echo "Errore: ImageMagick (magick/convert) non trovato." >&2
+if ! command -v magick &>/dev/null; then
+    echo "ImageMagick non trovato"
     exit 1
 fi
-IM_CMD=$(command -v magick || command -v convert)
 
-# Parametri
-input="$1"
-sigma="${2:-8}"    # intensità della sfocatura (default: 8)
+input="$(realpath "$1")"
+sigma="${2:-8}"
+
 
 if [[ ! -f "$input" ]]; then
-    echo "File non trovato: $input" >&2
+    echo "Immagine non esistente"
     exit 1
 fi
 
-# Estrai estensione e percorso di output
-extension="${input##*.}"
-base="${input%.*}"
-output="${base}_blurred.png"
-clean=false
 
-# Converti in PNG se necessario
-if [[ "${extension,,}" != "png" ]]; then
-    echo "Conversione in PNG..."
-    "$IM_CMD" "$input" "${base}.png"
-    working="${base}.png"
-    clean=true
-else
-    working="$input"
+extension="${input##*.}"
+nuovo_name="$arrivo_dir/current.jpg"
+output="$arrivo_dir/current_blurred.png"
+clean=false
+working="$nuovo_name"
+
+
+# Copiare l'immagine nella cartella dei wallpapers
+echo "Copiando l'immagine nella cartella wallpapers"
+
+if [[ -f "$nuovo_name" ]]; then
+    echo "Immagine già presente, rimuovendo"
+    rm "$nuovo_name"
 fi
 
-# Applica sfocatura
-echo "Applico sfocatura sigma=${sigma}..."
-"$IM_CMD" "$working" -blur 0x"$sigma" "$output"
+
+
+if [[ "${extension,,}" != "jpg" ]]; then
+    echo "Convertendo in jpg"
+    magick "$input" "$nuovo_name"
+
+else
+    cp "$input" "$nuovo_name"
+
+fi
+
+
+echo "Conversione in png media"
+arrivo="$arrivo_dir/medium.png"
+clean=true
+
+if [[ -f "$arrivo" ]]; then
+    echo "Immagine media già presente, rimuovendo"
+    rm "$arrivo"
+fi
+
+magick "$nuovo_name" "$arrivo"
+working="$arrivo"
+
+
+# Sfuocare l'immagine
+echo "Applicando la sfumatura"
+magick "$working" -blur 0x"$sigma" "$output"
+
 
 if [[ "$clean" == true ]]; then
+    echo "Pulendo l'immagine media"
     rm "$working"
 fi
-
-
-echo
-echo "✅ Operazione completata:"
-echo "   Input:     $input"
-echo "   Output:    $output"
-

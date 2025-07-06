@@ -20,15 +20,23 @@ fi
 
 
 WAL_CACHE="$HOME/.cache/wal/colors.json"
-HYPRP_CONFIG="./../hyprpaper.conf"
-OUT_DIR="./../../colors"
+
+script_path="$(readlink -f $0)"
+script_dir="$(dirname "$script_path")"
+base_path="$(realpath "$script_dir/../../")"
+
+echo "$base_path"
+exit 1
+
+HYPRP_CONFIG="$base_path/hypr/hyprpaper.conf"
+OUT_DIR="$base_path/colors"
 OUT_CSS_WAY="$OUT_DIR/colors.css"
 OUT_CSS_ROFI="$OUT_DIR/colors.rasi"
 OUT_HYPRLOCK="$OUT_DIR/colors.conf"
 
-WALLPAPER_DIR="./../wallpapers/"
-BASE_WALL_DIR="./../wallpapers/current.jpg"
-BASE_WALL_BLUR="./../wallpapers/current_blurred.png"
+WALLPAPER_DIR="$base_path/hypr/wallpapers"
+BASE_WALL_DIR="$WALLPAPER_DIR/wallpapers/current.jpg"
+BASE_WALL_BLUR="$WALLPAPER_DIR/wallpapers/current_blurred.png"
 
 # Funzione per rimuovere il simbolo '#'
 strip_hash() {
@@ -44,7 +52,7 @@ if [[ -z $1 ]]; then
     elif [[ -f "$BASE_WALL_DIR" ]]; then
         
         wal -i "$BASE_WALL_DIR" -s -t
-        source ./../scripts/blur_wallpaper.sh "$BASE_WALL_DIR"
+        bash "$base_path/hypr/scripts/load_wallpaper.sh" "$BASE_WALL_DIR"
 
     else
         echo "Nessun wallpaper in cache o parametro non valido"
@@ -54,22 +62,22 @@ if [[ -z $1 ]]; then
 else
     
     abs_input=$(realpath "$1")
-    abs_target=$(realpath "$WALLPAPER_DIR")
+    abs_target="$WALLPAPER_DIR"
 
     # Clean wallpaper dir
     rm "$abs_target/"*
 
     if [[ "$abs_input" != "$abs_target/"* ]]; then
         echo "Copio l'immagine in $WALLPAPER_DIR"
-        cp "$1" "$WALLPAPER_DIR/"
-        new_path="$WALLPAPER_DIR/$(basename "$1")"
+        cp "$1" "$WALLPAPER_DIR/current.jpg"
+        new_path="$WALLPAPER_DIR$(basename "$1")"
 
     else
         new_path="$1"
     fi
 
     wal -i "$new_path" -s -t
-    source ./../scripts/blur_wallpaper.sh "$BASE_WALL_DIR"
+    bash "$base_path/hypr/scripts/load_wallpaper.sh" "$BASE_WALL_DIR"
 
     cat > "$HYPRP_CONFIG" << EOF
 preload = $new_path

@@ -152,13 +152,17 @@ return {
         end,
     },
     {
-
         "nvim-telescope/telescope.nvim",
         opts = {
             defaults = {
-                file_ignore_patterns = { "node_modules" }
+                find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "-L" },
+                vimgrep_arguments = {
+                    "rg", "--vimgrep", "--color=never", "--no-heading",
+                    "--with-filename", "--line-number", "--column",
+                    "--smart-case", "--hidden", "-L",
+                },
             }
-        }
+        },
     },
     {
         "folke/which-key.nvim",

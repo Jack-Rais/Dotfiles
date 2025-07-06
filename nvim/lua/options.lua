@@ -53,3 +53,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Impostare il testo nel codice ripiegato
 vim.cmd [[ highlight Folded gui=italic ]]
+
+-- Togliere l'opzione di folding a nvim
+-- vim.opt.foldlevelstart = 99
+-- vim.opt.foldenable = false
+

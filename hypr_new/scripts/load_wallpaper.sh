@@ -84,10 +84,11 @@ preload = $new_path
 wallpaper = , $new_path
 EOF
 
-    pkill hyprpaper 
-    sleep 0.2
-    hyprpaper 
 fi
+
+pkill hyprpaper
+sleep 0.2
+hyprpaper &
 
 # === 2. Estrazione colori ===
 readarray -t COLORS < <(

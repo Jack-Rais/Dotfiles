@@ -20,7 +20,7 @@
 
     "battery": {
         "tooltip": false,
-        "hide-if-unavailable": true,
+        "hide-if-unavailable": false,
         "states": {
             "warning": 30,
             "critical": 20
@@ -71,7 +71,7 @@
         "on-click": "alacritty -e nmtui",
         "format-ethernet": "   wired",
         "tooltip": false,
-        "format-disconnected": ""
+        "format-disconnected": "Nessuna Connessione"
     },
 
     "clock": {

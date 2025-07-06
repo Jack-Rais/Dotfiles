@@ -5,6 +5,10 @@ Prerequisiti
 	npm
 	neovim
 	ripgrep
+    ttf-space-mono-nerd
+    noto-fonts-emoji
+    ttf-fira-code
+
 
 
 Istruzioni

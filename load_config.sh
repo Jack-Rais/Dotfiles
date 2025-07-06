@@ -26,6 +26,8 @@ include_dirs=(
 	hypr
 	scripts
     colors
+    fontconfig
+    alacritty
 )
 
 # Cicla su ciascuna directory della lista

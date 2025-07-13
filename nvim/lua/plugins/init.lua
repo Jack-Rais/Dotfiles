@@ -14,12 +14,11 @@ return {
     {
         "Saghen/blink.cmp",
         opts = {
-            cmdline = {
-                completion = {
-                    menu = { auto_show = true },
-                    list = { selection = { preselect = false, auto_insert = true } }
-                },
-            }
+            completion = {
+                menu = { auto_show = true },
+                documentation = { auto_show = true, auto_show_delay_ms = 500 },
+                list = { selection = { preselect = true, auto_insert = false } }
+            },
         }
     },
     {

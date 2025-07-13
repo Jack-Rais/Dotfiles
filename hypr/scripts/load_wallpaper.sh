@@ -21,12 +21,9 @@ fi
 
 WAL_CACHE="$HOME/.cache/wal/colors.json"
 
-script_path="$(readlink -f $0)"
+script_path="$0"
 script_dir="$(dirname "$script_path")"
 base_path="$(realpath "$script_dir/../../")"
-
-echo "$base_path"
-exit 1
 
 HYPRP_CONFIG="$base_path/hypr/hyprpaper.conf"
 OUT_DIR="$base_path/colors"
@@ -35,8 +32,8 @@ OUT_CSS_ROFI="$OUT_DIR/colors.rasi"
 OUT_HYPRLOCK="$OUT_DIR/colors.conf"
 
 WALLPAPER_DIR="$base_path/hypr/wallpapers"
-BASE_WALL_DIR="$WALLPAPER_DIR/wallpapers/current.jpg"
-BASE_WALL_BLUR="$WALLPAPER_DIR/wallpapers/current_blurred.png"
+BASE_WALL_DIR="$WALLPAPER_DIR/current.jpg"
+BASE_WALL_BLUR="$WALLPAPER_DIR/current_blurred.png"
 
 # Funzione per rimuovere il simbolo '#'
 strip_hash() {
@@ -45,6 +42,7 @@ strip_hash() {
 
 # === 1. Gestione wallpaper e Hyprpaper ===
 if [[ -z $1 ]]; then
+
     if [[ -f "$BASE_WALL_DIR" && -f "$BASE_WALL_BLUR" ]]; then
         
         wal -i "$BASE_WALL_DIR" -s -t

@@ -1,7 +1,6 @@
 * {
     background: #2d1a2e;
     foreground: #968ebe;
-
     color0: #2d1a2e;
     color1: #B0246E;
     color2: #E81D52;
@@ -14,4 +13,3 @@
     color9: #B0246E;
     color10: #E81D52;
 }
-

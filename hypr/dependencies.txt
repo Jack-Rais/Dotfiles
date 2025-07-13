@@ -1,12 +1,11 @@
-
-
 polkit-gnome
 mako
 hyprpaper
 hypridle
+hyprlock
 brightnessctl
 jq
 python-pywal
 imagemagick
-wl-paste
+wl-clipboard
 rofi

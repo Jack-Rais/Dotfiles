@@ -1,6 +1,10 @@
 
 
 Prerequisiti
+    nvim
+    ghostty
+    hyprland
+    waybar
 	gcc
 	npm
 	neovim

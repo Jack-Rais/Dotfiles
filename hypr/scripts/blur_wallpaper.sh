@@ -1,10 +1,9 @@
 #!/bin/bash
 
-script_path="$(readlink -f "$0")"
+script_path="$0"
 script_dir="$(dirname "$script_path")"
 
 arrivo_dir="$(realpath "$script_dir/../wallpapers")"
-
 
 if [[ ! -d "$arrivo_dir" ]]; then 
     echo "La direcory di arrivo non esiste"
@@ -33,24 +32,26 @@ output="$arrivo_dir/current_blurred.png"
 clean=false
 working="$nuovo_name"
 
-
-# Copiare l'immagine nella cartella dei wallpapers
-echo "Copiando l'immagine nella cartella wallpapers"
-
-if [[ -f "$nuovo_name" ]]; then
-    echo "Immagine già presente, rimuovendo"
-    rm "$nuovo_name"
-fi
-
-
-
-if [[ "${extension,,}" != "jpg" ]]; then
-    echo "Convertendo in jpg"
-    magick "$input" "$nuovo_name"
+if [[ "$input" == "$(realpath "$nuovo_name")" ]]; then
+    echo "L'immagine è già current.jpg, nessuna copia o conversione necessaria."
 
 else
-    cp "$input" "$nuovo_name"
+    extension="${input##*.}"
 
+    # Rimuovi current.jpg se esiste
+    if [[ -f "$nuovo_name" ]]; then
+        echo "Immagine già presente, rimuovendo"
+        rm "$nuovo_name"
+    fi
+
+    # Copiare o convertire l'immagine
+    echo "Copiando l'immagine nella cartella wallpapers"
+    if [[ "${extension,,}" != "jpg" ]]; then
+        echo "Convertendo in jpg"
+        magick "$input" "$nuovo_name"
+    else
+        cp "$input" "$nuovo_name"
+    fi
 fi
 
 

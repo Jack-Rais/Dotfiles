@@ -64,17 +64,17 @@ cat > "$OUT_CSS_ROFI" << EOF
     background: $background;
     foreground: $foreground;
 
-    color0: $color0;
-    color1: $color1;
-    color2: $color2;
-    color3: $color3;
-    color4: $color4;
-    color5: $color5;
-    color6: $color6;
-    color7: $color7;
-    color8: $color8;
-    color9: $color9;
-    color10: $color10;
+    color0: ${color0}ff;
+    color1: ${color1}ff;
+    color2: ${color2}ff;
+    color3: ${color3}ff;
+    color4: ${color4}ff;
+    color5: ${color5}ff;
+    color6: ${color6}ff;
+    color7: ${color7}ff;
+    color8: ${color8}ff;
+    color9: ${color9}ff;
+    color10: ${color10}ff;
 }
 EOF
 

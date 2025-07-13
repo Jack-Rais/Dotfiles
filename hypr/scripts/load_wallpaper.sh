@@ -50,7 +50,7 @@ if [[ -z $1 ]]; then
     elif [[ -f "$BASE_WALL_DIR" ]]; then
         
         wal -i "$BASE_WALL_DIR" -s -t
-        bash "$base_path/hypr/scripts/load_wallpaper.sh" "$BASE_WALL_DIR"
+        bash "$base_path/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
 
     else
         echo "Nessun wallpaper in cache o parametro non valido"
@@ -66,16 +66,16 @@ else
     rm "$abs_target/"*
 
     if [[ "$abs_input" != "$abs_target/"* ]]; then
-        echo "Copio l'immagine in $WALLPAPER_DIR"
+        echo "Copio l'immagine in $WALLPAPER_DIR/current.jpg"
         cp "$1" "$WALLPAPER_DIR/current.jpg"
-        new_path="$WALLPAPER_DIR$(basename "$1")"
+        new_path="$WALLPAPER_DIR/current.jpg"
 
     else
         new_path="$1"
     fi
-
+    
     wal -i "$new_path" -s -t
-    bash "$base_path/hypr/scripts/load_wallpaper.sh" "$BASE_WALL_DIR"
+    bash "$base_path/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
 
     cat > "$HYPRP_CONFIG" << EOF
 preload = $new_path
@@ -111,6 +111,8 @@ background="${COLORS[0]}"
 foreground="${COLORS[1]}"
 
 # === 3. Output colors.css (waybar, GTK, ecc.) ===
+
+echo "Aggiornando $OUT_CSS_WAY"
 {
     echo "@define-color background $background;"
     echo "@define-color foreground $foreground;"
@@ -120,6 +122,8 @@ foreground="${COLORS[1]}"
 } > "$OUT_CSS_WAY"
 
 # === 4. Output colors.rasi (rofi) ===
+
+echo "Aggiornando $OUT_CSS_ROFI"
 {
     echo "* {"
     echo "    background: $background;"
@@ -131,12 +135,15 @@ foreground="${COLORS[1]}"
 } > "$OUT_CSS_ROFI"
 
 # === 5. Output colors.conf (hyprlock, in rgba format) ===
+
+echo "Aggiornando $OUT_HYPRLOCK"
 {
-    echo "\$background = rgba($(strip_hash "$background"))"
-    echo "\$foreground = rgba($(strip_hash "$foreground"))"
+    echo "\$background = rgba($(strip_hash "$background")ff)"
+    echo "\$foreground = rgba($(strip_hash "$foreground")ff)"
     for i in {0..10}; do
         hex="${COLORS[$((i + 2))]}"
-        echo "\$color$i = rgba($(strip_hash "$hex"))"
+        echo "\$color$i = rgba($(strip_hash "$hex")ff)"
     done
 } > "$OUT_HYPRLOCK"
 
+hyprctl reload

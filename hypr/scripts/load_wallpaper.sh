@@ -45,12 +45,23 @@ if [[ -z $1 ]]; then
 
     if [[ -f "$BASE_WALL_DIR" && -f "$BASE_WALL_BLUR" ]]; then
         
-        wal -i "$BASE_WALL_DIR" -s -t
+        echo "Loading saved wallpaper"
+        wal -Rst
+        # wal -i "$BASE_WALL_DIR" -s -t
     
     elif [[ -f "$BASE_WALL_DIR" ]]; then
         
-        wal -i "$BASE_WALL_DIR" -s -t
+        echo "Loading saved wallpaper"
+        # wal -i "$BASE_WALL_DIR" -s -t
+        wal -Rst
+
+        echo "Creating blurred copy"
         bash "$base_path/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
+
+    elif [[ -f "$WAL_CACHE" ]]; then
+        
+        echo "Loading saved wallpaper in cache"
+        wal -Rst
 
     else
         echo "Nessun wallpaper in cache o parametro non valido"
@@ -83,10 +94,6 @@ wallpaper = , $new_path
 EOF
 
 fi
-
-pkill hyprpaper
-sleep 0.2
-hyprpaper &
 
 # === 2. Estrazione colori ===
 readarray -t COLORS < <(
@@ -145,5 +152,3 @@ echo "Aggiornando $OUT_HYPRLOCK"
         echo "\$color$i = rgba($(strip_hash "$hex")ff)"
     done
 } > "$OUT_HYPRLOCK"
-
-hyprctl reload

@@ -12,6 +12,7 @@ Prerequisiti
     ttf-space-mono-nerd
     noto-fonts-emoji
     ttf-fira-code
+    brightnessctl
 
 
 

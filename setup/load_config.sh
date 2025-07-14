@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Imposta origine come la directory in cui si trova questo script
-origine="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
+origine="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 destinazione="$HOME/.config"
 
 echo "Origine: $origine"
@@ -55,8 +55,8 @@ for dir_rel in "${include_dirs[@]}"; do
 		# Crea la directory di destinazione
 		mkdir -p "$(dirname "$final_dest")"
 
-		echo "Link: $file -> $final_dest"
-		ln -s "$file" "$final_dest"
+		echo "Moving: $file -> $final_dest"
+        cp "$file" "$final_dest"
 	done
 done
 
@@ -69,3 +69,4 @@ waybar &
 hyprctl reload
 
 bash ~/.config/hypr/scripts/load_wallpaper.sh
+

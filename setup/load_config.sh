@@ -27,7 +27,7 @@ include_dirs=(
 	scripts
     colors
     fontconfig
-    ghostty
+    alacritty
 )
 
 # Cicla su ciascuna directory della lista

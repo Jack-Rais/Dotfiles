@@ -13,7 +13,7 @@ return {
 
         return {
             git = { ignore = false },
-            on_attach = function()
+            on_attach = function(bufnr)
 
                 local api = require("nvim-tree.api")
                 

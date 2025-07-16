@@ -1,24 +1,24 @@
-
-
-Prerequisiti
-    nvim
-    ghostty
-    hyprland
-    waybar
-	gcc
-	npm
-	neovim
-	ripgrep
-    ttf-space-mono-nerd
-    noto-fonts-emoji
-    ttf-fira-code
-    brightnessctl
-
-
-
-Istruzioni
-	rm -rf ~/.local/state/nvim
-	rm -rf ~/.local/share/nvim
-
-
-poi si clona
+alacritty
+brightnessctl
+gcc
+greetd
+greetd-gtkgreet
+hypridle
+hyprland
+hyprlock
+hyprpaper
+imagemagick
+jq
+mako
+neovim
+noto-fonts-emoji
+npm
+nvim
+polkit-gnome
+python-pywal
+ripgrep
+rofi
+ttf-fira-code
+ttf-space-mono-nerd
+waybar
+wl-clipboard

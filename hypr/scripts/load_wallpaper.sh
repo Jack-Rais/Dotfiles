@@ -56,7 +56,7 @@ if [[ -z $1 ]]; then
         wal -Rst
 
         echo "Creating blurred copy"
-        bash "$base_path/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
+        bash "$base_path/hypr/scripts/blur_wallpaper.sh" 
 
     elif [[ -f "$WAL_CACHE" ]]; then
         
@@ -86,7 +86,7 @@ else
     fi
     
     wal -i "$new_path" -s -t
-    bash "$base_path/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
+    bash "$base_path/hypr/scripts/blur_wallpaper.sh" 
 
     cat > "$HYPRP_CONFIG" << EOF
 preload = $new_path

@@ -8,7 +8,7 @@
 
 
 # Check that settings file exists
-config="./../../gtk-3.0/settings.ini"
+config="~/.config/gtk-3.0/settings.ini"
 if [ ! -f "$config" ]; then exit 1; fi
 
 

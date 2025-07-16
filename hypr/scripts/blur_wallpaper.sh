@@ -16,64 +16,31 @@ if ! command -v magick &>/dev/null; then
     exit 1
 fi
 
-input="$(realpath "$1")"
-sigma="${2:-8}"
+sigma="${1:-8}"
 
 
-if [[ ! -f "$input" ]]; then
-    echo "Immagine non esistente"
-    exit 1
-fi
-
-
-extension="${input##*.}"
-nuovo_name="$arrivo_dir/current.jpg"
+input="$arrivo_dir/current.jpg"
 output="$arrivo_dir/current_blurred.png"
-clean=false
-working="$nuovo_name"
-
-if [[ "$input" == "$(realpath "$nuovo_name")" ]]; then
-    echo "L'immagine è già current.jpg, nessuna copia o conversione necessaria."
-
-else
-    extension="${input##*.}"
-
-    # Rimuovi current.jpg se esiste
-    if [[ -f "$nuovo_name" ]]; then
-        echo "Immagine già presente, rimuovendo"
-        rm "$nuovo_name"
-    fi
-
-    # Copiare o convertire l'immagine
-    echo "Copiando l'immagine nella cartella wallpapers"
-    if [[ "${extension,,}" != "jpg" ]]; then
-        echo "Convertendo in jpg"
-        magick "$input" "$nuovo_name"
-    else
-        cp "$input" "$nuovo_name"
-    fi
-fi
-
 
 echo "Conversione in png media"
-arrivo="$arrivo_dir/medium.png"
-clean=true
+media="$arrivo_dir/medium.png"
 
-if [[ -f "$arrivo" ]]; then
+if [[ -f "$media" ]]; then
     echo "Immagine media già presente, rimuovendo"
-    rm "$arrivo"
+    rm "$media"
 fi
 
-magick "$nuovo_name" "$arrivo"
-working="$arrivo"
+magick "$input" "$media"
 
+
+if [[ -f "$output" ]]; then
+    echo "Pulendo $output"
+    rm "$output"
+fi
 
 # Sfuocare l'immagine
 echo "Applicando la sfumatura"
-magick "$working" -blur 0x"$sigma" "$output"
+magick "$media" -blur 0x"$sigma" "$output"
 
-
-if [[ "$clean" == true ]]; then
-    echo "Pulendo l'immagine media"
-    rm "$working"
-fi
+echo "Pulendo l'immagine media"
+rm "$media"

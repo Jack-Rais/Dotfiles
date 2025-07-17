@@ -44,16 +44,24 @@ strip_hash() {
 if [[ -z $1 ]]; then
 
     if [[ -f "$BASE_WALL_DIR" && -f "$BASE_WALL_BLUR" ]]; then
-        
-        echo "Loading saved wallpaper"
-        wal -Rst
-        # wal -i "$BASE_WALL_DIR" -s -t
+	
+	if [[ -f "$WAL_CACHE" ]]; then;
+		echo "Loading saved wallpaper"
+		wal -Rst
+	else
+		echo "Setting Saved wallpaper"
+		wal -i "$BASE_WALL_DIR" -s -t
+	fi
     
     elif [[ -f "$BASE_WALL_DIR" ]]; then
-        
-        echo "Loading saved wallpaper"
-        # wal -i "$BASE_WALL_DIR" -s -t
-        wal -Rst
+
+	    if [[ -f "$WAL_CACHE" ]]; then;
+		    echo "Loading saved wallpaper"
+		    wal -Rst
+	    else
+		    echo "Setting Saved wallpaper"
+		    wal -i "$BASE_WALL_DIR" -s -t
+	    fi
 
         echo "Creating blurred copy"
         bash "$base_path/hypr/scripts/blur_wallpaper.sh" 

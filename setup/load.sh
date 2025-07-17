@@ -47,6 +47,7 @@ include_dirs=(
     colors
     fontconfig
     alacritty
+    quickshell
 )
 
 # Cicla su ciascuna directory della lista

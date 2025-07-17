@@ -5,7 +5,6 @@ local servers = {
   "cssls",
   "pyright",
   "rust_analyzer",
-  "qmlls"
 }
 vim.lsp.enable(servers)
 

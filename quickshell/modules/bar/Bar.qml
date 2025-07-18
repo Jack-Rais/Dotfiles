@@ -1,5 +1,6 @@
 
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 
 import "root:/options/"
@@ -40,12 +41,8 @@ Scope {
                 height: barHeight
                 radius: AppearanceOptions.barConfig.borderRadius
 
-                color: AppearanceOptions.barConfig.showBackground ? Qt.rgba(
-                    23/255, 
-                    23/255, 
-                    255/255, 
-                    0.5
-                ) : "transparent"
+                color: AppearanceOptions.barConfig.showBackground
+                    ? AppearanceOptions.barConfig.barColor : "transparent"
 
                 anchors {
                     right: parent.right
@@ -57,6 +54,30 @@ Scope {
                     leftMargin: AppearanceOptions.barConfig.leftMargin
                     bottomMargin: AppearanceOptions.barConfig.bottomMargin
                     rightMargin: AppearanceOptions.barConfig.rightMargin
+                }
+
+                Item {
+                    id: LeftSection
+                    implicitHeight: barHeight - AppearanceOptions.barHeight.barPadding
+                    width: (barRoot.width - MiddleSection.width) / 2
+
+                    RowLayout {
+                        id: archLogoRowLayout
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            fill: parent
+                        }
+                        Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                        Layout.leftMargin: AppearanceOptions.barConfig.barSpacing / 2
+                        Layout.fillWidth: false
+                        Layout.fillHeight: true
+
+                        Rectangle {
+                            radius: AppearanceOptions.barConfig.borderRadius
+                            
+                        }
+
+                    }
                 }
                 
             }

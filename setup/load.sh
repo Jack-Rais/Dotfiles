@@ -47,6 +47,7 @@ include_dirs=(
     colors
     fontconfig
     alacritty
+    kitty
     quickshell
 )
 
@@ -109,7 +110,7 @@ done
 
 # Ricaricare waybar
 pkill waybar
-waybar &
+nohup waybar &
 
 # Ricaricare hyprland
 hyprctl reload

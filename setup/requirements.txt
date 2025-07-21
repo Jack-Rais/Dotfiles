@@ -16,9 +16,12 @@ npm
 nvim
 polkit-gnome
 python-pywal
+qt6-5compat
+quickshell
 ripgrep
 rofi
 ttf-fira-code
 ttf-space-mono-nerd
 waybar
+wget
 wl-clipboard

@@ -45,7 +45,7 @@ if [[ -z $1 ]]; then
 
     if [[ -f "$BASE_WALL_DIR" && -f "$BASE_WALL_BLUR" ]]; then
 	
-	if [[ -f "$WAL_CACHE" ]]; then;
+	if [[ -f "$WAL_CACHE" ]]; then
 		echo "Loading saved wallpaper"
 		wal -Rst
 	else
@@ -55,7 +55,7 @@ if [[ -z $1 ]]; then
     
     elif [[ -f "$BASE_WALL_DIR" ]]; then
 
-	    if [[ -f "$WAL_CACHE" ]]; then;
+	    if [[ -f "$WAL_CACHE" ]]; then
 		    echo "Loading saved wallpaper"
 		    wal -Rst
 	    else
@@ -102,6 +102,10 @@ wallpaper = , $new_path
 EOF
 
 fi
+
+
+pkill hyprpaper
+nohup hyprpaper &
 
 # === 2. Estrazione colori ===
 readarray -t COLORS < <(

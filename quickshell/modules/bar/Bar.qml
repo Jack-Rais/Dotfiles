@@ -2,6 +2,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Qt5Compat.GraphicalEffects
 
 import "root:/options/"
 
@@ -13,7 +14,7 @@ Scope {
 
     Variants {
         model: Quickshell.screens
-        
+
         PanelWindow {
             id: barRoot
             implicitHeight: barHeight
@@ -36,13 +37,9 @@ Scope {
             }
 
 
-            Rectangle {
+            Item {
                 id: barContent
                 height: barHeight
-                radius: AppearanceOptions.barConfig.borderRadius
-
-                color: AppearanceOptions.barConfig.showBackground
-                    ? AppearanceOptions.barConfig.barColor : "transparent"
 
                 anchors {
                     right: parent.right
@@ -56,30 +53,104 @@ Scope {
                     rightMargin: AppearanceOptions.barConfig.rightMargin
                 }
 
-                Item {
-                    id: LeftSection
-                    implicitHeight: barHeight - AppearanceOptions.barHeight.barPadding
-                    width: (barRoot.width - MiddleSection.width) / 2
+                Rectangle {
+                    id: barColor
+                    color: AppearanceOptions.barConfig.showBackground
+                        ? AppearanceOptions.barConfig.barColor : "transparent"
+                    radius: AppearanceOptions.barConfig.borderRadius
+
+                    anchors.fill: parent
+                    anchors.centerIn: parent
+
+                    border.width: AppearanceOptions.barConfig.borderWidth
+                    border.color: AppearanceOptions.barConfig.borderColor
+                }
+
+                RowLayout {
+                    id: barLayout
+
+                    anchors {
+                        fill: parent
+                        centerIn: parent
+
+                        // topMargin: AppearanceOptions.barConfig.topMargin
+                        // leftMargin: AppearanceOptions.barConfig.leftMargin
+                        // bottomMargin: AppearanceOptions.barConfig.bottomMargin
+                        // rightMargin: AppearanceOptions.barConfig.rightMargin
+                    }
+
 
                     RowLayout {
-                        id: archLogoRowLayout
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                            fill: parent
-                        }
-                        Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                        Layout.leftMargin: AppearanceOptions.barConfig.barSpacing / 2
-                        Layout.fillWidth: false
+                        id: leftSection
+
                         Layout.fillHeight: true
 
+                        Layout.topMargin: AppearanceOptions.barConfig.hPadding
+                        Layout.bottomMargin: AppearanceOptions.barConfig.hPadding
+                        Layout.leftMargin: AppearanceOptions.barConfig.vPadding
+
+                        spacing: AppearanceOptions.barConfig.hPadding
+                        
+                        
+                        IconItem {
+                            id: osLogoContainer
+                            Layout.fillHeight: true
+
+                            iconName: ConfigOptions.barConfig.osIcon
+                        }
+
                         Rectangle {
-                            radius: AppearanceOptions.barConfig.borderRadius
-                            
+                            id: filler
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            color: "transparent"
                         }
 
                     }
+
+                    RowLayout {
+                        id: middleSection
+                        Layout.alignment: Qt.AlignVCenter
+
+                        Rectangle {
+                            id: fillerCenter
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            color: "transparent"
+                        }
+                    }
+
+                    RowLayout {
+                        id: rightSection
+
+                        Layout.fillHeight: true
+
+                        Layout.topMargin: AppearanceOptions.barConfig.hPadding
+                        Layout.bottomMargin: AppearanceOptions.barConfig.hPadding
+                        Layout.rightMargin: AppearanceOptions.barConfig.vPadding
+
+                        spacing: AppearanceOptions.barConfig.hPadding
+                        layoutDirection: Qt.RightToLeft
+                        
+                        IconItem {
+                            id: powerLogoContainer
+                            Layout.fillHeight: true
+
+                            iconName: ConfigOptions.barConfig.powerIcon
+                        }
+
+                        Rectangle {
+                            id: fillerRight
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            color: "transparent"
+                        }
+
+                    }
+
+
                 }
-                
+
             }
 
         }

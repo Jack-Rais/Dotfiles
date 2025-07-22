@@ -7,7 +7,7 @@ return {
         local servers = {
             "lua_ls",
             { "pyright", {
-                    settings = 
+                    settings = {}
                 }
             },
             "rust_analyzer",

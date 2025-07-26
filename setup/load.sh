@@ -110,7 +110,7 @@ done
 
 # Ricaricare waybar
 pkill waybar
-nohup waybar &
+nohup waybar > /dev/null 2>&1 &
 
 # Ricaricare hyprland
 hyprctl reload

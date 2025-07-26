@@ -105,7 +105,7 @@ fi
 
 
 pkill hyprpaper
-nohup hyprpaper &
+nohup hyprpaper > /dev/null 2>&1 &
 
 # === 2. Estrazione colori ===
 readarray -t COLORS < <(

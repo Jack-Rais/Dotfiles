@@ -1,5 +1,7 @@
 alacritty
 brightnessctl
+fd
+fzf
 gcc
 greetd
 greetd-gtkgreet
@@ -15,6 +17,7 @@ noto-fonts-emoji
 npm
 nvim
 polkit-gnome
+python-pip
 python-pywal
 qt6-5compat
 quickshell

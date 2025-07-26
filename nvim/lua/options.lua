@@ -1,4 +1,3 @@
-require "nvchad.options"
 
 vim.o.cursorlineopt = 'both'
 
@@ -55,5 +54,6 @@ vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("2-space-indentation", { clear = true })
 })
 
-
+-- Impostare i colori del terminale
+vim.opt.termguicolors = true
 

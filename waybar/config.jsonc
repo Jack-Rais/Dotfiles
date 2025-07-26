@@ -4,7 +4,7 @@
     "exclusive": true,
     "pass-through": false,
 
-    "height": 38,
+    "height": 45,
     "margin": "2, 2, 0, 2",
 
     "modules-left" : [ "custom/arch", "cpu", "memory", "temperature", "battery" ], 

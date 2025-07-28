@@ -3,7 +3,7 @@
 vim.g.mapleader = " "
 
 require("options")
-require("keybinds")
+require("keybindings").setup()
 
 -- Imposta dei filepath di default
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"

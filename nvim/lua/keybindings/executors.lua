@@ -1,4 +1,3 @@
-
 local function execute_terminal(cmd)
     
     local Terminal = require("toggleterm.terminal").Terminal

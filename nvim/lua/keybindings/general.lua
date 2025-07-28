@@ -22,8 +22,10 @@ function M.setup()
 
 
     -- Indentation
-    map("n", "<", "<gv", { desc = "Indent line" })
-    map("n", ">", ">gv", { desc = "Indent line" })
+    map('v', '>', '>gv', { noremap = true })
+    map('v', '<', '<gv', { noremap = true })
+    map('n', '>', '>>', { noremap = true })
+    map('n', '<', '<<', { noremap = true })
 
 
     -- navigate within insert mode
@@ -35,14 +37,14 @@ function M.setup()
     map("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
 
 
-    -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
-    map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-    map("n", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-    map("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-
-    map("x", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    map("x", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+    -- -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
+    -- map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+    -- map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+    -- map("n", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+    -- map("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+    --
+    -- map("x", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+    -- map("x", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
 
 
     -- Don't copy the replaced text after pasting in visual mode

@@ -8,12 +8,12 @@ function M.setup()
     local opts = { noremap = true, silent = true }
 
     -- Move to previous/next
-    map('n', '<A-,', '<Cmd>BufferPrevious<CR>', opts)
-    map('n', '<A-.', '<Cmd>BufferNext<CR>', opts)
+    map('n', '<A-j>', '<Cmd>BufferPrevious<CR>', opts)
+    map('n', '<A-k>', '<Cmd>BufferNext<CR>', opts)
 
     -- Re-order to previous/next
-    map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-    map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+    map('n', '<A-Left>', '<Cmd>BufferMovePrevious<CR>', opts)
+    map('n', '<A-Right>', '<Cmd>BufferMoveNext<CR>', opts)
 
     -- Goto buffer in position...
     map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
@@ -35,7 +35,7 @@ function M.setup()
     --                 :BufferGotoUnpinned
 
     -- Close buffer
-    map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+    map('n', '<A-x>', '<Cmd>BufferClose<CR>', opts)
 
     -- Wipeout buffer
     --                 :BufferWipeout
@@ -58,9 +58,6 @@ function M.setup()
     map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
     map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 
-    -- Other:
-    -- :BarbarEnable - enables barbar (enabled by default)
-    -- :BarbarDisable - very bad command, should never be used
 end
 
 return M

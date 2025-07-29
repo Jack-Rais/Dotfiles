@@ -1,0 +1,56 @@
+(:set nospell per togliere errori)
+
+primary: colore principale del brand; usato per pulsanti/azioni principali e tint su superfici elevate. 
+on_primary: colore di testo/icona sopra primary, per contrasto/leggibilità. 
+primary_container: sfondo per elementi meno importanti del primary (card selezionate, modali). 
+on_primary_container: testo/icona sopra primary_container, per leggibilità. 
+inverse_primary: colore usato su superfici inverse (es. snackbar su sfondo invertito). 
+primary_fixed: versione fissa di primary che non cambia tra light/dark; utile per branding. 
+primary_fixed_dim: variante più intensa di primary_fixed. 
+on_primary_fixed: contenuto su primary_fixed. 
+on_primary_fixed_variant: variante meno contrastata per testo su fixed. 
+
+secondary: colore di supporto per azioni meno rilevanti (chip, pulsanti secondari). 
+on_secondary: testo/icona sopra secondary per contrasto. 
+secondary_container: sfondo per contenitori secondari visivi non predominanti. 
+on_secondary_container: contenuto sopra secondary_container. 
+secondary_fixed: versione fissa di secondary per coerenza tema. 
+secondary_fixed_dim: variante più enfatizzata di secondary_fixed. 
+on_secondary_fixed: testo su secondary_fixed. 
+on_secondary_fixed_variant: variante meno contrastata per contenuto su fixed. 
+
+tertiary: accento contrastante per elementi speciali (badge, input). 
+on_tertiary: contenuto sopra tertiary per leggibilità. 
+tertiary_container: sfondo contenitore per gruppi tematici o accenti. 
+on_tertiary_container: testo su tertiary_container. 
+tertiary_fixed: versione fissa di tertiary (cross‑theme). 
+tertiary_fixed_dim: variante più intensa di tertiary_fixed. 
+on_tertiary_fixed: contenuto su tertiary_fixed. 
+on_tertiary_fixed_variant: variante meno contrastata su fixed. 
+
+error: colore per stati di errore o avvisi (tipicamente rosso). 
+on_error: contenuto sopra error. 
+error_container: sfondo per messaggi di errore. 
+on_error_container: testo su error_container. 
+
+surface: colore neutro per superfici/card/aree di sfondo. 
+on_surface: contenuto sopra surface. 
+surface_dim: versione più scura per profondità visiva. 
+surface_bright: versione più chiara per risalto. 
+surface_container_lowest: sfondo tonale più chiaro per zone discrete. 
+surface_container_low: sfondo tonale leggermente più scuro. 
+surface_container: colore consigliato per contenitori su surface. 
+surface_container_high: versione con più enfasi rispetto a surface_container. 
+surface_container_highest: massima enfasi tonale su contenitori. 
+surface_variant: tonalità alternativa di surface per zone secondarie. 
+inverse_surface: superficie invertita (usata in overlay tipo snackbar). 
+inverse_on_surface: contenuto sopra inverse_surface. 
+
+outline: colore per bordi/separatori. 
+outline_variant: variante meno marcata per separatori sottili. 
+
+scrim: overlay scuro per modale/drawer. 
+shadow: colore delle ombre per elementi elevati. 
+
+source_color: colore di origine seed usato per generare la palette dinamica. 
+

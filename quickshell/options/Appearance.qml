@@ -7,11 +7,11 @@ pragma Singleton
 
 Singleton {
 
-    property QtObject barConfig
-    property QtObject fontConfig
+    property QtObject bar
+    property QtObject font
 
 
-    barConfig: QtObject {
+    bar: QtObject {
         property int barHeight: 50
         property int borderRadius: 10
         property int borderRadiusIcon: 7
@@ -25,26 +25,18 @@ Singleton {
         property real iconSpacing: 4
         property real barSpacing: 6
 
-        property real topMargin: 4.5
-        property real leftMargin: 2.5
-        property real bottomMargin: 1.5
-        property real rightMargin: 2.5
+        property real topMargin: 4
+        property real leftMargin: 4
+        property real bottomMargin: 4
+        property real rightMargin: 4
 
         property bool anchorTop: true
         property bool showBackground: true
 
-        property color barColor: Qt.rgba(23/255, 23/255, 255/255, 0.5)
-        property color borderColor: "black" 
-        property color iconsBackgroundColor: Qt.rgba(244/255, 255/255, 255/255, 0.5)
-        property color iconsColor: Qt.rgba(0, 0, 0, 1)
-        
-        property color colorSystemStatistic: Qt.rgba(1, 1, 1, 1)
-        property color colorSystemStatisticBackground: Qt.rgba(1, 1, 1, 1)
-
     }
 
 
-    fontConfig: QtObject {
+    font: QtObject {
         property string fontFamily: "JetBrainsMono Nerd Font"
         property string fontFamilyIcons: "JetBrainsMono Nerd Font"
 

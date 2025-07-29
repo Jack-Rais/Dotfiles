@@ -1,4 +1,3 @@
-
 import QtQuick
 import Quickshell
 
@@ -7,10 +6,10 @@ pragma Singleton
 
 Singleton {
 
-    property QtObject barConfig
-    property QtObject dirsConfig
+    property QtObject bar
+    property QtObject dirs
 
-    barConfig: QtObject {
+    bar: QtObject {
         property string osIcon: "arch-logo.svg"
         
         property string batteryFullIcon: "full_battery.svg"
@@ -24,7 +23,7 @@ Singleton {
         property string powerIcon: "power.svg"
     }
 
-    dirsConfig: QtObject {
-        property string iconsDir: "root:/assets/icons/"
+    dirs: QtObject {
+        property string iconsDir: "root:/assets/icons"
     }
 }

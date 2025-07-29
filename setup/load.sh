@@ -41,6 +41,7 @@ mkdir -p "$destinazione"
 include_dirs=(
     waybar
     gtk-3.0
+    matugen
     nvim
     rofi
     hypr

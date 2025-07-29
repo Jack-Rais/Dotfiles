@@ -1,1 +1,2 @@
+matusen-bin
 ttf-material-symbols-variable-git

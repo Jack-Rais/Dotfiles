@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 
-import "root:/options"
-import "root:/assets"
+import qs.options
+import qs.assets
 
 
 Button {
@@ -17,10 +17,11 @@ Button {
     property var altAction
     property var middleClickAction
 
-    property color colorBackground: ColorsUtils.withAlpha(Colors.primary_container, 0.6)
-    property color colorBackgroundHover: ColorsUtils.withAlpha(Colors.on_primary, 0.6)
+    required property color colBackground
+    required property color colBackgroundHover
+    required property color colBorder
     
-    property color buttonColor: root.toggled ? colorBackgroundHover : colorBackground
+    property color buttonColor: root.toggled ? colBackgroundHover : colBackground
 
     MouseArea {
         anchors.fill: parent
@@ -61,6 +62,9 @@ Button {
         radius: root.buttonRadius
         implicitHeight: 50
         color: root.buttonColor
+
+        border.color: colBorder
+        border.width: Appearance.bar.borderRadiusIcon
     }
 
 }

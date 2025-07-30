@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "root:/modules/common"
-import "root:/options"
-import "root:/assets"
+import qs.modules.common
+import qs.options
+import qs.assets
 
 
 Item {
@@ -13,33 +13,46 @@ Item {
     implicitWidth: leftSectionRowLayout.implicitWidth
     implicitHeight: leftSectionRowLayout.implicitHeight
 
+    required property color colorBackground
+    required property color colorBackgroundHover
+    required property color colorIcon
+    required property color colorIconBorder
+
     RowLayout {
         id: leftSectionRowLayout
         anchors.fill: parent
         spacing: 10
         
         CustomButton {
-            
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: Appearance.bar.borderRadius
             Layout.fillWidth: false
-            property real buttonPadding: 5
+            Layout.fillHeight: true
 
-            implicitWidth: distroIcon.width + buttonPadding * 2
-            implicitHeight: distroIcon.height + buttonPadding * 2
+            Layout.topMargin: Appearance.bar.hPadding
+            Layout.bottomMargin: Appearance.bar.hPadding
+            Layout.leftMargin: Appearance.bar.vPadding
+            Layout.rightMargin: Appearance.bar.vPadding
 
-            buttonRadius: Appearance.bar.borderRadius
-            
+            implicitWidth: distroIcon.width
+
+            colBackground: colorBackground
+            colBackgroundHover: colorBackgroundHover
+            colBorder: colorIconBorder
+
             CustomIcon {
                 id: distroIcon
                 anchors.centerIn: parent
-                width: 19.5
-                height: 19.5
+                
+                height: Appearance.bar.sectionsHeight - Appearance.bar.vPadding * 2
+                width: Appearance.bar.sectionsHeight - Appearance.bar.hPadding * 2 + Appearance.bar.hIconPadding * 2
+
                 source: Config.bar.osIcon
                 colorize: true
-                color: Colors.surface
+                color: colorIcon
             }
         }
+
+        
     }
     
 }

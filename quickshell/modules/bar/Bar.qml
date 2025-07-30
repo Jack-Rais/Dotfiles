@@ -3,14 +3,23 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "root:/options/"
-import "root:/services/"
-import "root:/assets"
+import qs.options
+import qs.services
+import qs.assets
+
 
 Scope {
     id: bar
     
     property bool showBackground: Appearance.bar.showBackground
+
+    property color colBackground: ColorsUtils.withAlpha(Colors.primary, 0.6)
+    property color colBorder: Colors.on_primary_fixed
+    
+    property color colIconsBackground: ColorsUtils.withAlpha(Colors.primary, 0.4)
+    property color colIconsBackgroundHover: Colors.primary
+    property color colIcons: Colors.primary_container
+    property color colIconsBorder: Colors.on_primary_fixed
 
     Variants {
 
@@ -28,8 +37,9 @@ Scope {
                 property var brightnessMonitor: Brightness.getMonitorForScreen(barLoader.modelData)
 
                 exclusionMode: ExclusionMode.Ignore
-                exclusiveZone: Appearance.bar.barHeight + Appearance.bar.topMargin + Appearance.bar.bottomMargin
+                exclusiveZone: Appearance.bar.barHeight - Config.general.hyprland_gaps_out
                 implicitHeight: Appearance.bar.barHeight
+
                 mask: Region {
                     item: barContent
                 }
@@ -68,18 +78,29 @@ Scope {
 
                         radius: Appearance.bar.borderRadius
                         border.width: Appearance.bar.borderWidth
-                        border.color: Colors.on_primary_fixed
+                        border.color: colBorder
 
-                        color: ColorsUtils.withAlpha(Colors.inverse_primary, 0.6)
+                        color: colBackground
 
                     }
                     
                     LeftSection {
                         id: leftSection
-                        anchors.left: parent.left
-                        implicitHeight: Appearance.bar.barHeight
-                        height: Appearance.bar.barHeight
-                        width: (barRoot.width) / 2
+                        anchors {
+                            left: parent.left
+                            verticalCenter: parent.verticalCenter
+                            leftMargin: Appearance.bar.leftMargin + Appearance.bar.borderWidth
+                        }
+                        height: Appearance.bar.sectionsHeight
+                        width: (barRoot.width) / 2 -
+                               Appearance.bar.leftMargin -
+                               Appearance.bar.borderWidth
+
+
+                        colorBackground: colIconsBackground
+                        colorBackgroundHover: colIconsBackgroundHover
+                        colorIcon: colIcons
+                        colorIconBorder: colIconsBorder
                     }
 
                 }

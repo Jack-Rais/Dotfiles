@@ -4,7 +4,8 @@ import Quickshell
 import Quickshell.Widgets
 import Qt5Compat.GraphicalEffects
 
-import "root:/options"
+import qs.options
+
 
 Item {
     id: root
@@ -14,14 +15,16 @@ Item {
     property string source: ""
     property string iconFolder: Config.dirs.iconsDir
 
-    width: 30
-    height: 30
-
     IconImage {
         id: iconImage
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            topMargin: Appearance.bar.vIconPadding
+            bottomMargin: Appearance.bar.vIconPadding
+            leftMargin: Appearance.bar.hIconPadding
+            rightMargin: Appearance.bar.hIconPadding
+        }
         source: iconFolder + "/" + root.source
-        implicitSize: root.height
     }
 
     Loader {

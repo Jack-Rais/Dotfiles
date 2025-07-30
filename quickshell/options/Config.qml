@@ -8,6 +8,7 @@ Singleton {
 
     property QtObject bar
     property QtObject dirs
+    property QtObject general
 
     bar: QtObject {
         property string osIcon: "arch-logo.svg"
@@ -25,5 +26,9 @@ Singleton {
 
     dirs: QtObject {
         property string iconsDir: "root:/assets/icons"
+    }
+
+    general: QtObject {
+        property int hyprland_gaps_out: 4 // Hyprland screen gaps_out in "hypr/conf/window.conf"
     }
 }

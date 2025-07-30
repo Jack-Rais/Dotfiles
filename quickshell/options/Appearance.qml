@@ -14,13 +14,18 @@ Singleton {
     bar: QtObject {
         property int barHeight: 50
         property int borderRadius: 10
-        property int borderRadiusIcon: 7
+        property int borderRadiusIcon: 1
         property int borderWidth: 2
 
-        property real hPadding: 8
-        property real vPadding: 7
-        property real hIconPadding: 15
-        property real vIconPadding: 2
+        property real sectionsHeight: Appearance.bar.barHeight
+                                        - Appearance.bar.topMargin
+                                        - Appearance.bar.bottomMargin
+                                        - Appearance.bar.borderWidth * 2
+
+        property real hPadding: 5
+        property real vPadding: 5
+        property real hIconPadding: 10
+        property real vIconPadding: 6
 
         property real iconSpacing: 4
         property real barSpacing: 6

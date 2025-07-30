@@ -9,6 +9,6 @@ ShellRoot {
     property bool enableBar: true
 
 
-    Loader { active: enableBar; sourceComponent: Bar {} }
+    Bar {}
 
 }

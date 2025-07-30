@@ -8,12 +8,12 @@ function M.setup()
     local opts = { noremap = true, silent = true }
 
     -- Move to previous/next
-    map('n', '<A-j>', '<Cmd>BufferPrevious<CR>', opts)
-    map('n', '<A-k>', '<Cmd>BufferNext<CR>', opts)
+    map('n', '<C-j>', '<Cmd>BufferPrevious<CR>', opts)
+    map('n', '<C-k>', '<Cmd>BufferNext<CR>', opts)
 
     -- Re-order to previous/next
-    map('n', '<A-Left>', '<Cmd>BufferMovePrevious<CR>', opts)
-    map('n', '<A-Right>', '<Cmd>BufferMoveNext<CR>', opts)
+    map('n', '<C-Left>', '<Cmd>BufferMovePrevious<CR>', opts)
+    map('n', '<C-Right>', '<Cmd>BufferMoveNext<CR>', opts)
 
     -- Goto buffer in position...
     map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
@@ -28,14 +28,14 @@ function M.setup()
     map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
 
     -- Pin/unpin buffer
-    map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+    map('n', '<C-p>', '<Cmd>BufferPin<CR>', opts)
 
     -- Goto pinned/unpinned buffer
     --                 :BufferGotoPinned
     --                 :BufferGotoUnpinned
 
     -- Close buffer
-    map('n', '<A-x>', '<Cmd>BufferClose<CR>', opts)
+    map('n', '<C-x>', '<Cmd>BufferClose<CR>', opts)
 
     -- Wipeout buffer
     --                 :BufferWipeout
@@ -46,10 +46,6 @@ function M.setup()
     --                 :BufferCloseAllButCurrentOrPinned
     --                 :BufferCloseBuffersLeft
     --                 :BufferCloseBuffersRight
-
-    -- Magic buffer-picking mode
-    map('n', '<C-p>',   '<Cmd>BufferPick<CR>', opts)
-    map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', opts)
 
     -- Sort automatically by...
     map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)

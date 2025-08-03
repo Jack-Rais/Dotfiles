@@ -15,7 +15,7 @@ elif [[ "$1" = "-c" ]]; then
     CMD=(cp)
 
 else
-    echo "Uso: $0 -l|-c"
+    echo "Uso: $0 -l | -c"
     exit 1
 
 fi
@@ -39,17 +39,19 @@ mkdir -p "$destinazione"
 
 # === LISTA DI DIRECTORY DA INCLUDERE (relative alla dir dello script) ===
 include_dirs=(
-    waybar
-    gtk-3.0
-    matugen
-    nvim
-    rofi
-    hypr
+
+    alacritty
     colors
     fontconfig
-    alacritty
-    kitty
+    gtk-3
+    hellwal
+    hypr
+    matugen
+    nvim
     quickshell
+    rofi
+    waybar
+
 )
 
 # Cicla su ciascuna directory della lista

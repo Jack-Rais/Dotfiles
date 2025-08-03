@@ -48,7 +48,6 @@ include_dirs=(
     hypr
     matugen
     nvim
-    quickshell
     rofi
     waybar
 

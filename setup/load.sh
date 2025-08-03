@@ -8,7 +8,7 @@ fi
 
 if [[ "$1" = "-l" ]]; then
     echo "Linking files"
-    CMD=(ln -s)
+    CMD=(ln -sfn)
 
 elif [[ "$1" = "-c" ]]; then
     echo "Copying files"
@@ -48,8 +48,9 @@ include_dirs=(
     hypr
     matugen
     nvim
-    rofi
+    swaync
     waybar
+    wofi
 
 )
 

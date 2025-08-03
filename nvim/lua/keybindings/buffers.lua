@@ -12,8 +12,8 @@ function M.setup()
     map('n', '<C-k>', '<Cmd>BufferNext<CR>', opts)
 
     -- Re-order to previous/next
-    map('n', '<C-Left>', '<Cmd>BufferMovePrevious<CR>', opts)
-    map('n', '<C-Right>', '<Cmd>BufferMoveNext<CR>', opts)
+    map('n', '<C-S-Left>', '<Cmd>BufferMovePrevious<CR>', opts)
+    map('n', '<C-S-Right>', '<Cmd>BufferMoveNext<CR>', opts)
 
     -- Goto buffer in position...
     map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)

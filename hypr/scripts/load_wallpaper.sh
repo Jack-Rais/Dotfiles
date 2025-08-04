@@ -104,8 +104,12 @@ EOF
 fi
 
 
-pkill hyprpaper
+pgrep hyprpaper && pkill hyprpaper
 nohup hyprpaper > /dev/null 2>&1 &
+
+pgrep waybar && pkill waybar
+nohup waybar > /dev/null 2>&1 &
+
 
 # === 2. Estrazione colori ===
 readarray -t COLORS < <(

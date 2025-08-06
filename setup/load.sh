@@ -48,6 +48,7 @@ include_dirs=(
     hypr
     matugen
     nvim
+    kitty
     swaync
     waybar
     wofi

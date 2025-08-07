@@ -13,10 +13,6 @@
     "memory": {
         "format": "  {}%"
     },
-    "temperature": {
-        "format": "  {temperatureC}°C",
-        "tooltip": false
-    },
 
     "battery": {
         "tooltip": false,

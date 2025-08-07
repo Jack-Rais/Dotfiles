@@ -3,11 +3,12 @@
     "layer": "top",
     "exclusive": true,
     "pass-through": false,
+    "reload-style-on-change": true,
 
     "height": 45,
     "margin": "2, 2, 0, 2",
 
-    "modules-left" : [ "custom/arch", "cpu", "memory", "temperature", "battery" ], 
+    "modules-left" : [ "custom/arch", "cpu", "memory", "battery" ], 
     "modules-center": [ "hyprland/workspaces" ],
     "modules-right": [ "pulseaudio", "pulseaudio#microphone", "network", "clock", "custom/power" ],
 

@@ -1,9 +1,6 @@
 // -*- mode: jsonc -*-
 {
-    "layer": "top",
-    "exclusive": true,
-    "pass-through": false,
-    "reload-style-on-change": true,
+    "layer": "bottom",
 
     "height": 45,
     "margin": "2, 2, 0, 2",

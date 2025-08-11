@@ -47,7 +47,8 @@
         "format-icons": {
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "reverse-scrolling": true
     },
     "pulseaudio#microphone": {
         "format": "{format_source}",
@@ -58,7 +59,8 @@
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
         "tooltip-format": "{source_desc} | {source_volume}%",
-        "scroll-step": 5
+        "scroll-step": 5,
+        "reverse-scrolling": true
     },
 
 

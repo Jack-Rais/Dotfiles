@@ -4,7 +4,8 @@ return {
         ensure_installed = {
             "pyright",
             "lua_ls",
-            "rust_analyzer"
+            "rust_analyzer",
+            "zls"
         }
     },
     dependencies = {

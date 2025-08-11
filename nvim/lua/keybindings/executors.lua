@@ -39,7 +39,7 @@ local function execute_terminal_test(cmd)
             cmd = cmd,
             close_on_exit = false
         }
-        vertical_term():toggle()
+        vertical_term:toggle()
 
     end, { buffer = true, desc = "Execute tests in vertical terminal" })
     vim.keymap.set('n', '<leader>Xh', function()
@@ -79,6 +79,14 @@ return {
         local cmd = string.format("gcc %s -o %s && ./%s", vim.fn.expand("%"), vim.fn.expand("%:t:r"),
             vim.fn.expand("%:t:r"))
         execute_terminal(cmd)
+    end,
+
+    ["zig"] = function()
+        local cmd = "cd " .. vim.fn.expand("%:p:h") .. "; zig build run"
+        execute_terminal(cmd)
+
+        local test_cmd = "cd " .. vim.fn.expand("%:p:h") .. "; zig test"
+        execute_terminal_test(test_cmd)
     end,
 
     ["rust"] = function()

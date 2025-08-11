@@ -93,13 +93,9 @@ else
         new_path="$1"
     fi
     
+    echo "Impostando il nuovo wallpaper con wal"
     wal -i "$new_path" -s -t
     bash "$base_path/hypr/scripts/blur_wallpaper.sh" 
-
-    cat > "$HYPRP_CONFIG" << EOF
-preload = $new_path
-wallpaper = , $new_path
-EOF
 
 fi
 

@@ -121,5 +121,11 @@ hyprctl reload
 
 bash ~/.config/hypr/scripts/load_wallpaper.sh
 
+
+magick "~/.config/hypr/wallpapers/current.jpg" "~/.config/hypr/wallpapers/median.jpg"
+rm "~/.config/hypr/wallpapers/current.jpg"
+mv "~/.config/hypr/wallpapers/median.jpg" "~/.config/hypr/wallpapers/current.jpg"
+hyprpaper &
+
 echo "Done"
 

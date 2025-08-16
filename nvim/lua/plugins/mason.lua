@@ -5,7 +5,8 @@ return {
             "pyright",
             "lua_ls",
             "rust_analyzer",
-            "zls"
+            "zls",
+            "bashls"
         }
     },
     dependencies = {

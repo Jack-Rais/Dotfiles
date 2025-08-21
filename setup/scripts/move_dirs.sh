@@ -7,8 +7,8 @@ if [[ $# -lt 4 ]]; then
 fi
 
 case "$4" in
-  -l) CMD=(ln -sfn); echo "Linking files";;
-  -c) CMD=(cp); echo "Copying files";;
+  -l) CMD=(ln -sfn);;
+  -c) CMD=(cp);;
   *) echo "Uso: $0 -l | -c"; exit 1;;
 esac
 
@@ -16,14 +16,12 @@ origin="$1"
 dest_dir="$2"
 dir_rel="$3"
 
-
 src_dir="$origin/$dir_rel"
 
 if [[ ! -d "$src_dir" && ! -f "$src_dir" ]]; then
     echo "Warning, $src_dir is not a directory or a file"
     exit 1
 fi
-
 
 # Cleaning of destination dir
 dest_dir="$dest_dir/$dir_rel"
@@ -47,7 +45,8 @@ elif [[ -d "$src_dir" ]]; then
 
         # Relative path + destination
         rel_path="${file#$origin/}"
-        final_dest="$dest_dir/$rel_path"
+	parent_dest_dir=$(dirname "$dest_dir")
+	final_dest="$parent_dest_dir"/"$rel_path"
 
         # Creating destination dir if not present
         mkdir -p "$(dirname "$final_dest")"
@@ -58,4 +57,3 @@ elif [[ -d "$src_dir" ]]; then
     done
 
 fi
-

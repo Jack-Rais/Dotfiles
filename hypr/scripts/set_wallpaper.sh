@@ -29,12 +29,32 @@ WALLPAPER_DIR="$base_path/hypr/wallpapers"
 BASE_WALL_DIR="$WALLPAPER_DIR/current.jpg"
 BASE_WALL_BLUR="$WALLPAPER_DIR/current_blurred.png"
 
-HEL_CMD=(hellwal --skip-term-colors --debug -f "$HOME/.config/hellwal/templates/")
+
+templates_dir="$base_path/hellwal/templates"
+final_dir="$base_path"
+
+for f in "$templates_dir"/*; do
+    
+    if [[ -L "$f" ]]; then
+        echo "$f è un symlink"
+        final_dir="$(dirname $(readlink -f $f))"
+    fi
+
+done
+
+if [[ "$final_dir" != "$base_path" ]]; then
+    
+    echo "Symlink trovati, nuovo base path: $final_dir"
+fi
+
+HEL_CMD=(hellwal --skip-term-colors --debug -f "$final_dir/")
 
 copy_files() {
 
-    find "$CACHE_DIR" -type f | while read -r file; do
-        cp "$file" "$OUT_DIR"
+    find "$CACHE_DIR" -maxdepth 1 -type f | while read -r file; do
+        out_file=$(basename "$file")
+        echo "copying file: $file -> $OUT_DIR/$out_file"
+        cp "$file" "$OUT_DIR/$out_file"
     done
 
 }
@@ -45,28 +65,38 @@ if [[ -z $1 ]]; then
 
     if [[ -f "$BASE_WALL_DIR" ]]; then
         
-        if [[ ! -d "$CACHE_DIR" ]]; then
-            echo "Cache dir not found, running hellwal on saved wallpaper"
-            "${HEL_CMD[@]}" -i "$BASE_WALL_DIR"
+        echo "Found default directory for the wallpaper"
+        
+        if [[ -d "$CACHE_DIR" ]]; then
+            echo "Removing default cache"
+            rm -r "$CACHE_DIR"
+            mkdir -p "$CACHE_DIR/cache"
         fi
 
+        echo "Running hellwal: ${HEL_CMD[@]}"
+        "${HEL_CMD[@]}" -i "$BASE_WALL_DIR"
+        
+        echo "$base_path"
+
+        echo "Copying files"
         copy_files 
 
         if [[ ! -f "$BASE_WALL_BLUR" ]]; then
             echo "Blurred wallpaper not found, creating a blurred copy"
-            source "$HOME/.config/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
+            bash "$HOME/.config/hypr/scripts/blur_wallpaper.sh" "$BASE_WALL_DIR"
+        else
+            echo "Found $BASE_WALL_BLUR, using that image"
         fi
     
     elif [[ ! -d "$CACHE_DIR" ]]; then
         
-        echo "Loading saved wallpaper in cache"
+        echo "Loading saved colors in cache"
         copy_files 
 
     else
         
         echo "Not found any saved colors or wallpaper"
         exit 1
-
     fi
 
 else
@@ -88,9 +118,15 @@ else
         new_path="$1"
     fi
     
-    echo "Impostando il nuovo wallpaper con wal"
+    echo "Running hellwal: ${HEL_CMD[@]}"
     "${HEL_CMD[@]}" -i "$new_path"
-    source "$base_path/hypr/scripts/blur_wallpaper.sh" 
+    bash "$base_path/hypr/scripts/blur_wallpaper.sh" 
 
 fi
 
+
+pkill hyprpaper
+pkill waybar
+
+hyprctl dispatch exec waybar
+hyprctl dispatch exec hyprpaper

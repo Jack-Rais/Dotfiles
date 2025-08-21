@@ -27,14 +27,12 @@ mkdir -p "$dest_dir"
 include_dirs=(
 
     alacritty
-    colors
     fontconfig
-    gtk-3
+    gtk-3.0
     hellwal
     hypr
     kitty
     nvim
-    swaync
     waybar
     wofi
     
@@ -44,19 +42,12 @@ include_dirs=(
 )
 
 for dir_rel in "${include_dirs[@]}"; do
-    source ./scripts/move_dirs.sh "$origin" "$dest_dir" "$dir_rel" "$1"
+    bash "$origin/setup/scripts/move_dirs.sh" "$origin" "$dest_dir" "$dir_rel" "$1"
 done
 
 
-# Cleaning nvim cache
-source ./scripts/reload_nvim.sh
-
 # Setting up wallpaper
-source ./../hypr/scripts/set_wallpaper.sh
-
-# Reload waybar and hyprpaper
-pkill waybar && hyprctl dispatch waybar
-pkill hyprpaper && hyprctl dispatch hyprpaper
+bash "$dest_dir/hypr/scripts/set_wallpaper.sh"
 
 hyprctl reload
 echo "Done"

@@ -19,6 +19,85 @@ return {
             ui = require("utils.icons").get("ui"),
         }
 
+        local function natural_cmp(left, right)
+
+            local specials = {
+                ["__init__.py"] = true,
+                ["mod.rs"] = true
+            }
+
+            local dotl = left.name:sub(1, 1) == "."
+            local dotr = right.name:sub(1, 1) == "."
+
+            -- Dirs before files
+            if left.type == right.type then
+
+                if dotl and not dotr then
+                    return true
+
+                elseif dotr and not dotl then
+                    return false
+
+                end
+
+            else
+
+                if left.type == "directory" then
+                    return true
+
+                else
+                    return false
+
+                end
+
+            end
+
+            -- If one is special it comes first
+            if specials[left.name] and not specials[right.name] then
+                return true
+
+            elseif specials[right.name] and not specials[left.name] then
+                return false
+
+            end
+
+            local l, r = left.name:lower(), right.name:lower()
+
+            if l == r then
+                return false
+            end
+
+            local i, j = 1, 1
+            while i <= #l and j <= #r do
+
+                local ri, li = l:sub(i, i), r:sub(j, j)
+
+                if li:match("%d") and ri:match("%d") then
+                    local lnum = tonumber(l:match("%d+", i))
+                    local rnum = tonumber(r:match("%d+", j))
+
+                    if lnum ~= rnum then
+                        return lnum < rnum
+                    end
+
+                    i = i + #tostring(lnum)
+                    j = j + #tostring(rnum)
+
+                elseif li ~= ri then
+                    return li < ri
+
+                else
+                    i, j = i + 1, j + 1
+
+                end
+
+                return #l < #r
+
+            end
+
+
+        end
+
         return {
 
             git = {
@@ -26,6 +105,12 @@ return {
                 ignore = false,
                 show_on_dirs = true,
                 timeout = 400,
+            },
+
+            sort = {
+                sorter = function (nodes)
+                    table.sort(nodes, natural_cmp)
+                end
             },
 
             view = {
@@ -124,11 +209,11 @@ return {
                 custom = { ".DS_Store" },
                 exclude = {},
             },
-            
+
             on_attach = function(bufnr)
 
                 local api = require("nvim-tree.api")
-                
+
                 local function opts(desc)
                     return {
                         desc = "nvim-tree" .. desc,
@@ -154,7 +239,7 @@ return {
 
             end
         }
-        
-    end, 
+
+    end,
 }
 

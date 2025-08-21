@@ -8,10 +8,10 @@
 
     "cpu": {
         "interval": 10,
-        "format": "  {usage}%"
+        "format": "  {usage}%",   //   {usage}%"
     },
     "memory": {
-        "format": "  {}%"
+        "format": "  {}%"
     },
 
     "battery": {
@@ -23,12 +23,10 @@
         },
         "format": "{icon}  {capacity}%",
         "format-full": "{icon}  {capacity}%",
-        "format-charging": "⚡{capacity}%",
-        "format-plugged": "  {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
         "format-alt": "{time}  {icon}",
-        "format-icons": ["", "", "", "", ""]        
+        "format-icons": [ "", "", "", "", "" ]
     },
-
 
     "hyprland/workspaces": {
         "format": "{name}",
@@ -38,10 +36,10 @@
     },
 
     "pulseaudio": {
-        "format": "{icon}  {volume}%",
+        "format": "{icon} {volume}%",
         "format-bluetooth": "{icon} {volume}%  {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format-bluetooth-muted": "󰖁 {icon} {format_source}",
+        "format-muted": "󰖁 {format_source}",
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
@@ -69,7 +67,7 @@
         "on-click": "alacritty -e nmtui",
         "format-ethernet": "   wired",
         "tooltip": false,
-        "format-disconnected": "Nessuna Connessione"
+        "format-disconnected": "--------"
     },
 
     "clock": {

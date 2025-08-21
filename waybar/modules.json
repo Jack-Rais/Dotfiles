@@ -67,7 +67,7 @@
         "on-click": "alacritty -e nmtui",
         "format-ethernet": "   wired",
         "tooltip": false,
-        "format-disconnected": "--------"
+        "format-disconnected": "  --------"
     },
 
     "clock": {

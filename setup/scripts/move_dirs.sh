@@ -45,8 +45,8 @@ elif [[ -d "$src_dir" ]]; then
 
         # Relative path + destination
         rel_path="${file#$origin/}"
-	parent_dest_dir=$(dirname "$dest_dir")
-	final_dest="$parent_dest_dir"/"$rel_path"
+        parent_dest_dir=$(dirname "$dest_dir")
+        final_dest="$parent_dest_dir"/"$rel_path"
 
         # Creating destination dir if not present
         mkdir -p "$(dirname "$final_dest")"

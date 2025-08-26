@@ -1,16 +1,9 @@
 #!/bin/bash
 
-if [ "$#" -lt 2 ]; then
-    echo "Uso: $0 -l|-c -h|-s"
+if [ "$#" -lt 1 ]; then
+    echo "Uso: $0 -l|\-c"
     exit 1
 fi
-
-case "$2" in
-  -h) HYPR=true;;
-  -s) HYPR=false;;
-  *) echo "Uso: $0 -l|-c [-h|-s]"; exit 1;;
-esac
-
 
 
 # Imposta origine come la directory in cui si trova questo script
@@ -31,45 +24,22 @@ mkdir -p "$dest_dir"
 
 
 # === LISTA DI DIRECTORY O FILES DA INCLUDERE (relative alla dir dello script) ===
-if [[ "$HYPR" == true ]]; then 
-    
-    include_dirs=(
+include_dirs=(
 
-        alacritty
-        fontconfig
-        gtk-3.0
-        hellwal
-        hypr
-        kitty
-        nvim
-        waybar
-        wofi
+    alacritty
+    fontconfig
+    gtk-3.0
+    hellwal
+    hypr
+    kitty
+    nvim
+    waybar
+    wofi
 
-        .bashrc
-        .bash_profile
+    .bashrc
+    .bash_profile
 
-    )
-
-else
-
-        include_dirs=(
-
-        alacritty
-        fontconfig
-        gtk-3.0
-        hellwal
-        kitty
-        nvim
-        sway
-        waybar
-        wofi
-
-        .bashrc
-        .bash_profile
-
-    )
-
-fi
+)
 
 
 for dir_rel in "${include_dirs[@]}"; do
@@ -77,15 +47,10 @@ for dir_rel in "${include_dirs[@]}"; do
 done
 
 
-
-if [[ "$HYPR" == true ]]; then
+if [[ -z "$2" ]]; then
     # Setting up wallpaper
     bash "$dest_dir/hypr/scripts/set_wallpaper.sh"
     hyprctl reload
-
-else 
-    bash "$dest_dir/sway/scripts/set_wallpaper.sh"
-    swaymsg reload
 fi
 
 echo "Done"

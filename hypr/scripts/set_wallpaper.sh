@@ -8,8 +8,8 @@
 #                   |_|         |_|
 
 
-if ! command -v wal &>/dev/null; then
-    echo "Errore: 'wal' non trovato. Installa pywal." >&2
+if ! command -v hellwal &>/dev/null; then
+    echo "Errore: 'hellwal' non trovato. Installa hellwal." >&2
     exit 1
 fi
 

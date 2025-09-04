@@ -113,6 +113,12 @@ return {
                 end
             },
 
+            actions = {
+                open_file = {
+                    quit_on_open = true
+                }
+            },
+
             view = {
                 adaptive_size = false,
                 centralize_selection = false,

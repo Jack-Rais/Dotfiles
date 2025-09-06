@@ -19,8 +19,8 @@ return {
         hightlight = { enable = true }
     },
     config = function ()
-        vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = '#eba0ac' })
-        vim.api.nvim_set_hl(0, '@variable', { fg = '#eba0ac' })
+        vim.api.nvim_set_hl(0, '@lsp.type.variable', { link = '@variable.parameter' })
+        vim.api.nvim_set_hl(0, '@variable', { link = '@variable.parameter' })
     end
 }
 

@@ -18,5 +18,9 @@ return {
         auto_install = false,
         hightlight = { enable = true }
     },
+    config = function ()
+        vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = '#eba0ac' })
+        vim.api.nvim_set_hl(0, '@variable', { fg = '#eba0ac' })
+    end
 }
 

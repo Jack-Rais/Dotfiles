@@ -18,9 +18,5 @@ return {
         auto_install = false,
         hightlight = { enable = true }
     },
-    config = function ()
-        vim.api.nvim_set_hl(0, '@lsp.type.variable', { link = '@variable.parameter' })
-        vim.api.nvim_set_hl(0, '@variable', { link = '@variable.parameter' })
-    end
 }
 

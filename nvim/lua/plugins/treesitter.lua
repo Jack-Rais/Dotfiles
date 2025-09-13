@@ -19,7 +19,7 @@ return {
         hightlight = { enable = true }
     },
     config = function ()
-        vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = '#f5e0dc'} )
+        vim.api.nvim_set_hl(0, '@lsp.type.typeAlias.rust', { link = '@lsp.type.interface'} )
     end
 }
 

@@ -2,57 +2,25 @@
 local M = {}
 
 
-function M.setup()
+function M.get_mappings()
 
-    local map = vim.api.nvim_set_keymap
-    local opts = { noremap = true, silent = true }
-
-    -- Move to previous/next
-    map('n', '<C-j>', '<Cmd>BufferPrevious<CR>', opts)
-    map('n', '<C-k>', '<Cmd>BufferNext<CR>', opts)
-
-    -- Re-order to previous/next
-    map('n', '<C-S-Left>', '<Cmd>BufferMovePrevious<CR>', opts)
-    map('n', '<C-S-Right>', '<Cmd>BufferMoveNext<CR>', opts)
-
-    -- Goto buffer in position...
-    map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-    map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-    map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-    map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-    map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-    map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-    map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-    map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-    map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-    map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
-
-    -- Pin/unpin buffer
-    map('n', '<C-p>', '<Cmd>BufferPin<CR>', opts)
-
-    -- Goto pinned/unpinned buffer
-    --                 :BufferGotoPinned
-    --                 :BufferGotoUnpinned
-
-    -- Close buffer
-    map('n', '<C-x>', '<Cmd>BufferClose<CR>', opts)
-
-    -- Wipeout buffer
-    --                 :BufferWipeout
-
-    -- Close commands
-    --                 :BufferCloseAllButCurrent
-    --                 :BufferCloseAllButPinned
-    --                 :BufferCloseAllButCurrentOrPinned
-    --                 :BufferCloseBuffersLeft
-    --                 :BufferCloseBuffersRight
-
-    -- Sort automatically by...
-    map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
-    map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
-    map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
-    map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
-    map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+    return {
+      { "<A-1>",       "<cmd>BufferLineGoToBuffer 1<CR>" },
+      { "<A-2>",       "<cmd>BufferLineGoToBuffer 2<CR>" },
+      { "<A-3>",       "<cmd>BufferLineGoToBuffer 3<CR>" },
+      { "<A-4>",       "<cmd>BufferLineGoToBuffer 4<CR>" },
+      { "<A-5>",       "<cmd>BufferLineGoToBuffer 5<CR>" },
+      { "<A-6>",       "<cmd>BufferLineGoToBuffer 6<CR>" },
+      { "<A-7>",       "<cmd>BufferLineGoToBuffer 7<CR>" },
+      { "<A-8>",       "<cmd>BufferLineGoToBuffer 8<CR>" },
+      { "<A-9>",       "<cmd>BufferLineGoToBuffer 9<CR>" },
+      { "<A-k>",  "<cmd>BufferLineCycleNext<CR>",               desc = "Cycle Forward" },
+      { "<A-j>",  "<cmd>BufferLineCyclePrev<CR>",               desc = "Cycle Backward" },
+      { "<C-BS>", "<cmd>bdelete<CR>",                           desc = "Delete current buffer" },
+      { "<leader>bB",  "<cmd>BufferLineMovePrev<CR>",                desc = "Move back" },
+      { "<leader>bN",  "<cmd>BufferLineMoveNext<CR>",                desc = "Move next" },
+      { "<leader>bp",  "<cmd>BufferLineTogglePin<CR>",               desc = "Pin/Unpin Buffer" },
+    }
 
 end
 

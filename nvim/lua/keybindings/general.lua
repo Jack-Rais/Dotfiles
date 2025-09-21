@@ -6,7 +6,7 @@ function M.setup()
     local map = vim.keymap.set
 
     vim.api.nvim_create_augroup("executeFile", { clear = true })
-    for lang, keymap in pairs(require('keybindings/executors')) do
+    for lang, keymap in pairs(require('executors')) do
         vim.api.nvim_create_autocmd("FileType", {
             pattern = lang,
             callback = keymap,

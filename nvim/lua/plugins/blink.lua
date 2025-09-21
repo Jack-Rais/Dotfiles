@@ -1,6 +1,9 @@
 return {
     'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
+    dependencies = { 
+        'rafamadriz/friendly-snippets',
+        { 'saghen/blink.compat', opts = { impersonate_nvim_cmp = true }}
+    },
 
     -- use a release tag to download pre-built binaries
     version = '1.*',
@@ -30,8 +33,14 @@ return {
 
         -- (Default) Only show the documentation popup when manually triggered
         completion = { 
-            documentation = { auto_show = true },
+            documentation = { 
+                auto_show = true,
+                window = {
+                    border = "rounded"
+                }
+            },
             menu = {
+                border = "rounded",
                 draw = {
                     components = {
                         kind_icon = {
@@ -73,9 +82,11 @@ return {
         },
         
         signature = {
-            enabled = true
+            enabled = true,
+            window = {
+                border = "rounded"
+            }
         },
-
 
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`

@@ -23,7 +23,8 @@ return {
 
             local specials = {
                 ["__init__.py"] = true,
-                ["mod.rs"] = true
+                ["mod.rs"] = true,
+                ["init.lua"] = true
             }
 
             local dotl = left.name:sub(1, 1) == "."
@@ -77,14 +78,14 @@ return {
                     local rnum = tonumber(r:match("%d+", j))
 
                     if lnum ~= rnum then
-                        return lnum < rnum
+                        return lnum > rnum
                     end
 
                     i = i + #tostring(lnum)
                     j = j + #tostring(rnum)
 
                 elseif li ~= ri then
-                    return li < ri
+                    return li > ri
 
                 else
                     i, j = i + 1, j + 1

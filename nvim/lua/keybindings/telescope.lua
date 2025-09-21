@@ -18,6 +18,7 @@ function M.get_mappings()
         { "<leader>lr", function() builtin.lsp_references() end, desc = "LSP References Telescope" },
         { "<leader>ld", function() builtin.lsp_definitions() end, desc = "LSP Word Definitions Telescope" },
         { "<leader>lt", function() builtin.lsp_type_definitions() end, desc = "LSP Word Type Definitions Telescope" },
+        { "<leader>le", function() builtin.diagnostics() end, desc = "LSP diagnostics list" },
 
         -- Git
         { "<leader>gf", function() builtin.git_files() end, desc = "Git Files Telescope" },

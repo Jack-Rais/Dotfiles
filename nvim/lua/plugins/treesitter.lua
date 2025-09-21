@@ -20,6 +20,7 @@ return {
     },
     config = function ()
         vim.api.nvim_set_hl(0, '@lsp.type.typeAlias.rust', { link = '@lsp.type.interface'} )
+        vim.api.nvim_set_hl(0, '@lsp.type.variable', { link = '@lsp.type.parameter'} )
     end
 }
 

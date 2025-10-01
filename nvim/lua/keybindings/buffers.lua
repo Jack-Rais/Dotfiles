@@ -3,6 +3,8 @@ local M = {}
 
 
 function M.get_mappings()
+    
+    
 
     return {
       { "<A-1>",       "<cmd>BufferLineGoToBuffer 1<CR>" },
@@ -14,8 +16,8 @@ function M.get_mappings()
       { "<A-7>",       "<cmd>BufferLineGoToBuffer 7<CR>" },
       { "<A-8>",       "<cmd>BufferLineGoToBuffer 8<CR>" },
       { "<A-9>",       "<cmd>BufferLineGoToBuffer 9<CR>" },
-      { "<A-k>",  "<cmd>BufferLineCycleNext<CR>",               desc = "Cycle Forward" },
-      { "<A-j>",  "<cmd>BufferLineCyclePrev<CR>",               desc = "Cycle Backward" },
+      { "<C-k>",  "<cmd>BufferLineCycleNext<CR>",               mode = "n", desc = "Cycle Forward" },
+      { "<C-j>",  "<cmd>BufferLineCyclePrev<CR>",               mode = "n", desc = "Cycle Backward" },
       { "<C-BS>", "<cmd>bdelete<CR>",                           desc = "Delete current buffer" },
       { "<leader>bB",  "<cmd>BufferLineMovePrev<CR>",                desc = "Move back" },
       { "<leader>bN",  "<cmd>BufferLineMoveNext<CR>",                desc = "Move next" },

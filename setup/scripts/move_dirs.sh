@@ -13,7 +13,7 @@ case "$4" in
 esac
 
 origin="$1"
-dest_dir="$2"
+dest_dir_base="$2"
 dir_rel="$3"
 
 src_dir="$origin/$dir_rel"
@@ -24,36 +24,41 @@ if [[ ! -d "$src_dir" && ! -f "$src_dir" ]]; then
 fi
 
 # Cleaning of destination dir
-dest_dir="$dest_dir/$dir_rel"
-if [[ -d "$dest_dir" || -f "$dest_dir" ]]; then
+dest_dir="$dest_dir_base/$dir_rel"
+
+if [[ -d "$dest_dir" ]]; then
     echo "Cleaning occupied destination dir: $dest_dir"
     rm -rf "$dest_dir"
+
+elif [[ -f "$dest_dir" ]]; then
+    echo "Cleaning occupied destination file: $(dirname $dest_dir_base)/$(basename $src_dir)"
+    rm -f "$(dirname $dest_dir_base)/$(basename $src_dir)"
+
 fi
 
 
 if [[ -f "$src_dir" ]]; then
     
-    mkdir -p "$dest_dir"
-    echo "Moving: $src_dir -> $dest_dir"
+    echo "Moving: $src_dir -> $(dirname $dest_dir_base)/$(basename $src_dir)"
 
-    "${CMD[@]}" "$src_dir" "$dest_dir"
+    "${CMD[@]}" "$src_dir" "$(dirname $dest_dir_base)/$(basename $src_dir)"
 
 elif [[ -d "$src_dir" ]]; then
 
-    # Find files recursively
+    # # Find files recursively
     find "$src_dir" -type f | while read -r file; do
-
+   
         # Relative path + destination
         rel_path="${file#$origin/}"
         parent_dest_dir=$(dirname "$dest_dir")
         final_dest="$parent_dest_dir"/"$rel_path"
-
+   
         # Creating destination dir if not present
         mkdir -p "$(dirname "$final_dest")"
-
+   
         echo "Moving: $file -> $final_dest"
         "${CMD[@]}" "$file" "$final_dest"
-
+   
     done
 
 fi

@@ -46,12 +46,11 @@ for dir_rel in "${include_dirs[@]}"; do
     bash "$origin/setup/scripts/move_dirs.sh" "$origin" "$dest_dir" "$dir_rel" "$1"
 done
 
-
-if [[ -z "$2" ]]; then
-    # Setting up wallpaper
-    bash "$dest_dir/hypr/scripts/set_wallpaper.sh"
-    hyprctl reload
-fi
+# if [[ -z "$2" ]]; then
+#     # Setting up wallpaper
+#     bash "$dest_dir/hypr/scripts/set_wallpaper.sh"
+#     hyprctl reload
+# fi
 
 echo "Done"
 

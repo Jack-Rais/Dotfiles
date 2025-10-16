@@ -39,7 +39,7 @@
         "format": "{icon} {volume}%",
         "format-bluetooth": "{icon} {volume}%  {format_source}",
         "format-bluetooth-muted": "󰖁 {icon} {format_source}",
-        "format-muted": "󰖁 {format_source}",
+        "format-muted": "󰖁",
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
@@ -51,7 +51,7 @@
     "pulseaudio#microphone": {
         "format": "{format_source}",
         "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-source-muted": " ",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-click-right": "pavucontrol -t 4",
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",

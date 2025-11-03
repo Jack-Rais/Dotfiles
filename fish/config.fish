@@ -21,6 +21,22 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
 
+
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                  Rimpiazzo per sudo !!                   │
+#          ╰──────────────────────────────────────────────────────────╯
+
+function sudo --description "Replacement for Bash 'sudo !!'"
+    
+    if test "$argv" = !!
+        echo sudo $history[1]
+        eval command sudo $history[1]
+    else
+        command sudo $argv
+    end
+end
+
+
 # === Prompt personalizzato ===
 # In Fish, PS1 non viene usato. Puoi impostare un prompt base così:
 # function fish_prompt

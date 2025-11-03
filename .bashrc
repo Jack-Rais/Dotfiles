@@ -21,3 +21,7 @@ PS1='[\u@\h \W]\$ '
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 export SUDO_EDITOR="/usr/bin/nvim"
+
+
+eval "$(starship init bash)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml

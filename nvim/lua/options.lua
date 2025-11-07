@@ -93,7 +93,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Impostare la lunghezza dei tab nei file json
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "json",
+    pattern = { "json", "html" },
     callback = function()
         vim.bo.shiftwidth = 2
         vim.bo.tabstop = 2

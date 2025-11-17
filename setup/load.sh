@@ -26,7 +26,6 @@ mkdir -p "$dest_dir"
 # === LISTA DI DIRECTORY O FILES DA INCLUDERE (relative alla dir dello script) ===
 include_dirs=(
 
-    alacritty
     fastfetch
     fish
     fontconfig
@@ -38,9 +37,6 @@ include_dirs=(
     starship
     waybar
     wofi
-
-    .bashrc
-    .bash_profile
 
 )
 

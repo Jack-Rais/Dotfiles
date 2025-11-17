@@ -36,17 +36,6 @@ function M.setup()
 
     map("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
 
-
-    -- -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
-    -- map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    -- map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-    -- map("n", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-    -- map("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    --
-    -- map("x", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    -- map("x", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-
-
     -- Don't copy the replaced text after pasting in visual mode
     map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Dont copy replaced text", silent = true })
 
@@ -60,6 +49,11 @@ function M.setup()
         local char = vim.fn.getcharstr()
         return '<cmd>' .. char .. '<CR>'
     end, { expr = true, desc = "1 char CMD" })
+
+    -- Aprire la diagnostica in una float window
+    vim.keymap.set('n', '<leader>d', function()
+        vim.diagnostic.open_float(nil, { scope = 'line' })
+    end, { noremap = true, silent = true})
 
 
 end

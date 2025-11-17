@@ -103,6 +103,14 @@ vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("2-space-indentation", { clear = true })
 })
 
+-- Impostare La diagnostica accanto alle righe
+vim.diagnostic.config({
+  virtual_text = true, -- Mostra il testo virtuale accanto alla riga
+  signs = true,        -- Mostra i segni a margine (>, !, ecc.)
+  underline = true,    -- Sottolinea la parola con l'errore
+  update_in_insert = false, -- Non aggiornare mentre si scrive
+})
+
 -- Impostare i colori del terminale
 vim.opt.termguicolors = true
 

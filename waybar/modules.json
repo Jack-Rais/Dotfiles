@@ -84,9 +84,6 @@
                 "today": "<span color='#BE95FF' background='#161616'><b>{}</b></span>"
             }
         },
-        "actions": {
-            "on-click-right": "mode"
-        },
         "tooltip": true
     },
     

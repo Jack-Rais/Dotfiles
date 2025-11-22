@@ -8,13 +8,6 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
-alias ..="cd .."
-alias ....="cd ../.."
-
-alias gs="git status"
-alias ga="git add"
-alias gc="git commit"
-
 PS1='[\u@\h \W]\$ '
 
 

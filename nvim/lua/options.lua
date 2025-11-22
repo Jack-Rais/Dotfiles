@@ -87,6 +87,17 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.spell = true
         vim.opt_local.spelllang = { 'en_us', 'it' }
         vim.opt_local.linebreak = true
+
+        vim.opt_local.wrap = true
+        vim.opt_local.linebreak = true -- Evita di spezzare le parole a metà
+        vim.opt_local.breakindent = true -- Mantiene l'indentazione anche sulle righe spezzate
+
+        -- Rimappa i tasti di movimento per navigare per righe visualizzate, non fisiche
+        vim.keymap.set("n", "j", "gj", { buffer = true })
+        vim.keymap.set("n", "k", "gk", { buffer = true })
+        vim.keymap.set("n", "0", "g0", { buffer = true })
+        vim.keymap.set("n", "$", "g$", { buffer = true })
+
     end,
     group = vim.api.nvim_create_augroup("SpellCheck", { clear = true })
 })
@@ -102,6 +113,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
     group = vim.api.nvim_create_augroup("2-space-indentation", { clear = true })
 })
+
 
 -- Impostare La diagnostica accanto alle righe
 vim.diagnostic.config({

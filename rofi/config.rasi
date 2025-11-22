@@ -25,7 +25,7 @@ window {
     width: 480px;
     border-radius: 10px;
     cursor: "default";
-    background-color: @primary-container;
+    background-color: @on-primary-fixed;
 }
 
 mainbox {
@@ -34,7 +34,7 @@ mainbox {
     margin: 0px;
     padding: 20px;
     border-radius: 10px;
-    background-color: @on-primary;
+    background-color: @primary-container;
     children: [ "inputbar", "listview" ];
 }
 

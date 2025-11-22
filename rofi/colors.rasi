@@ -1,0 +1,27 @@
+* {
+    primary: #c7bfff;
+    on-primary: #2f295f;
+    primary-container: #463f77;
+    on-primary-container: #e4dfff;
+    inverse-primary: #5e5791;
+    primary-fixed: #e4dfff;
+    primary-fixed-dim: #c7bfff;
+    on-primary-fixed: #1a1249;
+    on-primary-fixed-variant: #463f77;
+    secondary: #c8c3dc;
+    on-secondary: #302e41;
+    secondary-container: #474459;
+    on-secondary-container: #e5dff9;
+    secondary-fixed: #e5dff9;
+    secondary-fixed-dim: #c8c3dc;
+    on-secondary-fixed: #1b192c;
+    on-secondary-fixed-variant: #474459;
+    tertiary: #ecb8ce;
+    on-tertiary: #482537;
+    tertiary-container: #613b4d;
+    on-tertiary-container: #ffd8e8;
+    tertiary-fixed: #ffd8e8;
+    tertiary-fixed-dim: #ecb8ce;
+    on-tertiary-fixed: #301121;
+    source-color: #584f9e;
+}

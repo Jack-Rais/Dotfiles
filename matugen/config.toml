@@ -6,9 +6,13 @@ caching = false
 command = "hyprpaper"
 set = true
 
-[templates.css]
+[templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/waybar/colors.css'
+
+[templates.swaync]
+input_path = '~/.config/matugen/templates/colors.css'
+output_path = '~/.config/swaync/colors.css'
 
 [templates.rasi]
 input_path = '~/.config/matugen/templates/colors.rasi'

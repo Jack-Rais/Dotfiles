@@ -14,7 +14,6 @@ local options = {
   foldlevelstart = 99,                      --- Expand all folds by default
   ignorecase     = true,                    --- Needed for smartcase
   laststatus     = 3,                       --- Have a global statusline at the bottom instead of one for each window
-  list           = true,                    --- To show a dot at the end of a line
   mouse          = "a",                     --- Enable mouse
   number         = true,                    --- Shows current line number
   pumheight      = 10,                      --- Max num of items in completion menu
@@ -55,8 +54,6 @@ local options = {
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
-
-vim.opt.listchars:append("trail:·")
 
 vim.opt.shortmess:append('c');
 vim.opt.formatoptions:remove('c');

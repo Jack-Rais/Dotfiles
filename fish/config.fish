@@ -14,20 +14,12 @@ end
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
-alias ..='cd ..'
-alias ....='cd ../..'
-
-alias gs='git status'
-alias ga='git add'
-alias gc='git commit'
-
-
 #          ╭──────────────────────────────────────────────────────────╮
 #          │                  Rimpiazzo per sudo !!                   │
 #          ╰──────────────────────────────────────────────────────────╯
 
 function sudo --description "Replacement for Bash 'sudo !!'"
-    
+
     if test "$argv" = !!
         echo sudo $history[1]
         eval command sudo $history[1]

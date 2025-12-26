@@ -20,6 +20,9 @@ function M.setup()
     map("n", "<leader>K", "<cmd>lprev<CR><cmd>lclose<CR>", { silent = true })
     map("n", "<leader>J", "<cmd>lnext<CR><cmd>lclose<CR>", { silent = true })
 
+    -- Take away functionality to . and £
+    map("n", ".", "<Nop>", { noremap = true, silent = true })
+    map("n", "£", "<Nop>", { noremap = true, silent = true })
 
     -- Indentation
     map('v', '>', '>gv', { noremap = true })
@@ -44,7 +47,7 @@ function M.setup()
     map("v", "<C-y>", "\"+y")
 
 
-    -- Se eseguito, aspetta il carattere dopo e lo esegue senza aspettare l'invio 
+    -- Se eseguito, aspetta il carattere dopo e lo esegue senza aspettare l'invio
     map("n", "<leader>;", function()
         local char = vim.fn.getcharstr()
         return '<cmd>' .. char .. '<CR>'

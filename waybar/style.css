@@ -11,13 +11,12 @@
 } */
 
 window#waybar {
-    background-color: alpha(@primary_container, 0.6);
+    background-color: alpha(@primary_container, 0.9);
 
     border-radius: 10px;
     border-width: 2px;
-    border-color: alpha(@on_primary_fixed, 0.7);
+    border-color: @on_primary_fixed;
     border-style: solid;
-
 }
 
 .modules-left, .modules-right {
@@ -30,24 +29,24 @@ window#waybar {
  *          ╰─────────────────────────────────────────────────────────╯
 */
 
-#custom-arch, 
-#cpu, 
-#memory, 
-#battery, 
+#custom-arch,
+#cpu,
+#memory,
+#battery,
 #workspaces button,
 #pulseaudio,
 #network,
-#clock, 
+#clock,
 #custom-power {
-    
+
     /* Borders */
     border-radius: 10px;
     border-width: 2px;
-    border-color: alpha(@on_primary_fixed, 0.7);
+    border-color: @on_primary_fixed;
     border-style: solid;
 
     /* Background */
-    background-color: alpha(@secondary_contaner, 0.5);
+    background-color: @on_primary;
 
     /* General */
     font-size: 13px;
@@ -70,7 +69,7 @@ window#waybar {
 #pulseaudio:hover,
 #network:hover,
 #custom-power:hover {
-    background-color: alpha(@on_primary_fixed, 0.7);
+    background-color: @on_primary_fixed;
 }
 
 
@@ -115,8 +114,8 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background-color: alpha(@on_primary, 0.7);
-    border: 2px solid alpha(@on_primary_container, 0.5);
+    background-color: @on_primary;
+    border: 2px solid alpha(@on_primary_container, 0.6);
 }
 
 

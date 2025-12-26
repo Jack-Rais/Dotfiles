@@ -4,12 +4,6 @@ if not status is-interactive
 end
 
 
-# === Avvia Hyprland automaticamente su TTY1 ===
-if test -z "$DISPLAY"; and test "$XDG_VTNR" -eq 1
-    exec Hyprland
-end
-
-
 # === Alias ===
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'

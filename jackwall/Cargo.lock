@@ -390,7 +390,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "setup_rs"
+name = "set_wallpaper"
 version = "0.1.0"
 dependencies = [
  "chrono",

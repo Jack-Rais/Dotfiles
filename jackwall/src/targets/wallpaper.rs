@@ -19,7 +19,7 @@ pub fn execute_wallpaper_command(image_dir: PathBuf) {
     run_matugen(&image_dir);
     blur_wallpaper(&wallpaper_path.join("current.png"), &wallpaper_path.join("current_blurred.png"));
 
-    
+
     reload_hyprland();
     reload_waybar();
     reload_swaync();
@@ -28,13 +28,13 @@ pub fn execute_wallpaper_command(image_dir: PathBuf) {
 
 
 fn setup_wallpaper(image_inp: &PathBuf, image_dest: &PathBuf) {
-    
+
     match image_inp.extension().expect("Input image doesn't have an extension").to_str() {
         Some("png") => {
             log::info!("Copying the image in config");
 
             copy(
-                image_inp, 
+                image_inp,
                 image_dest
             ).expect("Could not copy image in wallpaper path");
 
@@ -51,7 +51,7 @@ fn setup_wallpaper(image_inp: &PathBuf, image_dest: &PathBuf) {
 
         }
     }
-    
+
 }
 
 fn run_matugen(image_dir: &PathBuf) {
@@ -69,7 +69,7 @@ fn run_matugen(image_dir: &PathBuf) {
 }
 
 fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf) {
-    
+
     log::info!("Running imagemagick to blur the wallpaper");
 
     Command::new("magick")
@@ -119,7 +119,7 @@ fn reload_waybar() {
         .stdout(Stdio::inherit())
         .output()
         .expect("There was an error with killing waybar");
-    
+
     log::debug!("Starting waybar");
     Command::new("hyprctl")
         .args(["dispatch", "exec", "waybar"])
@@ -140,7 +140,7 @@ fn reload_swaync() {
         .stdout(Stdio::inherit())
         .output()
         .expect("There was an error while killing swaync");
-    
+
     log::debug!("Starting swaync daemon");
     Command::new("hyprctl")
         .args(["dispatch", "exec", "swaync"])

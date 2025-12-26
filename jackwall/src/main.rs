@@ -1,23 +1,22 @@
 
 pub mod parser;
-pub mod utils;
-pub mod commands {
-    pub mod dotfiles;
+pub mod targets {
     pub mod wallpaper;
+    pub mod profile;
 }
-
-use commands::{
-    dotfiles::execute_dotfiles_command,
-    wallpaper::execute_wallpaper_command
-};
 
 use std::io::Write;
 
-use clap::Parser;
-use parser::{
-    ArgumentParser,
-    Commands
+use targets::{
+    wallpaper::execute_wallpaper_command,
+    profile::execute_profile_command
 };
+use parser::{
+    WallArguments,
+    TargetImage
+};
+
+use clap::Parser;
 use env_logger::{Builder, Env, Target, WriteStyle};
 use chrono::Local;
 
@@ -30,7 +29,7 @@ fn main() {
     //          ╭─────────────────────────────────────────────────────────╮
     //          │                Setup builder for logging                │
     //          ╰─────────────────────────────────────────────────────────╯
-    
+
     Builder::from_env(Env::default().default_filter_or("debug"))
         .target(Target::Stdout)
         .write_style(WriteStyle::Always)
@@ -53,11 +52,11 @@ fn main() {
     //          │             Parsing command line arguments              │
     //          ╰─────────────────────────────────────────────────────────╯
 
-    let args = ArgumentParser::parse();
-
-    match args.option.unwrap() {
-        Commands::Wallpaper { image_dir } => execute_wallpaper_command(image_dir),
-        Commands::Dotfiles { link, source, destination } => execute_dotfiles_command(link, source, destination)
+    let args = WallArguments::parse();
+    match args.target {
+        TargetImage::Wallpaper => execute_wallpaper_command(args.image),
+        TargetImage::Profile => execute_profile_command(args.image),
+        TargetImage::DisplayManager => {}
     }
 
 }

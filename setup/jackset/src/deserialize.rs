@@ -9,7 +9,8 @@ use toml;
 pub struct Config {
     pub pacman: PackageList,
     pub paru: PackageList,
-    pub dotfiles: Dotfiles
+    pub dotfiles: Dotfiles,
+    pub display_manager: DisplayManager
 }
 
 #[derive(Deserialize)]
@@ -19,9 +20,18 @@ pub struct PackageList {
 
 #[derive(Deserialize)]
 pub struct Dotfiles {
-    pub dirs: Vec<PathBuf>
+    pub dirs: Vec<String>
 }
 
+#[derive(Deserialize)]
+pub struct DisplayManager {
+    pub conf: String
+}
+
+
+pub fn deserialize_toml(toml_obj: String) -> Config {
+    toml::from_str(&toml_obj).expect("Could not parse toml file")
+}
 
 pub fn read_config(config_file: PathBuf) -> Config {
 

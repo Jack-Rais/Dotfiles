@@ -1,32 +1,41 @@
 
-pub mod updating_installing;
 pub mod parser;
 pub mod deserialize;
 pub mod helpers {
     pub mod load_mode;
     pub mod install_update;
+    pub mod display_manager;
+    pub mod setup;
 }
 
 use parser::{
     SetupArgs,
     ModeLoad
 };
-use deserialize::read_config;
+use deserialize::{
+    deserialize_toml,
+    read_config
+};
 use helpers::{
     load_mode::setup_files,
     install_update::{
         update_sys,
-        install_pacman
-    }
+        install_pacman_deps,
+        install_paru_deps
+    },
+    display_manager::setup_display_manager,
+    setup::setup_system
 };
 
-use std::{io::Write, path::PathBuf};
+use std::io::Write;
 
 use clap::Parser;
 use chrono::Local;
 use env_logger::{Builder, Env, Target, WriteStyle};
 use log::info;
 
+
+const TOML_DEFAULT: &str = include_str!("../config.toml");
 
 fn main() {
 
@@ -50,22 +59,36 @@ fn main() {
     let args = SetupArgs::parse();
 
     info!("Reading configuration");
-    let config_file = args.config.unwrap_or(PathBuf::from("config.toml"));
-    let configuration = read_config(config_file);
-
+    let configuration = if args.config.is_none() {
+        deserialize_toml(TOML_DEFAULT.to_string())
+    } else {
+        read_config(args.config.unwrap())
+    };
 
     match args.mode {
-        ModeLoad::Link => setup_files("ln", "-sfn", configuration.dotfiles.dirs),
-        ModeLoad::Copy => setup_files("cp", "", configuration.dotfiles.dirs),
-        ModeLoad::Nothing => Ok(())
-    }.expect("Could not copy or link files");
+        ModeLoad::Link => setup_files(configuration.dotfiles.dirs, &args.source, true),
+        ModeLoad::Copy => setup_files(configuration.dotfiles.dirs, &args.source, false),
+        ModeLoad::Nothing => {},
+    };
 
     if args.update {
         update_sys();
     }
 
     if args.pacman_dep {
-        install_pacman(configuration.pacman.packages);
+        install_pacman_deps(configuration.pacman.packages);
+    }
+
+    if args.aur_dep {
+        install_paru_deps(configuration.paru.packages);
+    }
+
+    if args.display {
+        setup_display_manager(configuration.display_manager.conf);
+    }
+
+    if args.setup {
+        setup_system();
     }
 
 }

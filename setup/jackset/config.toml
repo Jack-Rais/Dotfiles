@@ -28,6 +28,7 @@ packages = [
     "hyprlock",
     "hyprpaper",
     "hyprpicker",
+    "hyprpolkitagent",
     "hyprshot",
     "imagemagick",
     "kdeconnect",
@@ -45,6 +46,7 @@ packages = [
     "pavucontrol",
     "pipewire-alsa",
     "pipewire-pulse",
+    "plasma-desktop",
     "power-profiles-daemon",
     "powertop",
     "proton-vpn-gtk-app",
@@ -61,13 +63,16 @@ packages = [
     "waybar",
     "wget",
     "wofi",
+    "xdg-desktop-portal",
+    "xdg-desktop-portal-hyprland",
     "xorg-xhost",
     "zip"
 ]
 
 [paru]
 packages = [
-    "matugen-bin"
+    "matugen-bin",
+    "sddm-silent-theme"
 ]
 
 [dotfiles]
@@ -82,9 +87,20 @@ dirs = [
     "kitty",
     "matugen",
     "nvim",
+    "quickshell",
     "rofi",
     "starship",
     "swaync",
     "waybar",
     "wofi"
 ]
+
+[display_manager]
+conf = """
+[General]
+InputMethod=qtvirtualkeyboard
+GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard
+
+[Theme]
+Current=silent
+"""

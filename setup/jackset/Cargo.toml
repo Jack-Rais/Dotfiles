@@ -1,5 +1,5 @@
 [package]
-name = "load_rs"
+name = "jackset"
 version = "0.1.0"
 edition = "2024"
 

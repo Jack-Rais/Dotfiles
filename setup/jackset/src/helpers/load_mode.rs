@@ -1,80 +1,94 @@
 
-use std::env::{current_dir, var};
-use std::fs::{ReadDir, read_dir};
-use std::io::Result;
+use std::fs;
+use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::env::var;
 
 use log::{debug, info};
 
 
 struct Finder {
-    stack: Vec<ReadDir>
+    stack: Vec<PathBuf>
 }
 impl Finder {
 
-    fn new(root: &Path) -> Self {
-        let mut stack = Vec::new();
-        if let Ok(rd) = read_dir(root) {
-            stack.push(rd);
-        }
-        Self { stack }
-    }
+    fn new(dir: &Path) -> Self {
 
+        Self {
+            stack: fs::read_dir(dir).expect("Could not read dir").filter_map(|x| {
+                if let Ok(y) = x {
+                    Some(y.path())
+                }
+                else {
+                    None
+                }
+            }).collect()
+        }
+
+    }
 }
 impl Iterator for Finder {
-    type Item = PathBuf;
 
+    type Item = PathBuf;
     fn next(&mut self) -> Option<Self::Item> {
 
-        while let Some(parent) = self.stack.last_mut() {
+        while let Some(item) = self.stack.pop() {
 
-            if let Some(child) = parent.next() {
-                let path = child.ok()?.path();
-                if path.is_dir() && let Ok(child_parent) = read_dir(&path) {
-                    self.stack.push(child_parent);
+            if item.is_dir() {
+                if let Ok(rd) = fs::read_dir(item) {
+                    let children: Vec<_> = rd.filter_map(|x| {
+                        if let Ok(y) = x {
+                            return Some(y.path());
+                        }
+                        None
+                    }).collect();
+                    self.stack.extend_from_slice(&children);
                 }
-                return Some(path)
             }
             else {
-                self.stack.pop();
+                return Some(item.to_path_buf())
             }
-        }
 
+        }
         None
+
     }
 
 }
 
 
-pub fn setup_files(program: &str, args: &str, dirs: Vec<PathBuf>) -> Result<()> {
 
-    info!("Setting up files in .config");
+pub fn setup_files(configs: Vec<String>, source: &Path, link: bool) {
 
-    let dir = current_dir().unwrap().join(PathBuf::from("../../")).canonicalize().unwrap();
-    for input_dir in dirs {
-        info!("Scanning {input_dir:?}");
+    let destination = PathBuf::from(var("HOME").expect("Could not get HOME dir")).join(".config");
 
-        let origin = dir.join(&input_dir);
-        let dest = PathBuf::from(var("HOME").expect("Could not get HOME var")).join(".config").join(&input_dir);
+    for name_conf in configs {
+        info!("Processing: {name_conf}");
 
-        let find = Finder::new(&origin);
-        for origin_file in find {
+        let dest_conf = destination.join(&name_conf);
+        let origin_conf = source.join(&name_conf);
 
-            let dest_file = dest.join(origin_file.strip_prefix(&origin).unwrap());
+        if dest_conf.exists() {
+            info!("Cleaning {name_conf}");
+            fs::remove_dir_all(&dest_conf).expect("Could not clean dir");
+        }
+
+        let finder = Finder::new(&origin_conf);
+        for origin_file in finder {
+
+            let dest_file = dest_conf.join(origin_file.strip_prefix(&origin_conf).unwrap());
+            fs::create_dir_all(dest_file.parent().unwrap()).unwrap();
 
             debug!("{origin_file:?} -> {dest_file:?}");
-            Command::new(program)
-                .arg(args)
-                .arg(&origin_file)
-                .arg(dest_file)
-                .spawn()?
-                .wait()?;
 
+            if link {
+                symlink(origin_file, dest_file).unwrap();
+            }
+            else {
+                fs::copy(origin_file, dest_file).unwrap();
+            }
         }
 
     }
-
-    Ok(())
 
 }

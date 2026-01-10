@@ -10,9 +10,9 @@ set = true
 input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/waybar/colors.css'
 
-[templates.swaync]
-input_path = '~/.config/matugen/templates/colors.css'
-output_path = '~/.config/swaync/colors.css'
+[templates.quickshell]
+input_path = '~/.config/matugen/templates/Colors.qml'
+output_path = '~/.config/quickshell/states/Colors.qml'
 
 [templates.rasi]
 input_path = '~/.config/matugen/templates/colors.rasi'

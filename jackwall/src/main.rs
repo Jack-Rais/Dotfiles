@@ -3,23 +3,21 @@ pub mod parser;
 pub mod targets {
     pub mod wallpaper;
     pub mod profile;
+    pub mod display_manager;
 }
 
 use std::io::Write;
 
 use targets::{
     wallpaper::execute_wallpaper_command,
-    profile::execute_profile_command
+    profile::execute_profile_command,
+    display_manager::execute_display_manager_command
 };
-use parser::{
-    WallArguments,
-    TargetImage
-};
+use parser::WallArguments;
 
 use clap::Parser;
 use env_logger::{Builder, Env, Target, WriteStyle};
 use chrono::Local;
-
 
 
 
@@ -53,10 +51,17 @@ fn main() {
     //          ╰─────────────────────────────────────────────────────────╯
 
     let args = WallArguments::parse();
-    match args.target {
-        TargetImage::Wallpaper => execute_wallpaper_command(args.image),
-        TargetImage::Profile => execute_profile_command(args.image),
-        TargetImage::DisplayManager => {}
+
+    if let Some(wallpaper_img) = args.wallpaper {
+        execute_wallpaper_command(wallpaper_img, args.reload);
+    }
+
+    if let Some(profile_img) = args.profile {
+        execute_profile_command(profile_img, args.user);
+    }
+
+    if let Some(dm_image) = args.display_manager {
+        execute_display_manager_command(dm_image);
     }
 
 }

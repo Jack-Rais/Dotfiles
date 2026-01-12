@@ -4,16 +4,18 @@ import Quickshell.Io
 import QtQuick
 
 import qs.states
+import qs.services
 import qs.modules.notif
 import qs.modules.bar
-import qs.services
+import qs.modules.background
 
 
 ShellRoot {
 
     id: root
 
-    Bar {}
+    MainBarItem {}
+    Background {}
     // Notifications { id: notifications }
     // NotificationPopup {}
     //

@@ -20,22 +20,24 @@ pub fn execute_wallpaper_command(image_dir: PathBuf, reload: bool) {
     info!("Setting up the wallpaper");
 
     let home_path = PathBuf::from(var("HOME").expect("Could not resolve HOME var"));
-    let wallpaper_path = home_path.join(".config/hypr/wallpapers/");
+    let hypridle_path = home_path.join(".config/hypr/wallpapers/");
+    let quickshell_path = home_path.join(".config/quickshell/assets/background.png");
 
     // Copying the image into the right place
-    setup_wallpaper(&image_dir, &wallpaper_path.join("current.png"));
+    setup_wallpaper(&image_dir, &quickshell_path);
 
     run_matugen(&image_dir);
     blur_wallpaper(
-        &wallpaper_path.join("current.png"),
-        &wallpaper_path.join("current_blurred.png"),
+        &quickshell_path,
+        &hypridle_path,
         &image_dir
     );
 
 
     if reload {
         reload_hyprland();
-        reload_waybar();
+        reload_quickshell();
+        // reload_waybar();
         // reload_swaync();
     }
 
@@ -167,6 +169,25 @@ fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf, original_image:
 }
 
 
+fn reload_quickshell() {
+
+    info!("Reloading quickshell");
+
+    debug!("Killing quickshell");
+    Command::new("killall")
+        .arg("quickshell")
+        .spawn().expect("There was an error while killing quickshell")
+        .wait().expect("There was an error while killing quickshell");
+
+    debug!("Starting quickshell");
+    Command::new("hyprctl")
+        .args(["dispatch", "exec", "quickshell"])
+        .spawn().expect("There was an error while starting quickshell")
+        .wait().expect("There was an error while starting quickshell");
+}
+
+
+
 fn reload_hyprland() {
 
     info!("Reloading hyprland");
@@ -177,38 +198,38 @@ fn reload_hyprland() {
         .spawn().expect("There was an error with reloading hyprland")
         .wait().expect("There was an error with reloading hyprland");
 
-    debug!("Killing hyprpaper");
-    Command::new("killall")
-        .arg("hyprpaper")
-        .spawn().expect("There was an error while killing hyprpaper")
-        .wait().expect("There was an error while killing hyprpaper");
-
-    debug!("Starting hyprpaper");
-    Command::new("hyprctl")
-        .args(["dispatch", "exec", "hyprpaper"])
-        .spawn().expect("There was an error while starting hyprpaper")
-        .wait().expect("There was an error while starting hyprpaper");
-
-}
-
-
-fn reload_waybar() {
-
-    info!("Reloading waybar");
-
-    debug!("Killing waybar");
-    Command::new("killall")
-        .arg("waybar")
-        .spawn().expect("There was an error with killing waybar")
-        .wait().expect("There was an error with killing waybar");
-
-    debug!("Starting waybar");
-    Command::new("hyprctl")
-        .args(["dispatch", "exec", "waybar"])
-        .spawn().expect("There was an error while reloading waybar")
-        .wait().expect("There was an error while reloading waybar");
+    // debug!("Killing hyprpaper");
+    // Command::new("killall")
+    //     .arg("hyprpaper")
+    //     .spawn().expect("There was an error while killing hyprpaper")
+    //     .wait().expect("There was an error while killing hyprpaper");
+    //
+    // debug!("Starting hyprpaper");
+    // Command::new("hyprctl")
+    //     .args(["dispatch", "exec", "hyprpaper"])
+    //     .spawn().expect("There was an error while starting hyprpaper")
+    //     .wait().expect("There was an error while starting hyprpaper");
 
 }
+
+
+// fn reload_waybar() {
+//
+//     info!("Reloading waybar");
+//
+//     debug!("Killing waybar");
+//     Command::new("killall")
+//         .arg("waybar")
+//         .spawn().expect("There was an error with killing waybar")
+//         .wait().expect("There was an error with killing waybar");
+//
+//     debug!("Starting waybar");
+//     Command::new("hyprctl")
+//         .args(["dispatch", "exec", "waybar"])
+//         .spawn().expect("There was an error while reloading waybar")
+//         .wait().expect("There was an error while reloading waybar");
+//
+// }
 
 
 // fn reload_swaync() {

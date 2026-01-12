@@ -31,15 +31,15 @@ Scope {
             anchors.fill: parent
 
             ShapePath {
-                strokeWidth: Config.bar.borderWidth
+                strokeWidth: Config.wallpaper.borderWidth
                 strokeColor: Config.bar.colorBackground
                 fillColor: "transparent"   // Cornice non riempita
 
                 // Iniziamo dall'angolo in alto a sinistra + raggio
-                startX: 0
+                startX: corners.width
                 startY: 0
 
-                PathLine { x: corners.width; y: 0}
+                // PathLine { x: corners.width; y: 0}
                 PathLine { x: corners.width ; y: corners.height }
                 PathLine { x: 0; y: corners.height }
                 PathLine { x: 0; y: 0 }
@@ -51,7 +51,7 @@ Scope {
             anchors {
                 top: parent.top
                 left: parent.left
-                margins: Config.bar.borderWidth / 2
+                margins: Config.wallpaper.borderWidth / 2
             }
             roundingColor: Config.bar.colorBackground
             rounding: Config.windowRounding
@@ -64,7 +64,7 @@ Scope {
             anchors {
                 bottom: parent.bottom
                 left: parent.left
-                margins: Config.bar.borderWidth / 2
+                margins: Config.wallpaper.borderWidth / 2
             }
             roundingColor: Config.bar.colorBackground
             rounding: Config.windowRounding
@@ -77,7 +77,7 @@ Scope {
             anchors {
                 bottom: parent.bottom
                 right: parent.right
-                margins: Config.bar.borderWidth / 2
+                margins: Config.wallpaper.borderWidth / 2
             }
             roundingColor: Config.bar.colorBackground
             rounding: Config.windowRounding
@@ -90,11 +90,12 @@ Scope {
             anchors {
                 top: parent.top
                 right: parent.right
-                margins: Config.bar.borderWidth / 2
+                margins: Config.wallpaper.borderWidth / 2
             }
             roundingColor: Config.bar.colorBackground
             rounding: Config.windowRounding
             rotation: 0
+            visible: GlobalStates.bar.topRightAngleVisible
 
         }
     }

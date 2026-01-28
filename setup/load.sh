@@ -30,11 +30,15 @@ include_dirs=(
     fish
     fontconfig
     gtk-3.0
+    gtk-4.0
     hellwal
     hypr
     kitty
+    matugen
     nvim
+    rofi
     starship
+    swaync
     waybar
     wofi
 

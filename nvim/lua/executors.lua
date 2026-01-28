@@ -1,9 +1,9 @@
 local function execute_terminal(cmd)
-    
+
     local Terminal = require("toggleterm.terminal").Terminal
     vim.keymap.set('n', '<leader>xv', function()
         vim.cmd('w')
-        
+
         local vertical_term = Terminal:new {
             direction = "vertical",
             cmd = cmd,
@@ -16,7 +16,7 @@ local function execute_terminal(cmd)
 
     vim.keymap.set('n', '<leader>xh', function()
         vim.cmd('w')
-        
+
         local horizontal_term = Terminal:new {
             direction = "horizontal",
             cmd = cmd,
@@ -29,11 +29,11 @@ local function execute_terminal(cmd)
 end
 
 local function execute_terminal_test(cmd)
-    
+
     local Terminal = require("toggleterm.terminal").Terminal
     vim.keymap.set('n', '<leader>Xv', function()
         vim.cmd('w')
-        
+
         local vertical_term = Terminal:new {
             direction = "vertical",
             cmd = cmd,
@@ -44,7 +44,7 @@ local function execute_terminal_test(cmd)
     end, { buffer = true, desc = "Execute tests in vertical terminal" })
     vim.keymap.set('n', '<leader>Xh', function()
         vim.cmd('w')
-        
+
         local horizontal_term = Terminal:new {
             direction = "horizontal",
             cmd = cmd,

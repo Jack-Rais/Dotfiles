@@ -1,27 +1,35 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    lazy = false,
-    opts = {
-        ensure_installed = {
-            "c",
-            "lua",
-            "vim",
-            "vimdoc",
-            "query",
-            "markdown",
-            "markdown_inline",
-            "python",
-            "rust"
-        },
-        sync_install = false,
-        auto_install = false,
-        hightlight = { enable = true }
-    },
+    'nvim-treesitter/nvim-treesitter',
+    -- lazy = false,
+    build = ':TSUpdate',
+    event = "BufReadPre",
+
     config = function ()
-        vim.api.nvim_set_hl(0, '@lsp.type.typeAlias.rust', { link = '@lsp.type.interface'} )
-        vim.api.nvim_set_hl(0, '@lsp.type.variable', { link = '@lsp.type.parameter'} )
-        vim.api.nvim_set_hl(0, '@lsp.type.const.rust', { link = '@lsp.type.parameter'} )
+
+        local languages = {
+            'rust',
+            'python',
+            'bash',
+            'html',
+            'css',
+            'javascript'
+        }
+
+        require('nvim-treesitter').install(languages)
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = '*',
+            callback = function(ev)
+
+                local language_name = vim.treesitter.language.get_lang(ev.match)
+
+                if pcall(vim.treesitter.language.inspect, language_name) then
+                    vim.treesitter.start(ev.buf)
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
+
+            end
+        })
+
     end
 }
-

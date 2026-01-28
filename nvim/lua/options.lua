@@ -73,7 +73,7 @@ vim.opt.fillchars:append('vertleft:▕');
 -- Impostazione per i file md (tenere aperto il browser anche dopo aver chiuso il file)
 vim.g.mkdp_auto_close = 0
 
--- Impostare i colori per la segnaletica delle modifiche di git 
+-- Impostare i colori per la segnaletica delle modifiche di git
 vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#00ff00", bg = "NONE" })
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#ffaa00", bg = "NONE" })
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff0000", bg = "NONE" })
@@ -124,4 +124,3 @@ vim.diagnostic.config({
 
 -- Impostare i colori del terminale
 vim.opt.termguicolors = true
-

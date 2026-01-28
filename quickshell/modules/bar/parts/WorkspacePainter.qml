@@ -8,7 +8,7 @@ import qs.states
 Item {
     required property bool isOccupied
     required property bool isActive
-    required property int workspaceNumber  // Meglio di index per chiarezza
+    required property int workspaceNumber
 
     implicitWidth: 15
     implicitHeight: 15

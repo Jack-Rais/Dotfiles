@@ -4,16 +4,23 @@ import QtQuick.Shapes
 import QtQuick
 
 import qs.states
+import qs.components.containers
 import qs.modules.common
 
 
 Variants {
     model: Quickshell.screens
 
-    PanelWindow {
+    StyledWindow {
         id: root
+
         required property ShellScreen modelData
+
         screen: modelData
+        name: "background"
+        WlrLayershell.exclusionMode: ExclusionMode.Ignore
+        WlrLayershell.layer: WlrLayer.Background
+        color: "black"
 
         anchors {
             top: true
@@ -21,10 +28,6 @@ Variants {
             left: true
             right: true
         }
-
-        WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.layer: WlrLayer.Background
-        color: "black"  // Fallback color while loading
 
         Image {
             id: wallpaper
@@ -41,9 +44,6 @@ Variants {
             verticalAlignment: Image.AlignVCenter
 
             source: "./../../assets/" + Config.wallpaper.source
-
-            onSourceChanged: {}
-
         }
 
         Item {

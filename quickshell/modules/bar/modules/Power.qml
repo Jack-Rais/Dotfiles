@@ -1,49 +1,36 @@
-
 import Quickshell
 import QtQuick
-import qs.states
 import Qt5Compat.GraphicalEffects
 
-Item {
-    implicitWidth: Config.bar.height - Config.bar.padding
-    implicitHeight: Config.bar.height - Config.bar.padding
+import qs.modules.bar.parts
+import qs.states
 
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        radius: Config.windowRounding
-        color: Config.bar.colorWidgetBackground
-        border {
-            color: Config.bar.colorPrimaryWidgets
-            width: Config.bar.borderWidgetWidth
-        }
+BaseWidget {
 
-        Image {
-            id: logoPower
-            anchors.fill: parent
-            anchors.margins: 7
-            source: "./../../../assets/power.svg"
-            sourceSize: Qt.size(width, height)
+    id: root
+    childWidth: logoPower.width
+    marginX: Config.bar.marginX / 1.5
 
-            layer.enabled: true
-            layer.effect: ColorOverlay {
-                color: Config.bar.colorPrimaryWidgets
-            }
-        }
+    Image {
+        id: logoPower
+        anchors.centerIn: parent
+        source: Quickshell.shellDir + Config.bar.powerSvgPath
+
+        sourceSize.width: Math.min(parent.width, parent.height) * 0.55
+        sourceSize.height: Math.min(parent.width, parent.height) * 0.55
+        fillMode: Image.PreserveAspectFit
+        mipmap: true
+        smooth: true
     }
 
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-
-        onEntered: {
-            background.color = Config.bar.colorWidgetBackgroundClicked
-        }
-
-        onExited: {
-            background.color = Config.bar.colorWidgetBackground
-        }
-
+    ColorOverlay {
+        anchors.fill: logoPower
+        source: logoPower
+        color: Config.bar.colorPrimaryWidgets
     }
+
+    onClicked: {
+        GlobalStates.powerPopup.popupVisible = !GlobalStates.powerPopup.popupVisible
+    }
+
 }

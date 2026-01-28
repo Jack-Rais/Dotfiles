@@ -6,7 +6,7 @@ import qs.states
 
 Singleton {
 
-    property int windowRounding: 10
+    property int windowRounding: 20
     property int fontSize: 13
 
     property QtObject wallpaper: QtObject {
@@ -22,9 +22,12 @@ Singleton {
 
         // General
         property int height: 35
-        property int padding: 6
+        property int padding: 5
         property int marginX: 30
         property int borderWidgetWidth: 2
+
+        // Icons
+        property string powerSvgPath: "/assets/power.svg"
 
         // Colors
         property color colorBackground: Colors.surface
@@ -42,6 +45,14 @@ Singleton {
         property color colorInactiveWorkspace: Colors.surface_container_highest
         property color colorActiveWorkspace: Colors.primary
         property color colorHoveredWorkspace: Colors.secondary_container
+
+    }
+
+    property QtObject powerPopup: QtObject {
+
+        // General
+        property int width: 300
+        property int height: 200
 
     }
 

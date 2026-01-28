@@ -1,103 +1,91 @@
 
 import QtQuick
-import QtQuick.Window
-import QtQuick.Shapes
+import QtQuick.Layouts
 import Quickshell
-import qs.modules.common
+import Quickshell.Wayland
+
 import qs.states
+import qs.modules.bar.modules
 
+PanelWindow {
+    id: root
 
-Scope {
+    anchors {
+        top: true
+        left: true
+        right: true
+    }
+    color: Config.bar.colorBackground
+    aboveWindows: false
+    implicitHeight: Config.bar.height + Config.wallpaper.borderWidth
+    exclusiveZone: Config.bar.height
 
-    MainBarItem {}
+    RowLayout {
+        anchors.fill: parent
+        anchors.margins: 2
+        spacing: 1
 
-    PanelWindow {
-        id: corners
-
-        visible: true
-        color: "transparent" // colore di sfondo della finestra
-        aboveWindows: false
-
-        anchors {
-            top: true
-            bottom: true
-            left: true
-            right: true
+        Item {
+            id: right
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
+        Item {
+            id: center
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-        Shape {
-            id: borderShape
-            anchors.fill: parent
-
-            ShapePath {
-                strokeWidth: Config.wallpaper.borderWidth
-                strokeColor: Config.bar.colorBackground
-                fillColor: "transparent"   // Cornice non riempita
-
-                // Iniziamo dall'angolo in alto a sinistra + raggio
-                startX: corners.width
-                startY: 0
-
-                // PathLine { x: corners.width; y: 0}
-                PathLine { x: corners.width ; y: corners.height }
-                PathLine { x: 0; y: corners.height }
-                PathLine { x: 0; y: 0 }
+            Workspaces {
+                anchors.centerIn: parent
             }
+
         }
 
-        InvertedRounding {
+        Item {
+            id: left
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-            anchors {
-                top: parent.top
-                left: parent.left
-                margins: Config.wallpaper.borderWidth / 2
+            // Wifi {
+            //     id: wifiWidget
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     anchors.right: clockWidget.left
+            //     anchors.rightMargin: Config.wallpaper.borderWidth + 2
+            // }
+
+            Row {
+                spacing: 3
+                anchors.right: parent.right
+                SystemInfo {}
+                Clock {}
+                Power {}
             }
-            roundingColor: Config.bar.colorBackground
-            rounding: Config.windowRounding
-            rotation: 270
+
+            // SystemInfo {
+            //     id: sysInfoWidget
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     anchors.right: clockWidget.left
+            //     anchors.rightMargin: Config.wallpaper.borderWidth + 2
+            // }
+            //
+            // Clock {
+            //     id: clockWidget
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     anchors.right: powerWidget.left
+            //     anchors.rightMargin: Config.wallpaper.borderWidth + 2
+            // }
+            //
+            // Power {
+            //     id: powerWidget
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     anchors.right: parent.right
+            //     anchors.rightMargin: Config.wallpaper.borderWidth + 2
+            // }
 
         }
 
-        InvertedRounding {
 
-            anchors {
-                bottom: parent.bottom
-                left: parent.left
-                margins: Config.wallpaper.borderWidth / 2
-            }
-            roundingColor: Config.bar.colorBackground
-            rounding: Config.windowRounding
-            rotation: 180
-
-        }
-
-        InvertedRounding {
-
-            anchors {
-                bottom: parent.bottom
-                right: parent.right
-                margins: Config.wallpaper.borderWidth / 2
-            }
-            roundingColor: Config.bar.colorBackground
-            rounding: Config.windowRounding
-            rotation: 90
-
-        }
-
-        InvertedRounding {
-
-            anchors {
-                top: parent.top
-                right: parent.right
-                margins: Config.wallpaper.borderWidth / 2
-            }
-            roundingColor: Config.bar.colorBackground
-            rounding: Config.windowRounding
-            rotation: 0
-            visible: GlobalStates.bar.topRightAngleVisible
-
-        }
     }
 
 }

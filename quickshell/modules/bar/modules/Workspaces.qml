@@ -10,7 +10,8 @@ import qs.modules.bar.parts
 
 BaseWidget {
 
-    implicitWidth: workspacesLayout.width + Config.bar.marginX
+    childWidth: workspacesLayout.width
+    mouseAreaActive: false
 
     RowLayout {
         id: workspacesLayout

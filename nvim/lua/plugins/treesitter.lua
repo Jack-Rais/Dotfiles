@@ -7,6 +7,7 @@ return {
     config = function ()
 
         local languages = {
+            'lua',
             'rust',
             'python',
             'bash',

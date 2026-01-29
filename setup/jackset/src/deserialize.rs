@@ -7,10 +7,20 @@ use toml;
 
 #[derive(Deserialize)]
 pub struct Config {
-    pub pacman: PackageList,
-    pub paru: PackageList,
-    pub dotfiles: Dotfiles,
-    pub display_manager: DisplayManager
+    pub pacman: Option<PackageList>,
+    pub paru: Option<PackageList>,
+    pub dotfiles: Option<Dotfiles>,
+    pub display_manager: Option<DisplayManager>
+}
+impl Config {
+    pub fn empty() -> Self {
+        Self {
+            pacman: None,
+            paru: None,
+            dotfiles: None,
+            display_manager: None
+        }
+    }
 }
 
 #[derive(Deserialize)]

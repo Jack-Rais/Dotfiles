@@ -34,6 +34,7 @@ use chrono::Local;
 use env_logger::{Builder, Env, Target, WriteStyle};
 use log::info;
 
+use crate::deserialize::Config;
 
 const TOML_DEFAULT: &str = include_str!("../config.toml");
 
@@ -59,15 +60,14 @@ fn main() {
     let args = SetupArgs::parse();
 
     info!("Reading configuration");
-    let configuration = if args.config.is_none() {
-        deserialize_toml(TOML_DEFAULT.to_string())
-    } else {
-        read_config(args.config.unwrap())
-    };
+    let default_conf = deserialize_toml(TOML_DEFAULT.to_string());
+    let configuration = if args.config.is_none() { Config::empty() } else { read_config(args.config.unwrap()) };
 
+
+    let dirs = configuration.dotfiles.unwrap_or(default_conf.dotfiles.unwrap()).dirs;
     match args.mode {
-        ModeLoad::Link => setup_files(configuration.dotfiles.dirs, &args.source, true),
-        ModeLoad::Copy => setup_files(configuration.dotfiles.dirs, &args.source, false),
+        ModeLoad::Link => setup_files(dirs, &args.source, true),
+        ModeLoad::Copy => setup_files(dirs, &args.source, false),
         ModeLoad::Nothing => {},
     };
 
@@ -75,16 +75,19 @@ fn main() {
         update_sys();
     }
 
+    let pac_packs = configuration.pacman.unwrap_or(default_conf.pacman.unwrap()).packages;
     if args.pacman_dep {
-        install_pacman_deps(configuration.pacman.packages);
+        install_pacman_deps(pac_packs);
     }
 
+    let aur_packs = configuration.paru.unwrap_or(default_conf.paru.unwrap()).packages;
     if args.aur_dep {
-        install_paru_deps(configuration.paru.packages);
+        install_paru_deps(aur_packs);
     }
 
+    let dm = configuration.display_manager.unwrap_or(default_conf.display_manager.unwrap()).conf;
     if args.display {
-        setup_display_manager(configuration.display_manager.conf);
+        setup_display_manager(dm);
     }
 
     if args.setup {

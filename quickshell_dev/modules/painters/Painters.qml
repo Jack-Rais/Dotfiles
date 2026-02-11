@@ -29,7 +29,7 @@ Variants {
             name: "painters"
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-            WlrLayershell.layer: WlrLayer.Bottom
+            WlrLayershell.layer: visibilities.power ? WlrLayer.Top : WlrLayer.Bottom
             aboveWindows: true
 
             mask: Region {
@@ -78,7 +78,6 @@ Variants {
                 windows: [win]
                 onCleared: {
                     visibilities.power = false
-                    console.log("icoa")
                 }
             }
 

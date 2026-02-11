@@ -12,41 +12,38 @@ Item {
 
     required property PersistentProperties visibilities
     required property ShellScreen screen
-    readonly property int exclusiveZone: Appearance.bar.height + Appearance.borders.padding
+    readonly property int exclusiveZone: Appearance.bar.height
     height: Appearance.bar.height
 
     RowLayout {
         anchors.fill: parent
         anchors.centerIn: parent
-        anchors.margins: 5
-        spacing: 3
-
-        Repeater {
-            model: Config.bar.entries
-
-            DelegateChooser {
-                role: "id"
-
-                DelegateChoice {
-                    roleValue: "spacer"
-                    delegate: Rectangle {
-                        Layout.fillWidth: true
-                    }
-                }
-
-                DelegateChoice {
-                    roleValue: "logo"
-                    delegate: OsIcon {}
-                }
-
-                DelegateChoice {
-                    roleValue: "power"
-                    delegate: Power {
-                        visibilities: root.visibilities
-                    }
-                }
-            }
+        anchors {
+            leftMargin: 5
+            rightMargin: 5
         }
+
+        // Left part
+        SectionBar {
+            entries: Config.bar.entries_left
+            visibilities: root.visibilities
+            screen: root.screen
+        }
+
+        // Center part
+        SectionBar {
+            entries: Config.bar.entries_center
+            visibilities: root.visibilities
+            screen: root.screen
+        }
+
+        // Right part
+        SectionBar {
+            entries: Config.bar.entries_right
+            visibilities: root.visibilities
+            screen: root.screen
+        }
+
     }
 
 }

@@ -11,12 +11,6 @@ BaseWidget {
 
     childWidth: Appearance.bar.height - Appearance.bar.padding * 2
 
-    StateLayer {
-        anchors.fill: parent
-        anchors.centerIn: parent
-        radius: Appearance.bar.iconRadius
-    }
-
     Text {
         id: logo
 

@@ -19,9 +19,13 @@ Singleton {
     }
 
     property QtObject bar: QtObject {
-        property int height: 35
+        property int height: 34
         property int spacing: 3
         property int padding: 4
+
+        // [Workspaces]
+        property int workActivePadding: 4
+        property int workPadding: 2
 
         property int iconRadius: 12
         property string logoPath: "/assets/logo.svg"

@@ -24,7 +24,7 @@ Scope {
 
     ExclusiveZone {
         anchors.top: true
-        exclusiveZone: root.bar.exclusiveZone
+        exclusiveZone: root.bar.exclusiveZone + Appearance.borders.padding
     }
 
     ExclusiveZone {

@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 
 import qs.config
+import qs.modules.bar.popouts as BarPopouts
 
 Item {
     id: root
@@ -16,6 +17,10 @@ Item {
     anchors.margins: Appearance.borders.thickness
     anchors.topMargin: bar.exclusiveZone
 
-    // To do https://github.com/caelestia-dots/shell/blob/2ddc367e4e12c13fc9499550fab62772408a6b47/modules/drawers/Panels.qml
+    BarPopouts.Wrapper {
+        id: popouts
+
+        screen: root.screen
+    }
 
 }

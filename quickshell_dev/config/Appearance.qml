@@ -32,6 +32,10 @@ Singleton {
 
         property color powerIconColor: Colors.error
         property color logoIconColor: Colors.tertiary
+
+        // [SystemInfo]
+        property int sysMargins: 3
+        property int sysStrokeWidth: 3
     }
 
     property QtObject borders: QtObject {

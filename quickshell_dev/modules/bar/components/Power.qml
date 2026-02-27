@@ -19,7 +19,8 @@ BaseWidget {
         radius: Appearance.bar.iconRadius
 
         function onClicked(): void {
-            root.visibilities.power = !root.visibilities.power
+            // root.visibilities.power = !root.visibilities.power
+            Quickshell.execDetached("shutdown now")
         }
 
     }

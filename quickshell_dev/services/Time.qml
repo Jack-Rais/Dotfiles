@@ -5,7 +5,6 @@ import Quickshell
 import QtQuick
 
 Singleton {
-    property alias enabled: clock.enabled
     readonly property date date: clock.date
     readonly property int hours: clock.hours
     readonly property int minutes: clock.minutes

@@ -3,16 +3,17 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
 
+import qs.config
+
 Item {
     id: root
 
     required property Item bar
-
     anchors.fill: parent
 
     Rectangle {
         anchors.fill: parent
-        color: "black"
+        color: ColorsConfig.borders.backgroundColor
 
         layer.enabled: true
         layer.effect: MultiEffect {
@@ -33,9 +34,10 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            anchors.margins: 5
-            anchors.topMargin: 32
-            radius: 20
+            anchors.margins: Appearance.borders.thickness
+            anchors.topMargin: Appearance.bar.height
+            radius: Appearance.general.windowRounding
         }
     }
+
 }

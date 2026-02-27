@@ -1,12 +1,13 @@
+pragma ComponentBehavior: Bound
 
+import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
-import QtQuick
 
-import qs.components.containers
+import qs.config
+import qs.components
 import qs.modules.bar
-import qs.modules.painters
 
 Variants {
     model: Quickshell.screens
@@ -16,24 +17,30 @@ Variants {
 
         required property ShellScreen modelData
 
-        BordersExclusion {
-            screen: scope.modelData
-            bar: barWrapper
+        Exclusions {
+            screen: modelData
+            bar: bar
         }
 
         StyledWindow {
             id: win
 
-            readonly property bool hasFullscreen: Hyprland.monitorFor(screen)?.activeWorkspace?.toplevels.values.some(t => t.lastIpcObject.fullscreen === 2) ?? false
-
-            onHasFullscreenChanged: {
-                visibilities.power = false
-            }
-
             screen: scope.modelData
-            name: "drawers"
+            name: "painters"
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: win.popupVisible ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+            WlrLayershell.layer: visibilities.power ? WlrLayer.Top : WlrLayer.Bottom
+            aboveWindows: true
+
+            mask: Region {
+                x: Appearance.borders.thickness
+                y: Appearance.bar.height
+                width: win.width - Appearance.borders.thickness * 2
+                height: win.height - Appearance.bar.height - Appearance.borders.thickness
+                intersection: Intersection.Xor
+
+                regions: regions.instances
+            }
 
             anchors {
                 top: true
@@ -42,70 +49,64 @@ Variants {
                 right: true
             }
 
-            mask: Region { item: barWrapper }
+            PersistentProperties {
+                id: visibilities
+
+                property bool power
+            }
+
+            Variants {
+                id: regions
+                model: panels.children
+
+                Region {
+                    required property Item modelData
+
+                    x: modelData.x + Appearance.borders.thickness
+                    y: modelData.y + Appearance.bar.height
+                    width: modelData.width
+                    height: modelData.height
+                    intersection: Intersection.Subtract
+
+                }
+            }
 
             HyprlandFocusGrab {
                 id: focusGrab
+
                 active: visibilities.power
                 windows: [win]
-
                 onCleared: {
                     visibilities.power = false
                 }
             }
 
-            PersistentProperties {
-                id: visibilities
-
-                property bool power
-
-            }
-
             Border {
-                bar: barWrapper
+                bar: bar
+                anchors.fill: parent
             }
 
-            Bar {}
+            Panels {
+                id: panels
+
+                screen: scope.modelData
+                visibilities: visibilities
+                bar: bar
+            }
+
+            Bar {
+                id: bar
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                }
+
+                screen: scope.modelData
+                visibilities: visibilities
+            }
 
         }
 
-
-        // StyledWindow {
-        //     id: win
-        //
-        //     screen: scope.modelData
-        //     name: "painters"
-        //     WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        //     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None // To change
-        //
-        //     readonly property bool hasFullscreen: Hyprland.monitorFor(screen)?.activeWorkspace?.toplevels.values.some(t => t.lastIpcObject.fullscreen === 2) ?? false
-        //
-        //     anchors {
-        //         top: true
-        //         left: true
-        //         right: true
-        //         bottom: true
-        //     }
-        //
-        //     HyprlandFocusGrab {
-        //         id: focusGrab
-        //     }
-        //
-        //     Rectangle {
-        //         id: bar
-        //         anchors {
-        //             top: parent.top
-        //             left: parent.left
-        //             right: parent.right
-        //         }
-        //         height: 30
-        //         property int exclusiveZone: 30
-        //         color: "black"
-        //     }
-        //
-        //
-        // }
-
     }
-
 }

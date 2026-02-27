@@ -51,6 +51,16 @@ RowLayout {
                 }
             }
 
+            DelegateChoice {
+                roleValue: "clock"
+                delegate: Clock {}
+            }
+
+            DelegateChoice {
+                roleValue: "battery"
+                delegate: SystemStatus {}
+            }
+
         }
     }
 }

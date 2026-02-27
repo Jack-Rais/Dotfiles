@@ -3,8 +3,6 @@ local M = {}
 
 
 function M.get_mappings()
-    
-    
 
     return {
       { "<A-1>",       "<cmd>BufferLineGoToBuffer 1<CR>" },

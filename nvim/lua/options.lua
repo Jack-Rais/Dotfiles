@@ -114,13 +114,16 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
--- Impostare La diagnostica accanto alle righe
-vim.diagnostic.config({
-  virtual_text = true, -- Mostra il testo virtuale accanto alla riga
-  signs = true,        -- Mostra i segni a margine (>, !, ecc.)
-  underline = true,    -- Sottolinea la parola con l'errore
-  update_in_insert = false, -- Non aggiornare mentre si scrive
-})
+-- -- Impostare La diagnostica accanto alle righe
+-- vim.diagnostic.config({
+--   virtual_text = true, -- Mostra il testo virtuale accanto alla riga
+--   signs = true,        -- Mostra i segni a margine (>, !, ecc.)
+--   underline = true,    -- Sottolinea la parola con l'errore
+--   update_in_insert = false, -- Non aggiornare mentre si scrive
+-- })
+
+-- Delete unnecessary diagnostic for example of blankline
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { underline = false })
 
 -- Impostare i colori del terminale
 vim.opt.termguicolors = true

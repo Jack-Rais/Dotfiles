@@ -3,6 +3,7 @@ use std::fs;
 use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
 use std::env::var;
+use std::process::Command;
 
 use log::{debug, info};
 
@@ -88,6 +89,23 @@ pub fn setup_files(configs: Vec<String>, source: &Path, link: bool) {
                 fs::copy(origin_file, dest_file).unwrap();
             }
         }
+
+    }
+
+    reload_config();
+
+}
+
+
+fn reload_config() {
+
+    if var("HYPRLAND_INSTANCE_SIGNATURE").is_ok() {
+
+        info!("Reloading configuration");
+        Command::new("hyprctl")
+        .arg("reload")
+        .spawn().expect("Could not reload hyprland")
+        .wait().expect("Could not reload hyprland");
 
     }
 

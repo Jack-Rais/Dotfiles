@@ -1,12 +1,13 @@
 
 use std::fs::{copy, create_dir};
 use std::process::Command;
-use std::path::{PathBuf, Path};
+use std::path::PathBuf;
 use std::env::var;
 
 use log::{info, debug};
 
 
+#[derive(Debug)]
 enum CacheState {
     Error,
     Created(PathBuf),
@@ -15,43 +16,41 @@ enum CacheState {
 
 
 
-pub fn execute_wallpaper_command(image_dir: PathBuf, reload: bool) {
+pub fn execute_wallpaper_command(image_path: PathBuf, reload: bool) {
 
     info!("Setting up the wallpaper");
 
     let home_path = PathBuf::from(var("HOME").expect("Could not resolve HOME var"));
-    let hypridle_path = home_path.join(".config/hypr/wallpapers/");
-    let quickshell_path = home_path.join(".config/quickshell/assets/background.png");
+    let wall_path = home_path.join(".config/quickshell/assets/wallpaper.png");
+    let blur_path = home_path.join(".config/hypr/wallpapers/current_blurred.png");
 
     // Copying the image into the right place
-    setup_wallpaper(&image_dir, &quickshell_path);
+    copy_converted(&image_path, &wall_path);
 
-    run_matugen(&image_dir);
+    run_matugen(&wall_path);
     blur_wallpaper(
-        &quickshell_path,
-        &hypridle_path,
-        &image_dir
+        &wall_path,
+        &blur_path,
+        &image_path
     );
 
 
     if reload {
         reload_hyprland();
         reload_quickshell();
-        // reload_waybar();
-        // reload_swaync();
     }
 
 }
 
 
-fn setup_wallpaper(image_inp: &PathBuf, image_dest: &PathBuf) {
+fn copy_converted(image_path: &PathBuf, image_dest: &PathBuf) {
 
-    match image_inp.extension().expect("Input image doesn't have an extension").to_str() {
+    match image_path.extension().expect("Input image doesn't have an extension").to_str() {
         Some("png") => {
             info!("Copying the image in config");
 
             copy(
-                image_inp,
+                image_path,
                 image_dest
             ).expect("Could not copy image in wallpaper path");
 
@@ -60,7 +59,7 @@ fn setup_wallpaper(image_inp: &PathBuf, image_dest: &PathBuf) {
             info!("Converting the image in png and moving it");
 
             Command::new("magick")
-                .arg(image_inp)
+                .arg(image_path)
                 .arg(image_dest)
                 .spawn().expect("There was an error with coverting the image in png (magick)")
                 .wait().expect("There was an error with coverting the image in png (magick)");
@@ -83,8 +82,7 @@ fn run_matugen(image_dir: &PathBuf) {
 
 }
 
-fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf, original_image: &Path) {
-
+fn blur_wallpaper(converted_image: &PathBuf, path_blurred: &PathBuf, original_img: &PathBuf) {
 
     fn run_blur(image_path: &PathBuf, image_blurred: &PathBuf) {
 
@@ -98,7 +96,7 @@ fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf, original_image:
 
     }
 
-    info!("Checking the cache for an already blurred wallpaper");
+    info!("Checking for a cache dir");
     let cache_dir = match var("HOME") {
         Ok(home) => {
             let home_path = PathBuf::from(home).join(".cache").join("jackwall");
@@ -115,29 +113,28 @@ fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf, original_image:
         _ => CacheState::Error
     };
 
-
     match cache_dir {
 
         CacheState::Found(dir) => {
 
-            let cache_file = dir.join(original_image.file_name().expect("Could not get basename of file"));
+            let cache_file = dir.join(original_img.file_name().expect("Could not get basename of file"));
             if cache_file.exists() {
 
                 info!("Using image found in cache");
                 Command::new("cp")
                     .arg(cache_file)
-                    .arg(image_blurred)
+                    .arg(path_blurred)
                     .spawn().expect("Could not copy image in cache to correct location")
                     .wait().expect("Could not copy image in cache to correct location");
 
             }
             else {
                 info!("Blurring wallpaper");
-                run_blur(image_path, image_blurred);
+                run_blur(converted_image, path_blurred);
 
                 info!("Creating image on cache");
                 Command::new("cp")
-                    .arg(image_blurred)
+                    .arg(path_blurred)
                     .arg(cache_file)
                     .spawn().expect("Could not copy image in cache to correct location")
                     .wait().expect("Could not copy image in cache to correct location");
@@ -147,12 +144,12 @@ fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf, original_image:
 
         CacheState::Created(dir) => {
             info!("Blurring wallpaper");
-            run_blur(image_path, image_blurred);
+            run_blur(converted_image, path_blurred);
 
             info!("Creating image on cache");
-            let cache_file = dir.join(original_image.file_name().expect("Could not get basename of file"));
+            let cache_file = dir.join(original_img.file_name().expect("Could not get basename of file"));
             Command::new("cp")
-                .arg(image_blurred)
+                .arg(path_blurred)
                 .arg(cache_file)
                 .spawn().expect("Could not copy image in cache to correct location")
                 .wait().expect("Could not copy image in cache to correct location");
@@ -161,7 +158,7 @@ fn blur_wallpaper(image_path: &PathBuf, image_blurred: &PathBuf, original_image:
 
         CacheState::Error => {
             info!("Blurring wallpaper");
-            run_blur(image_path, image_blurred);
+            run_blur(original_img, path_blurred);
         }
 
     }

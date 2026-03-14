@@ -37,7 +37,7 @@ pub fn execute_wallpaper_command(image_path: PathBuf, reload: bool) {
 
     if reload {
         reload_hyprland();
-        reload_quickshell();
+        // reload_quickshell();
     }
 
 }
@@ -79,6 +79,8 @@ fn run_matugen(image_dir: &PathBuf) {
         .arg("--verbose")
         .spawn().expect("There was an error with matugen")
         .wait().expect("There was an error with matugen");
+
+    info!("Matugen executed correctfully");
 
 }
 

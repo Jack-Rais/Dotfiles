@@ -2,9 +2,9 @@
 version_check = true
 caching = false
 
-[config.wallpaper]
-command = "hyprpaper"
-set = true
+# [config.wallpaper]
+# command = "hyprpaper"
+# set = true
 
 # [templates.waybar]
 # input_path = '~/.config/matugen/templates/colors.css'

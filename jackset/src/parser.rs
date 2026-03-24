@@ -60,7 +60,11 @@ pub enum Commands {
 
         /// Setup the display manager
         #[arg(short, long)]
-        display: bool
+        display: bool,
+
+        /// Enable configured services
+        #[arg(short, long)]
+        services: bool
 
     }
 

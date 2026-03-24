@@ -17,7 +17,10 @@ pub struct Config {
     pub directories: Option<Vec<String>>,
 
     #[serde(default)]
-    pub display_manager_conf: Option<String>
+    pub display_manager_conf: Option<String>,
+
+    #[serde(default)]
+    pub sysd_services: Option<Vec<String>>
 
 }
 
@@ -28,7 +31,8 @@ impl Config {
             pacman: None,
             aur: None,
             directories: None,
-            display_manager_conf: None
+            display_manager_conf: None,
+            sysd_services: None
         }
     }
 
@@ -47,6 +51,7 @@ impl Config {
                 if user_config.aur.is_none() { config.aur = user_config.aur; }
                 if user_config.directories.is_none() { config.directories = user_config.directories; }
                 if user_config.display_manager_conf.is_some() { config.display_manager_conf = user_config.display_manager_conf; }
+                if user_config.sysd_services.is_some() { config.sysd_services= user_config.sysd_services; }
 
             }
         }

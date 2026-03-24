@@ -67,3 +67,10 @@ GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT
 [Theme]
 Current=silent
 """
+
+sysd_services = [
+    "bluetooth",
+    "libvirtd",
+    "NetworkManager",
+    "sddm.service",
+]

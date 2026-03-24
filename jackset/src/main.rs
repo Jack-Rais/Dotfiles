@@ -5,6 +5,7 @@ pub mod helpers {
     pub mod load_mode;
     pub mod install_update;
     pub mod display_manager;
+    pub mod start_services;
 }
 
 
@@ -13,13 +14,14 @@ use std::io::Write;
 use clap::Parser;
 use env_logger::{Builder, Env, Target, WriteStyle};
 use chrono::Local;
-use log::{debug, info};
+use log::debug;
 
 use crate::deserialize::Config;
 use crate::helpers::display_manager::setup_display_manager;
 use crate::helpers::install_update::{install_pacman_deps, install_paru_deps};
-use crate::parser::{Cli, Commands, LinkMode};
 use crate::helpers::load_mode::{reload_config, setup_files};
+use crate::helpers::start_services::start_services;
+use crate::parser::{Cli, Commands, LinkMode};
 
 
 fn main() {
@@ -56,7 +58,7 @@ fn main() {
             }
 
         },
-        Commands::Setup { pacman, aur, display } => {
+        Commands::Setup { pacman, aur, display, services } => {
 
             if pacman {
                 install_pacman_deps(config.pacman.unwrap());
@@ -68,6 +70,10 @@ fn main() {
 
             if display {
                 setup_display_manager(config.display_manager_conf.unwrap());
+            }
+
+            if services {
+                start_services(config.sysd_services.unwrap());
             }
 
         }

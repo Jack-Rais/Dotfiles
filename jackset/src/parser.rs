@@ -2,67 +2,86 @@
 use std::path::PathBuf;
 use std::env::current_dir;
 
-use clap::{Parser, ValueEnum};
+use dirs::config_dir;
+use clap::{Parser, ValueEnum, Subcommand};
 
 
 /// A JackRais' specific setup tool
 #[derive(Parser, Debug)]
-#[command(
-    version, about,
-    group(
-        clap::ArgGroup::new("commands")
-            .required(true)
-            .multiple(true)
-            .args(&["config", "mode", "update", "pacman_dep", "aur_dep", "display", "setup"])
-    )
-)]
-pub struct SetupArgs {
+pub struct Cli {
 
     /// What configuration file to use
-    #[arg(short, long)]
+    #[arg(short, long, global = true, value_name = "FILE")]
     pub config: Option<PathBuf>,
 
-    /// Wether to link/copy/do nothing the dots files
-    #[arg(short, long, value_enum, default_value_t = ModeLoad::Nothing)]
-    pub mode: ModeLoad,
-
-    /// Dotfiles directory (defaults to current one)
-    #[arg(short, long, default_value = current_dir().expect("Could not get current dir").into_os_string(), requires = "mode")]
-    pub source: PathBuf,
-
-    /// Wether to update the system
-    #[arg(short, long)]
-    pub update: bool,
-
-    /// Wether to install pacman dependencies
-    #[arg(short, long = "pacman")]
-    pub pacman_dep: bool,
-
-    /// Wether to install aur dependencies
-    #[arg(short, long = "aur")]
-    pub aur_dep: bool,
-
-    /// Wether to setup display manager
-    #[arg(short, long)]
-    pub display: bool,
-
-    /// Wether to setup the system
-    #[arg(short = 'S', long)]
-    pub setup: bool
+    #[command(subcommand)]
+    pub command: Commands
 
 }
 
+#[derive(Subcommand, Debug)]
+pub enum Commands {
 
-#[derive(ValueEnum, Clone, Debug)]
-pub enum ModeLoad {
+    /// Link or copy configuration files
+    Link {
 
+        /// The source directory where the program searches for the directories
+        #[arg(short, long, default_value = default_current_dir(), value_name = "DIR")]
+        source: PathBuf,
+
+        /// The destination path where the program copies or link the files
+        #[arg(short, long, default_value = default_config_dir(), value_name = "DIR")]
+        destination: PathBuf,
+
+        /// Link or copy directories (comma separated list)
+        #[arg(short, long, value_delimiter = ',')]
+        target: Option<Vec<String>>,
+
+        /// How to handle the files
+        #[arg(short, long, value_enum, default_value_t = LinkMode::Link)]
+        mode: LinkMode,
+
+        /// Whether to reload hyprland config
+        #[arg(short, long)]
+        reload: bool
+
+    },
+
+    /// Setup dependencies
+    Setup {
+
+        /// Install pacman dependencies
+        #[arg(short, long)]
+        pacman: bool,
+
+        /// Install aur dependencies
+        #[arg(short, long)]
+        aur: bool,
+
+        /// Setup the display manager
+        #[arg(short, long)]
+        display: bool
+
+    }
+
+}
+
+#[derive(ValueEnum, Clone, Debug, Default, PartialEq)]
+pub enum LinkMode {
+
+    #[default]
     #[value(alias = "l")]
     Link,
 
     #[value(alias = "c")]
-    Copy,
+    Copy
 
-    #[value(alias = "n")]
-    Nothing
+}
 
+fn default_current_dir() -> String {
+    current_dir().expect("Could not determine current directory").to_string_lossy().into()
+}
+
+fn default_config_dir() -> String {
+    config_dir().expect("Could not determine configuration directory").to_string_lossy().into()
 }

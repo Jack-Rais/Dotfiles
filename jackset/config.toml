@@ -1,75 +1,49 @@
 
 
-[pacman]
-packages = [
-    "alacritty",
+pacman = [
     "base",
-    "base-devel",
-    "bluez",
+    "blueman",
     "bluez-utils",
     "brightnessctl",
-    "cpupower",
-    "dnsmasq",
     "docker",
-    "docker-buildx",
     "dolphin",
-    "dosfstools",
-    "efibootmgr",
     "fastfetch",
     "fd",
-    "fish",
     "fzf",
+    "grub",
     "htop",
     "hypridle",
     "hyprland",
     "hyprlock",
-    "hyprpaper",
-    "hyprpicker",
     "hyprpolkitagent",
     "hyprshot",
-    "imagemagick",
     "kitty",
-    "linux",
-    "linux-firmware",
     "loupe",
-    "man-db",
     "matugen",
-    "neovim",
-    "networkmanager",
-    "npm",
-    "openbsd-netcat",
-    "os-prober",
     "pacman-contrib",
     "pavucontrol",
-    "pipewire-alsa",
-    "pipewire-pulse",
-    "power-profiles-daemon",
-    "python-pip",
-    "python-uv",
-    "quickshell",
-    "rofi",
     "rustup",
     "starship",
     "tree-sitter-cli",
     "ttf-jetbrains-mono",
-    "ttf-jetbrains-mono-nerd",
+    "ttf-material-symbols-variable",
     "unzip",
-    "vim",
-    "waybar",
+    "virt-manager",
     "wget",
-    "xdg-desktop-portal-hyprland",
+    "whois",
+    "wl-clip-persist",
+    "zellij",
     "zip",
 ]
 
-[paru]
-packages = [
+aur = [
+    "phinger-cursors",
     "popsicle",
     "sddm-silent-theme",
     "zen-browser-bin",
 ]
 
-[dotfiles]
-dirs = [
+directories = [
     "fastfetch",
     "fish",
     "fontconfig",
@@ -85,8 +59,7 @@ dirs = [
     "waybar",
 ]
 
-[display_manager]
-conf = """
+display_manager_conf = """
 [General]
 InputMethod=qtvirtualkeyboard
 GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard

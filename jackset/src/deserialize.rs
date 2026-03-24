@@ -1,54 +1,57 @@
 
 use std::path::PathBuf;
-use std::env::current_dir;
+
 use serde::Deserialize;
-use toml;
 
 
-#[derive(Deserialize)]
+#[derive(Debug, Default, Deserialize)]
 pub struct Config {
-    pub pacman: Option<PackageList>,
-    pub paru: Option<PackageList>,
-    pub dotfiles: Option<Dotfiles>,
-    pub display_manager: Option<DisplayManager>
+
+    #[serde(default)]
+    pub pacman: Option<Vec<String>>,
+
+    #[serde(default)]
+    pub aur: Option<Vec<String>>,
+
+    #[serde(default)]
+    pub directories: Option<Vec<String>>,
+
+    #[serde(default)]
+    pub display_manager_conf: Option<String>
+
 }
+
 impl Config {
+
     pub fn empty() -> Self {
         Self {
             pacman: None,
-            paru: None,
-            dotfiles: None,
-            display_manager: None
+            aur: None,
+            directories: None,
+            display_manager_conf: None
         }
     }
-}
 
-#[derive(Deserialize)]
-pub struct PackageList {
-    pub packages: Vec<String>
-}
+    pub fn load(config_path: Option<PathBuf>) -> Self {
 
-#[derive(Deserialize)]
-pub struct Dotfiles {
-    pub dirs: Vec<String>
-}
+        let default_config = include_str!("../config.toml");
+        let mut config: Self = toml::from_str(default_config).expect("Failed to parse internal config");
 
-#[derive(Deserialize)]
-pub struct DisplayManager {
-    pub conf: String
-}
+        if let Some(user_path) = config_path {
+            if user_path.exists() {
 
+                let user_config_string = std::fs::read_to_string(user_path).expect("Could not read user config path");
+                let user_config: Self = toml::from_str(&user_config_string).expect("Could not parse user config");
 
-pub fn deserialize_toml(toml_obj: String) -> Config {
-    toml::from_str(&toml_obj).expect("Could not parse toml file")
-}
+                if user_config.pacman.is_none() { config.pacman = user_config.pacman; }
+                if user_config.aur.is_none() { config.aur = user_config.aur; }
+                if user_config.directories.is_none() { config.directories = user_config.directories; }
+                if user_config.display_manager_conf.is_some() { config.display_manager_conf = user_config.display_manager_conf; }
 
-pub fn read_config(config_file: PathBuf) -> Config {
+            }
+        }
 
-    let conf_path = current_dir().unwrap().join(config_file);
-    let content_config = std::fs::read_to_string(conf_path).expect("Unable to read config file");
-    let conf: Config = toml::from_str(&content_config).expect("Could not parse toml file");
-
-    conf
+        config
+    }
 
 }

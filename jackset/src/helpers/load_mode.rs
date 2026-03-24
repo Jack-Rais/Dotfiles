@@ -58,46 +58,43 @@ impl Iterator for Finder {
 }
 
 
+fn setup_single_directory(source: &Path, destination: &Path, link: bool) {
 
-pub fn setup_files(configs: Vec<String>, source: &Path, link: bool) {
-
-    let destination = PathBuf::from(var("HOME").expect("Could not get HOME dir")).join(".config");
-
-    for name_conf in configs {
-        info!("Processing: {name_conf}");
-
-        let dest_conf = destination.join(&name_conf);
-        let origin_conf = source.join(&name_conf);
-
-        if dest_conf.exists() {
-            info!("Cleaning {name_conf}");
-            fs::remove_dir_all(&dest_conf).expect("Could not clean dir");
-        }
-
-        let finder = Finder::new(&origin_conf);
-        for origin_file in finder {
-
-            let dest_file = dest_conf.join(origin_file.strip_prefix(&origin_conf).unwrap());
-            fs::create_dir_all(dest_file.parent().unwrap()).unwrap();
-
-            debug!("{origin_file:?} -> {dest_file:?}");
-
-            if link {
-                symlink(origin_file, dest_file).unwrap();
-            }
-            else {
-                fs::copy(origin_file, dest_file).unwrap();
-            }
-        }
-
+    if destination.exists() {
+        info!("Cleaning {destination:?}");
+        fs::remove_dir_all(destination).expect("Could not clean dir");
     }
 
-    reload_config();
+    info!("Copying {source:?} into {destination:?}");
+
+    let finder = Finder::new(source);
+    for origin_file in finder {
+
+        let dest_file = destination.join(origin_file.strip_prefix(source).unwrap());
+        fs::create_dir_all(dest_file.parent().unwrap()).unwrap();
+
+        debug!("{origin_file:?} -> {dest_file:?}");
+
+        if link {
+            symlink(origin_file, dest_file).unwrap();
+        }
+        else {
+            fs::copy(origin_file, dest_file).unwrap();
+        }
+    }
+
+}
+
+pub fn setup_files(source: &Path, destination: &Path, targets: Vec<String>, link: bool) {
+
+    for name_dir in targets {
+        setup_single_directory(&source.join(&name_dir), &destination.join(&name_dir), link);
+    }
 
 }
 
 
-fn reload_config() {
+pub fn reload_config() {
 
     if var("HYPRLAND_INSTANCE_SIGNATURE").is_ok() {
 

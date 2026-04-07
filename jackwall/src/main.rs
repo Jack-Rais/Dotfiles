@@ -53,7 +53,7 @@ fn main() {
     let args = WallArguments::parse();
 
     if let Some(wallpaper_img) = args.wallpaper {
-        execute_wallpaper_command(wallpaper_img, args.reload);
+        execute_wallpaper_command(&wallpaper_img, args.reload);
     }
 
     if let Some(profile_img) = args.profile {

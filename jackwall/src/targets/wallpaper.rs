@@ -1,31 +1,21 @@
 
-use std::fs::{copy, create_dir};
+use std::fs::{copy, create_dir_all};
 use std::process::Command;
-use std::path::PathBuf;
-use std::env::var;
+use std::path::Path;
 
 use log::{info, debug};
+use dirs::{cache_dir, config_dir};
 
 
-#[derive(Debug)]
-enum CacheState {
-    Error,
-    Created(PathBuf),
-    Found(PathBuf)
-}
-
-
-
-pub fn execute_wallpaper_command(image_path: PathBuf, reload: bool) {
+pub fn execute_wallpaper_command(image_path: &Path, reload: bool) {
 
     info!("Setting up the wallpaper");
 
-    let home_path = PathBuf::from(var("HOME").expect("Could not resolve HOME var"));
-    let wall_path = home_path.join(".config/quickshell/assets/wallpaper.png");
-    let blur_path = home_path.join(".config/hypr/wallpapers/current_blurred.png");
+    let home_path = config_dir().expect("Could not resolve config directory");
+    let wall_path = home_path.join("quickshell/assets/wallpaper.png");
+    let blur_path = home_path.join("hypr/wallpapers/current_blurred.png");
 
-    // Copying the image into the right place
-    copy_converted(&image_path, &wall_path);
+    preprocess_image(image_path, &wall_path);
 
     run_matugen(&wall_path);
     blur_wallpaper(
@@ -37,225 +27,116 @@ pub fn execute_wallpaper_command(image_path: PathBuf, reload: bool) {
 
     if reload {
         reload_hyprland();
-        // reload_quickshell();
     }
 
 }
 
 
-fn copy_converted(image_path: &PathBuf, image_dest: &PathBuf) {
+fn run_command(cmd: &str, build: impl FnOnce(&mut Command)) {
 
-    match image_path.extension().expect("Input image doesn't have an extension").to_str() {
+    let mut command = Command::new(cmd);
+    build(&mut command);
+
+    let status = command.status().unwrap_or_else(|_| panic!("Failed to run {}", cmd));
+
+    if !status.success() {
+        panic!("Failed to run {}", cmd);
+    }
+
+}
+
+
+fn preprocess_image(image_path: &Path, wall_path: &Path) {
+
+    match image_path.extension().and_then(|e| e.to_str()) {
         Some("png") => {
-            info!("Copying the image in config");
 
-            copy(
-                image_path,
-                image_dest
-            ).expect("Could not copy image in wallpaper path");
+            info!("Copying the image in config");
+            copy(image_path, &wall_path).expect("Could not copy image in wallpaper path");
 
         },
         _ => {
-            info!("Converting the image in png and moving it");
 
-            Command::new("magick")
-                .arg(image_path)
-                .arg(image_dest)
-                .spawn().expect("There was an error with coverting the image in png (magick)")
-                .wait().expect("There was an error with coverting the image in png (magick)");
+            info!("Converting the image in png and moving it");
+            run_command("magick", |cmd| {
+                cmd.args([image_path, &wall_path]);
+            });
 
         }
     }
 
+
+
 }
 
-fn run_matugen(image_dir: &PathBuf) {
+
+fn run_matugen(image_dir: &Path) {
 
     info!("Running matugen");
 
-    Command::new("matugen")
-        .arg("image")
-        .arg(image_dir)
-        .arg("--verbose")
-        .spawn().expect("There was an error with matugen")
-        .wait().expect("There was an error with matugen");
+    run_command("matugen", |cmd| {
+        cmd
+            .arg("image")
+            .arg(image_dir)
+            .arg("--verbose");
+    });
 
-    info!("Matugen executed correctfully");
+    info!("Matugen executed succesfully");
 
 }
 
-fn blur_wallpaper(converted_image: &PathBuf, path_blurred: &PathBuf, original_img: &PathBuf) {
+fn blur_wallpaper(converted_image: &Path, path_blurred: &Path, original_img: &Path) {
 
-    fn run_blur(image_path: &PathBuf, image_blurred: &PathBuf) {
+    fn run_blur(img_in: &Path, img_out: &Path) {
 
         info!("Running imagemagick to blur the wallpaper");
-        Command::new("magick")
-            .arg(image_path)
-            .args(["-blur", "0x8"])
-            .arg(image_blurred)
-            .spawn().expect("There was an error with blurring (magick)")
-            .wait().expect("There was an error with blurring (magick)");
+        run_command("magick", |cmd| {
+            cmd
+                .arg(img_in)
+                .args(["-blur", "0x8"])
+                .arg(img_out);
+        });
 
     }
 
     info!("Checking for a cache dir");
-    let cache_dir = match var("HOME") {
-        Ok(home) => {
-            let home_path = PathBuf::from(home).join(".cache").join("jackwall");
-            if home_path.exists() {
-                CacheState::Found(home_path)
-            }
-            else {
-                match create_dir(&home_path) {
-                    Ok(_) => CacheState::Created(home_path),
-                    _ => CacheState::Error
-                }
-            }
-        }
-        _ => CacheState::Error
-    };
+    match cache_dir() {
+        Some(cache_dir) => {
 
-    match cache_dir {
+            let cache_jackwall = cache_dir.join("jackwall");
+            let cache_file = cache_jackwall.join(original_img.file_name().unwrap());
 
-        CacheState::Found(dir) => {
-
-            let cache_file = dir.join(original_img.file_name().expect("Could not get basename of file"));
             if cache_file.exists() {
 
-                info!("Using image found in cache");
-                Command::new("cp")
-                    .arg(cache_file)
-                    .arg(path_blurred)
-                    .spawn().expect("Could not copy image in cache to correct location")
-                    .wait().expect("Could not copy image in cache to correct location");
+                debug!("Cache file exists, using that");
+                copy(cache_file, path_blurred).expect("Could not copy cached image in config");
+                return;
 
             }
-            else {
-                info!("Blurring wallpaper");
-                run_blur(converted_image, path_blurred);
 
-                info!("Creating image on cache");
-                Command::new("cp")
-                    .arg(path_blurred)
-                    .arg(cache_file)
-                    .spawn().expect("Could not copy image in cache to correct location")
-                    .wait().expect("Could not copy image in cache to correct location");
-            }
-
-        },
-
-        CacheState::Created(dir) => {
-            info!("Blurring wallpaper");
+            debug!("Cache file not found, blurring image");
             run_blur(converted_image, path_blurred);
 
-            info!("Creating image on cache");
-            let cache_file = dir.join(original_img.file_name().expect("Could not get basename of file"));
-            Command::new("cp")
-                .arg(path_blurred)
-                .arg(cache_file)
-                .spawn().expect("Could not copy image in cache to correct location")
-                .wait().expect("Could not copy image in cache to correct location");
+            debug!("Creating memory in cache");
+            create_dir_all(cache_dir.join("jackwall")).expect("Could not create cache directory");
+            copy(path_blurred, cache_file).expect("Could not copy blurred file in cache");
 
         },
+        None => {
 
-        CacheState::Error => {
-            info!("Blurring wallpaper");
-            run_blur(original_img, path_blurred);
+            debug!("Cache file not found, blurring image");
+            run_blur(converted_image, path_blurred);
+
         }
-
     }
 
 }
-
-
-fn reload_quickshell() {
-
-    info!("Reloading quickshell");
-
-    debug!("Killing quickshell");
-    Command::new("killall")
-        .arg("quickshell")
-        .spawn().expect("There was an error while killing quickshell")
-        .wait().expect("There was an error while killing quickshell");
-
-    debug!("Starting quickshell");
-    Command::new("hyprctl")
-        .args(["dispatch", "exec", "quickshell"])
-        .spawn().expect("There was an error while starting quickshell")
-        .wait().expect("There was an error while starting quickshell");
-}
-
-
 
 fn reload_hyprland() {
 
     info!("Reloading hyprland");
 
     debug!("Reloading hyprctl");
-    Command::new("hyprctl")
-        .arg("reload")
-        .spawn().expect("There was an error with reloading hyprland")
-        .wait().expect("There was an error with reloading hyprland");
-
-    // debug!("Killing hyprpaper");
-    // Command::new("killall")
-    //     .arg("hyprpaper")
-    //     .spawn().expect("There was an error while killing hyprpaper")
-    //     .wait().expect("There was an error while killing hyprpaper");
-    //
-    // debug!("Starting hyprpaper");
-    // Command::new("hyprctl")
-    //     .args(["dispatch", "exec", "hyprpaper"])
-    //     .spawn().expect("There was an error while starting hyprpaper")
-    //     .wait().expect("There was an error while starting hyprpaper");
+    run_command("hyprctl", |cmd| { cmd.arg("reload"); });
 
 }
-
-
-// fn reload_waybar() {
-//
-//     info!("Reloading waybar");
-//
-//     debug!("Killing waybar");
-//     Command::new("killall")
-//         .arg("waybar")
-//         .spawn().expect("There was an error with killing waybar")
-//         .wait().expect("There was an error with killing waybar");
-//
-//     debug!("Starting waybar");
-//     Command::new("hyprctl")
-//         .args(["dispatch", "exec", "waybar"])
-//         .spawn().expect("There was an error while reloading waybar")
-//         .wait().expect("There was an error while reloading waybar");
-//
-// }
-
-
-// fn reload_swaync() {
-//
-//     info!("Reloading swaync");
-//
-//     debug!("Killing swaync");
-//     Command::new("killall")
-//         .arg("swaync")
-//         .spawn().expect("There was an error while killing swaync")
-//         .wait().expect("There was an error while killing swaync");
-//
-//     debug!("Starting swaync daemon");
-//     Command::new("hyprctl")
-//         .args(["dispatch", "exec", "swaync"])
-//         .spawn().expect("There was an error while starting swaync")
-//         .wait().expect("There was an error while starting swaync");
-//
-//     debug!("Reloading swaync configuration");
-//     Command::new("swaync-client")
-//         .arg("-R")
-//         .spawn().expect("There was an error while reloading swaync configuration")
-//         .wait().expect("There was an error while reloading swaync configuration");
-//
-//     Command::new("swaync-client")
-//         .arg("-rs")
-//         .spawn().expect("There was an error while reloading swaync configuration")
-//         .wait().expect("There was an error while reloading swaync configuration");
-//
-// }

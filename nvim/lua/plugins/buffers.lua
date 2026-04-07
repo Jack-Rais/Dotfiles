@@ -5,15 +5,11 @@ return {
         'nvim-tree/nvim-web-devicons',
     },
     config = function ()
-        
+
         local bufferline = require("bufferline")
 
         bufferline.setup {
             options = {
-
-                -- close_command = function (n)
-                --     Snacks.bufdelete(n)
-                -- end,
 
                 show_buffer_close_icons = false,
                 separator_style = { "", "" },
@@ -22,13 +18,6 @@ return {
 
                 numbers = function(opts)
                     return string.format("%s", opts.ordinal)
-                end,
-
-                custom_filter = function(buf_number)
-                    -- filter out filetypes you don't want to see
-                    if vim.bo[buf_number].filetype ~= "qf" then
-                        return true
-                    end
                 end,
 
                 offsets = {
@@ -43,6 +32,13 @@ return {
             }
         }
     end,
-    
-    keys = require("keybindings.buffers").get_mappings()
+
+    keys = {
+        { "<C-k>",       "<cmd>BufferLineCycleNext<CR>",               mode = "n", desc = "Cycle Forward" },
+        { "<C-j>",       "<cmd>BufferLineCyclePrev<CR>",               mode = "n", desc = "Cycle Backward" },
+        { "<C-BS>",      "<cmd>bdelete<CR>",                           desc = "Delete current buffer" },
+        { "<leader>bb",  "<cmd>BufferLineMovePrev<CR>",                desc = "Move back" },
+        { "<leader>bn",  "<cmd>BufferLineMoveNext<CR>",                desc = "Move next" },
+    }
+
 }

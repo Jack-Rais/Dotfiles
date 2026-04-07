@@ -4,7 +4,7 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     config = function()
-        -- La funzione di confronto deve essere definita qui dentro
+
         local function natural_cmp(left, right)
             local specials = {
                 ["__init__.py"] = true,
@@ -30,7 +30,6 @@ return {
                 end
             end
 
-            -- If one is special it comes first
             if specials[left.name] and not specials[right.name] then
                 return true
             elseif specials[right.name] and not specials[left.name] then

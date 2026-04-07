@@ -14,7 +14,6 @@ return {
             callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if client then
-                    -- Disattiva semantic highlighting
                     client.server_capabilities.semanticTokensProvider = nil
                 end
             end,

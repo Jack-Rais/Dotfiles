@@ -26,7 +26,7 @@ return {
 
                 if pcall(vim.treesitter.language.inspect, language_name) then
                     vim.treesitter.start(ev.buf)
-                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                 end
 
             end

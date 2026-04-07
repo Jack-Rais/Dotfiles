@@ -69,13 +69,13 @@ return {
         end
 
         vim.cmd [[
-            :hi NvimTreeGitDirty guifg=#ffaa00
-            :hi NvimTreeGitStaged guifg=#ffaa00
-            :hi NvimTreeGitDeleted guifg=#ff0000
-            :hi NvimTreeGitMerge guifg=#00ffff
-            :hi NvimTreeGitNew guifg=#00ff00
-            :hi NvimTreeGitIgnored guifg=#888888
-            :hi VertSplit cterm=NONE ctermfg=NONE ctermbg=NONE
+          :hi NvimTreeGitDirtyIcon guifg=#ffaa00
+          :hi NvimTreeGitStagedIcon guifg=#ffaa00
+          :hi NvimTreeGitDeletedIcon guifg=#ff0000
+          :hi NvimTreeGitMergeIcon guifg=#00ffff
+          :hi NvimTreeGitNewIcon guifg=#00ff00
+          :hi NvimTreeGitIgnoredIcon guifg=#888888
+          :hi VertSplit cterm=NONE ctermfg=NONE ctermbg=NONE
         ]]
 
         require("nvim-tree").setup({

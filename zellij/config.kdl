@@ -1,0 +1,86 @@
+
+//          ╭─────────────────────────────────────────────────────────╮
+//          │                     General Config                      │
+//          ╰─────────────────────────────────────────────────────────╯
+
+copy_command "wl-copy"
+on_force_close "quit"
+pane_frames false
+show_startup_tips false
+show_release_notes false
+
+
+//          ╭─────────────────────────────────────────────────────────╮
+//          │                        Ui Config                        │
+//          ╰─────────────────────────────────────────────────────────╯
+
+default_layout "default"
+
+ui {
+    pane_frames {
+        hide_session_name true
+    }
+}
+
+
+
+//          ╭─────────────────────────────────────────────────────────╮
+//          │                       Keybindings                       │
+//          ╰─────────────────────────────────────────────────────────╯
+
+
+keybinds clear-defaults=true {
+
+    pane {
+        bind "j" { NewPane "down"; SwitchToMode "normal"; }
+        bind "l" { NewPane; SwitchToMode "normal"; }
+        bind "x" { CloseFocus; SwitchToMode "normal"; }
+    }
+
+    tab {
+        bind "left" { GoToPreviousTab; }
+        bind "right" { GoToNextTab; }
+        bind "1" { GoToTab 1; SwitchToMode "normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "normal"; }
+        bind "6" { GoToTab 6; SwitchToMode "normal"; }
+        bind "7" { GoToTab 7; SwitchToMode "normal"; }
+        bind "8" { GoToTab 8; SwitchToMode "normal"; }
+        bind "9" { GoToTab 9; SwitchToMode "normal"; }
+        bind "n" { NewTab; SwitchToMode "normal"; }
+        bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
+        bind "Ctrl t" { SwitchToMode "normal"; }
+        bind "x" { CloseTab; SwitchToMode "normal"; }
+        bind "tab" { ToggleTab; }
+    }
+
+    shared_except "pane" "tab" {
+
+        bind "Ctrl p" { SwitchToMode "pane"; }
+        bind "Ctrl t" { SwitchToMode "tab"; }
+
+        bind "Alt h" { MoveFocus "left"; }
+        bind "Alt j" { MoveFocus "down"; }
+        bind "Alt k" { MoveFocus "up"; }
+        bind "Alt l" { MoveFocus "right"; }
+
+        bind "Alt n" { GoToPreviousTab; }
+        bind "Alt m" { GoToNextTab; }
+
+        bind "Alt i" { MoveTab "left"; }
+        bind "Alt o" { MoveTab "right"; }
+
+        bind "Alt q" { CloseTab; }
+        bind "Alt x" { CloseFocus; }
+
+        bind "Ctrl q" { Quit; }
+    }
+
+    shared_among "pane" "tab" {
+        bind "Enter" { SwitchToMode "normal"; }
+    }
+
+}

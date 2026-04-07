@@ -2,6 +2,7 @@
 import QtQuick
 import Qt5Compat.GraphicalEffects
 import Quickshell
+import Quickshell.Io
 
 import qs.config
 import qs.components
@@ -12,6 +13,12 @@ BaseWidget {
     required property PersistentProperties visibilities
     childWidth: Appearance.bar.height - Appearance.bar.padding * 2
 
+    Process {
+        id: shutdownProc
+        running: false
+        command: [ "shutdown", "now" ]
+    }
+
     StateLayer {
 
         anchors.fill: parent
@@ -20,7 +27,7 @@ BaseWidget {
 
         function onClicked(): void {
             // root.visibilities.power = !root.visibilities.power
-            Quickshell.execDetached("shutdown now")
+            shutdownProc.running = true
         }
 
     }

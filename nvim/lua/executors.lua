@@ -1,83 +1,86 @@
+-- executors.lua
 local Terminal = require("toggleterm.terminal").Terminal
 
--- ============================================================
--- HELPERS
--- ============================================================
+local M = {}
 
 local function make_term(direction, cmd)
     return Terminal:new({ direction = direction, cmd = cmd, close_on_exit = false })
 end
 
-local function execute(cmd)
-    local map = vim.keymap.set
-    local opts = { buffer = true }
+local function setup_keymaps(cmd, test_cmd)
+    local opts = { buffer = true, noremap = true, silent = true }
 
-    map("n", "<leader>xv", function()
+    vim.keymap.set("n", "<leader>xv", function()
         vim.cmd("w")
         make_term("vertical", cmd):toggle()
     end, opts)
 
-    map("n", "<leader>xh", function()
+    vim.keymap.set("n", "<leader>xh", function()
         vim.cmd("w")
         make_term("horizontal", cmd):toggle()
     end, opts)
 
-    map("n", "<leader>xf", function()
+    vim.keymap.set("n", "<leader>xf", function()
         vim.cmd("w")
         make_term("float", cmd):toggle()
     end, opts)
+
+    if test_cmd then
+        vim.keymap.set("n", "<leader>Xv", function()
+            vim.cmd("w")
+            make_term("vertical", test_cmd):toggle()
+        end, opts)
+
+        vim.keymap.set("n", "<leader>Xh", function()
+            vim.cmd("w")
+            make_term("horizontal", test_cmd):toggle()
+        end, opts)
+    end
 end
 
-local function execute_test(cmd)
-    local map = vim.keymap.set
-    local opts = { buffer = true }
-
-    map("n", "<leader>Xv", function()
-        vim.cmd("w")
-        make_term("vertical", cmd):toggle()
-    end, opts)
-
-    map("n", "<leader>Xh", function()
-        vim.cmd("w")
-        make_term("horizontal", cmd):toggle()
-    end, opts)
-end
-
--- ============================================================
--- LANGUAGE RUNNERS
--- ============================================================
-
-local expand = vim.fn.expand
-
-return {
+local executors = {
     ["javascript,typescript"] = function()
-        execute("node " .. expand("%"))
+        setup_keymaps("node " .. vim.fn.expand("%"))
     end,
-
     ["python"] = function()
-        execute("python " .. expand("%"))
+        setup_keymaps("python " .. vim.fn.expand("%"))
     end,
-
     ["cpp"] = function()
-        local bin = expand("%:t:r")
-        execute(      string.format("g++ %s -o %s && ./%s",           expand("%"), bin, bin))
-        execute_test( string.format("g++ %s -o %s && ./%s<test.txt",  expand("%"), bin, bin))
+        local bin = vim.fn.expand("%:t:r")
+        local file = vim.fn.expand("%")
+        setup_keymaps(
+            string.format("g++ %s -o %s && ./%s", file, bin, bin),
+            string.format("g++ %s -o %s && ./%s<test.txt", file, bin, bin)
+        )
     end,
-
     ["c"] = function()
-        local bin = expand("%:t:r")
-        execute(string.format("gcc %s -o %s && ./%s", expand("%"), bin, bin))
+        local bin = vim.fn.expand("%:t:r")
+        local file = vim.fn.expand("%")
+        setup_keymaps(string.format("gcc %s -o %s && ./%s", file, bin, bin))
     end,
-
     ["zig"] = function()
-        local dir = expand("%:p:h")
-        execute(      "cd " .. dir .. "; zig build run")
-        execute_test( "cd " .. dir .. "; zig test")
+        local dir = vim.fn.expand("%:p:h")
+        setup_keymaps(
+            "cd " .. dir .. "; zig build run",
+            "cd " .. dir .. "; zig test"
+        )
     end,
-
     ["rust"] = function()
-        local dir = expand("%:p:h")
-        execute(      "cd " .. dir .. "; cargo run")
-        execute_test( "cd " .. dir .. "; cargo test")
+        local dir = vim.fn.expand("%:p:h")
+        setup_keymaps(
+            "cd " .. dir .. "; cargo run",
+            "cd " .. dir .. "; cargo test"
+        )
     end,
 }
+
+function M.setup()
+    for filetypes, executor_fn in pairs(executors) do
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = filetypes,
+            callback = executor_fn,
+        })
+    end
+end
+
+return M

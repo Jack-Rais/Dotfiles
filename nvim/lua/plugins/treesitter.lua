@@ -1,36 +1,34 @@
-return {
-    'nvim-treesitter/nvim-treesitter',
-    lazy = false,
-    build = ':TSUpdate',
-    event = "BufReadPre",
+require('nvim-treesitter').setup()
 
-    config = function ()
+local ensure_installed = {
+    'lua',
+    'rust',
+    'python',
+    'bash',
+    'html',
+    'css',
+    'javascript'
+}
 
-        local languages = {
-            'lua',
-            'rust',
-            'python',
-            'bash',
-            'html',
-            'css',
-            'javascript'
-        }
+local already_installed = require('nvim-treesitter.config').get_installed()
+local parsers_to_install = vim.iter(ensure_installed)
+    :filter(function(parser)
+        return not vim.tbl_contains(already_installed, parser)
+    end)
+    :totable()
 
-        require('nvim-treesitter').install(languages)
+require('nvim-treesitter').install(parsers_to_install)
 
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = '*',
-            callback = function(ev)
 
-                local language_name = vim.treesitter.language.get_lang(ev.match)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = '*',
+    callback = function(ev)
 
-                if pcall(vim.treesitter.language.inspect, language_name) then
-                    vim.treesitter.start(ev.buf)
-                    -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                end
+        local language_name = vim.treesitter.language.get_lang(ev.match)
 
-            end
-        })
+        if pcall(vim.treesitter.language.inspect, language_name) then
+            vim.treesitter.start(ev.buf)
+        end
 
     end
-}
+})

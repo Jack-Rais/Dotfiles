@@ -1,27 +1,21 @@
-return {
-    "olimorris/onedarkpro.nvim",
-    lazy = false,
-    priority = 1000, -- Importante: assicura il caricamento prima
-    config = function()
 
-        require("onedarkpro").setup({
-            styles = {
-                keywords = "bold,italic", -- Stile per le keyword
-                comments = "italic",
-                functions = "bold",
-                strings = "NONE",
-                variables = "NONE"
-            },
-            -- Altri settaggi opzionali
-            options = {
-                terminal_colors = true,
-                cursorline = true,
-                transparency = false
-            }
-        })
+require("onedarkpro").setup({
 
-        -- DOPO il setup, carica il colorscheme
-        vim.cmd.colorscheme("onedark")
+    styles = {
+        keywords = "bold,italic",
+        comments = "italic",
+        functions = "bold",
+        strings = "NONE",
+        variables = "NONE"
+    },
 
-    end,
-}
+    options = {
+        terminal_colors = true,
+        cursorline = true,
+        transparency = false
+    }
+
+})
+
+
+vim.cmd.colorscheme("onedark")

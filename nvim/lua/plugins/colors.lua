@@ -1,6 +1,3 @@
-return {
-    'brenoprata10/nvim-highlight-colors',
-    opts = {
-        render = 'background'
-    }
-}
+require('nvim-highlight-colors').setup({
+    render = 'background'
+})

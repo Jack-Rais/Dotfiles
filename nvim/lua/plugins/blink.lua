@@ -1,40 +1,31 @@
-return {
-    'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
-    version = '1.*',
+require('blink.cmp').setup({
 
-    opts = {
+    keymap = {
+        preset = "none",
 
-        keymap = {
-            preset = "none",
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-e>'] = { 'hide' },
+        ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
 
-            ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-            ['<C-e>'] = { 'hide' },
-            ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
+        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
 
-            ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-            ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<Tab>'] = { 'select_next', 'fallback'},
+        ['<S-Tab>'] = { 'select_prev', 'fallback'},
 
-            ['<Tab>'] = { 'select_next', 'fallback'},
-            ['<S-Tab>'] = { 'select_prev', 'fallback'},
-
-            ['<C-CR>'] = { 'select_and_accept' }
-        },
-
-        appearance = {
-            nerd_font_variant = 'mono'
-        },
-
-        completion = { documentation = { auto_show = true } },
-
-        sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
-        },
-
-        fuzzy = { implementation = "prefer_rust_with_warning" }
-
+        ['<C-CR>'] = { 'select_and_accept' }
     },
 
-    opts_extend = { "sources.default" }
+    appearance = {
+        nerd_font_variant = 'mono'
+    },
 
-}
+    completion = { documentation = { auto_show = true } },
+
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+
+    fuzzy = { implementation = "prefer_rust_with_warning" }
+
+})

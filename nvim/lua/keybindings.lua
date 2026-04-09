@@ -56,6 +56,17 @@ mc.addKeymapLayer(function(layerSet) layerSet("n", "<esc>", function() mc.clearC
 -- Undotree
 map("n", "<leader>u", "<cmd>lua require('undotree').toggle()<cr>")
 
+-- Buffers
+
+map('n', '<C-j>', '<Cmd>BufferPrevious<CR>', opts)
+map('n', '<C-k>', '<Cmd>BufferNext<CR>', opts)
+
+map('n', '<C-h>', '<Cmd>BufferMovePrevious<CR>', opts)
+map('n', '<C-l>', '<Cmd>BufferMoveNext<CR>', opts)
+
+map('n', '<C-BS>', '<Cmd>BufferClose<CR>', opts)
+
+
 -- ============================================================
 -- Quickfix / Location list navigation
 -- ============================================================

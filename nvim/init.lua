@@ -27,7 +27,7 @@ vim.pack.add({
     },
 
     -- UI and appearance
-    "https://github.com/akinsho/bufferline.nvim",
+    "https://github.com/romgrk/barbar.nvim.git",
     "https://github.com/olimorris/onedarkpro.nvim",
     "https://github.com/brenoprata10/nvim-highlight-colors",
     "https://github.com/lukas-reineke/indent-blankline.nvim",
@@ -64,7 +64,7 @@ require('plugins.blink')
 
 require('plugins.treesitter')
 
-require('bufferline').setup()
+require('plugins.buffers')
 require('plugins.theme')
 require('plugins.colors')
 require('ibl').setup()

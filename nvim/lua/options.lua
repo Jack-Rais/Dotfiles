@@ -90,10 +90,13 @@ vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { underline = false })
 -- ============================================================
 
 vim.diagnostic.config({
-    virtual_text     = true,
-    signs            = true,
-    underline        = true,
-    update_in_insert = false,
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+    float = {
+        border = "rounded",
+    }
 })
 
 

@@ -36,6 +36,12 @@ set -gx VISUAL /usr/bin/nvim
 set -gx SUDO_EDITOR /usr/bin/nvim
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 
+set -gx JAVA_HOME /usr/lib/jvm/java-17-openjdk
+set -gx ANDROID_HOME /opt/android-sdk
+
+set -gx PATH $PATH $ANDROID_HOME/cmdline-tools/latest/bin
+set -gx PATH $PATH $ANDROID_HOME/platform-tools
+set -gx PATH $PATH $ANDROID_HOME/emulator
 
 set -U fish_greeting ""
 # === Starship prompt ===

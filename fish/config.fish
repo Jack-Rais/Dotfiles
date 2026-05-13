@@ -43,6 +43,9 @@ set -gx PATH $PATH $ANDROID_HOME/cmdline-tools/latest/bin
 set -gx PATH $PATH $ANDROID_HOME/platform-tools
 set -gx PATH $PATH $ANDROID_HOME/emulator
 
+set -gx PATH $PATH ~/.cargo/bin/
+
+
 set -U fish_greeting ""
 # === Starship prompt ===
 starship init fish | source

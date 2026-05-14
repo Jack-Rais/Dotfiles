@@ -31,6 +31,7 @@ vim.pack.add({
     "https://github.com/olimorris/onedarkpro.nvim",
     "https://github.com/brenoprata10/nvim-highlight-colors",
     "https://github.com/lukas-reineke/indent-blankline.nvim",
+    "https://github.com/3rd/image.nvim",
 
     -- File navigation and search
     "https://github.com/nvim-tree/nvim-web-devicons",
@@ -68,6 +69,7 @@ require('plugins.buffers')
 require('plugins.theme')
 require('plugins.colors')
 require('ibl').setup()
+require('image').setup()
 
 require('plugins.nvim_tree')
 require('plugins.telescope')

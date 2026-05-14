@@ -86,6 +86,30 @@ vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { underline = false })
 
 
 -- ============================================================
+-- LSP
+-- ============================================================
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+    end,
+})
+
+vim.lsp.enable('kotlin_lsp')
+vim.lsp.config('kotlin_lsp', {
+    cmd       = { 'kotlin-lsp' },
+    filetypes = { 'kotlin', 'java', 'swift' },
+    root_markers = {
+        'build.gradle', 'build.gradle.kts', 'pom.xml', 'settings.gradle', 'Package.swift', '.git'
+    },
+    settings  = {},
+})
+
+
+-- ============================================================
 -- DIAGNOSTICS
 -- ============================================================
 

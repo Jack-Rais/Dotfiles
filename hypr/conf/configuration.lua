@@ -42,11 +42,15 @@ hl.config({
 
     input = {
         kb_layout = "it",
-        mouse_refocus = false,
+        follow_mouse = 1,
 
         touchpad = {
             natural_scroll = true,
         }
+    },
+
+    cursor = {
+        warp_on_change_workspace = 1,
     },
 
     --          ╭─────────────────────────────────────────────────────────╮

@@ -2,9 +2,10 @@
 local mainMod = "SUPER"
 
 
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("ambxst run launcher"))
 
 
-hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("exit"))
+hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exit())
 
 
 --          ╭─────────────────────────────────────────────────────────╮

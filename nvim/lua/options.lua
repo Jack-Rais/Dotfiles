@@ -86,6 +86,33 @@ vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { underline = false })
 
 
 -- ============================================================
+-- TREESITTER
+-- ============================================================
+
+-- Remove treesitter indentation and use the flutter one
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "dart",
+    callback = function()
+        vim.bo.indentexpr = ""
+        vim.opt.shiftwidth = 2
+        vim.opt.tabstop = 2
+        vim.opt.softtabstop = 2
+    end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+
+        if vim.bo[args.buf].filetype == "dart" then
+            vim.keymap.set({ "n", "v" }, "=", function()
+                vim.lsp.buf.format({ bufnr = args.buf, async = false })
+            end, { buffer = args.buf })
+        end
+
+    end,
+})
+
+-- ============================================================
 -- LSP
 -- ============================================================
 
@@ -104,6 +131,16 @@ vim.lsp.config('kotlin_lsp', {
     filetypes = { 'kotlin', 'java', 'swift' },
     root_markers = {
         'build.gradle', 'build.gradle.kts', 'pom.xml', 'settings.gradle', 'Package.swift', '.git'
+    },
+    settings  = {},
+})
+
+vim.lsp.enable('dart')
+vim.lsp.config('dart', {
+    cmd       = { 'dart', "language-server", "--protocol=lsp" },
+    filetypes = { 'dart' },
+    root_markers = {
+        'pubspec.yml', '.git'
     },
     settings  = {},
 })

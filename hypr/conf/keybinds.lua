@@ -14,7 +14,7 @@ hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("kitty -1"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))
 
 
 --          ╭─────────────────────────────────────────────────────────╮

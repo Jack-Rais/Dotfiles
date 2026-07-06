@@ -76,12 +76,8 @@ directories = [
     "gtk-4.0",
     "hypr",
     "kitty",
-    "matugen",
     "nvim",
-    "quickshell",
-    "rofi",
     "starship",
-    "waybar",
 ]
 
 display_manager_conf = """
@@ -95,7 +91,6 @@ Current=silent
 
 sysd_services = [
     "bluetooth",
-    "libvirtd",
     "NetworkManager",
     "sddm.service",
 ]

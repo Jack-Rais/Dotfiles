@@ -59,9 +59,8 @@ pacman = [
 ]
 
 aur = [
-    "android-cli",
-    "android-sdk-cmdline-tools-latest",
     "claude-desktop-bin",
+    "noctalia-git",
     "phinger-cursors",
     "popsicle",
     "sddm-silent-theme",
@@ -76,6 +75,7 @@ directories = [
     "gtk-4.0",
     "hypr",
     "kitty",
+    "noctalia",
     "nvim",
     "starship",
 ]

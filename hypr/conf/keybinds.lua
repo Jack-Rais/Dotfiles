@@ -1,10 +1,32 @@
 
 local mainMod = "SUPER"
+local noctaliaIPC = "noctalia msg"
 
 
 hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exit())
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
 
+
+--          ╭─────────────────────────────────────────────────────────╮
+--          │                          Shell                          │
+--          ╰─────────────────────────────────────────────────────────╯
+
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle launcher"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle wallpaper"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle control-center"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle session"))
+
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(noctaliaIPC .. " screenshot-region"))
+
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(noctaliaIPC .. " volume-mute"))
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd(noctaliaIPC .. " mic-mute"))
+
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(noctaliaIPC .. " volume-up"))
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(noctaliaIPC .. " volume-down"))
+hl.bind("CTRL + XF86AudioRaiseVolume", hl.dsp.exec_cmd(noctaliaIPC .. " mic-volume-up"))
+hl.bind("CTRL + XF86AudioLowerVolume", hl.dsp.exec_cmd(noctaliaIPC .. " mic-volume-down"))
+
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(noctaliaIPC .. " brightness-up"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(noctaliaIPC .. " brightness-down"))
 
 
 --          ╭─────────────────────────────────────────────────────────╮
@@ -13,8 +35,6 @@ hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
 
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("kitty -1"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("zen-browser"))
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))
 
 
 --          ╭─────────────────────────────────────────────────────────╮

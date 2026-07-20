@@ -125,9 +125,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.lsp.enable('kotlin_lsp')
-vim.lsp.config('kotlin_lsp', {
-    cmd       = { 'kotlin-lsp' },
+vim.lsp.enable('kmp-lsp')
+vim.lsp.config('kmp-lsp', {
+    cmd       = { 'kmp-lsp' },
     filetypes = { 'kotlin', 'java', 'swift' },
     root_markers = {
         'build.gradle', 'build.gradle.kts', 'pom.xml', 'settings.gradle', 'Package.swift', '.git'

@@ -54,6 +54,7 @@ offset_x = 8
 
 [shell]
 avatar_path = "/home/giorgio/.face.icon"
+polkit_agent = true
 
     [shell.launcher]
     categories = false
@@ -112,16 +113,20 @@ wallpaper_scheme = "m3-content"
 
 [wallpaper]
 directory = "/home/giorgio/Wallpapers"
+fill_mode = "fit"
 transition_on_startup = true
 
+    [wallpaper.automation]
+    enabled = true
+
     [wallpaper.default]
-    path = "/home/giorgio/Wallpapers/pexels-diego-madrigal-162471-3180755.jpg"
+    path = "/home/giorgio/Wallpapers/wallhaven-nevj8o_1366x768.png"
 
     [wallpaper.last]
-    path = "/home/giorgio/Wallpapers/pexels-diego-madrigal-162471-3180755.jpg"
+    path = "/home/giorgio/Wallpapers/wallhaven-nevj8o_1366x768.png"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/giorgio/Wallpapers/pexels-diego-madrigal-162471-3180755.jpg"
+    path = "/home/giorgio/Wallpapers/wallhaven-nevj8o_1366x768.png"
 
 [widget.battery]
 enabled = true

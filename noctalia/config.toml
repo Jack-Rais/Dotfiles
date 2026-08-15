@@ -47,7 +47,6 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = true
 
 [notification]
 offset_x = 8
@@ -113,23 +112,20 @@ wallpaper_scheme = "m3-content"
 
 [wallpaper]
 directory = "/home/giorgio/Wallpapers"
-fill_mode = "fit"
+fill_mode = "crop"
 transition_on_startup = true
 
-    [wallpaper.automation]
-    enabled = true
-
     [wallpaper.default]
-    path = "/home/giorgio/Wallpapers/wallhaven-nevj8o_1366x768.png"
+    path = "/home/giorgio/Wallpapers/Breviceps_namaquensis_1.jpg"
 
     [wallpaper.last]
-    path = "/home/giorgio/Wallpapers/wallhaven-nevj8o_1366x768.png"
+    path = "/home/giorgio/Wallpapers/Breviceps_namaquensis_1.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/giorgio/Wallpapers/wallhaven-nevj8o_1366x768.png"
+    path = "/home/giorgio/Wallpapers/Breviceps_namaquensis_1.jpg"
 
 [widget.battery]
 enabled = true
 
 [widget.workspaces]
-display = "none"
+show_labels = false

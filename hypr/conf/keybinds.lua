@@ -10,12 +10,13 @@ hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exit())
 --          │                          Shell                          │
 --          ╰─────────────────────────────────────────────────────────╯
 
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle launcher"))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle launcher"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle wallpaper"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle control-center"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle control-center"))
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd(noctaliaIPC .. " panel-toggle session"))
 
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(noctaliaIPC .. " screenshot-region"))
+hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(noctaliaIPC .. " settings-toggle"))
 
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(noctaliaIPC .. " volume-mute"))
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd(noctaliaIPC .. " mic-mute"))

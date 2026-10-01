@@ -9,6 +9,4 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("/usr/lib/xdg-desktop-portal &")
     hl.exec_cmd("/usr/lib/xdg-desktop-portal-hyprland &")
 
-    hl.exec_cmd("systemctl --user start hyprpolkitagent")
-
 end)

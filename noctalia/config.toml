@@ -92,16 +92,6 @@ source = "wallpaper"
     enable_builtin_templates = false
     enable_community_templates = false
 
-[wallpaper]
-directory = "/home/giorgio/Wallpapers"
-transition = []
-
-    [wallpaper.default]
-    path = "/home/giorgio/Wallpapers/wallhaven-y83p3x_1366x768.png"
-
-    [wallpaper.last]
-    path = "/home/giorgio/Wallpapers/wallhaven-y83p3x_1366x768.png"
-
 [widget.workspaces]
 show_labels = false
 show_tooltip = false

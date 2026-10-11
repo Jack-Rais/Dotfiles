@@ -1,0 +1,5 @@
+
+[general]
+
+exec_once = ["noctalia"]
+source = ["./conf/general.toml", "./conf/additional.toml", "./conf/keybinds.toml"]

@@ -1,0 +1,33 @@
+
+[env]
+
+# XDG: identify session type correctly to portals and daemons
+XDG_CURRENT_DESKTOP = "mango"
+XDG_SESSION_TYPE = "wayland"
+XDG_SESSION_DESKTOP = "mango"
+
+# Qt: wayland-first with xcb fallback, disable client-side decorations
+QT_QPA_PLATFORM = "wayland;xcb"
+QT_QPA_PLATFORMTHEME = "qt6ct"
+QT_WAYLAND_DISABLE_WINDOWDECORATION = "1"
+
+# GTK: wayland-first backend, clutter for GNOME apps
+GDK_BACKEND = "wayland,x11,*"
+CLUTTER_BACKEND = "wayland"
+
+# Firefox: explicit wayland mode
+MOZ_ENABLE_WAYLAND = "1"
+
+# Chromium / Electron: native wayland rendering
+OZONE_PLATFORM = "wayland"
+ELECTRON_OZONE_PLATFORM_HINT = "wayland"
+
+# SDL2: wayland-first (games / SDL apps)
+SDL_VIDEODRIVER = "wayland"
+
+# Java: fixes blank/grey windows in AWT apps (IntelliJ, etc.)
+_JAVA_AWT_WM_NONREPARENTING = "1"
+
+# Cursor: env vars for XWayland and non-GTK apps
+XCURSOR_THEME = "phinger-cursors-dark"
+XCURSOR_SIZE = "24"

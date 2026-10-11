@@ -46,6 +46,30 @@
 "SUPER+ALT+down" = "resizewin,0,40"
 
 #          ╭──────────────────────────────────────────────────────────╮
+#          │                       Tag Actions                        │
+#          ╰──────────────────────────────────────────────────────────╯
+
+"SUPER+1" = "view,1"
+"SUPER+2" = "view,2"
+"SUPER+3" = "view,3"
+"SUPER+4" = "view,4"
+"SUPER+5" = "view,5"
+"SUPER+6" = "view,6"
+"SUPER+7" = "view,7"
+"SUPER+8" = "view,8"
+"SUPER+9" = "view,9"
+
+"SUPER+SHIFT+1" = "tag,1"
+"SUPER+SHIFT+2" = "tag,2"
+"SUPER+SHIFT+3" = "tag,3"
+"SUPER+SHIFT+4" = "tag,4"
+"SUPER+SHIFT+5" = "tag,5"
+"SUPER+SHIFT+6" = "tag,6"
+"SUPER+SHIFT+7" = "tag,7"
+"SUPER+SHIFT+8" = "tag,8"
+"SUPER+SHIFT+9" = "tag,9"
+
+#          ╭──────────────────────────────────────────────────────────╮
 #          │                       System Keys                        │
 #          ╰──────────────────────────────────────────────────────────╯
 
@@ -60,6 +84,8 @@
 [bind.default.lock]
 "XF86AudioMicMute" = "spawn,noctalia msg mic-mute"
 "XF86AudioNext" = "spawn,playerctl next"
-"XF86AudioPause" = "spawn,playerctl play-pause"
-"XF86AudioPlay" = "spawn,playerctl play-pause"
+#          ╭──────────────────────────────────────────────────────────╮
+#          │     "XF86AudioPause" = "spawn,playerctl play-pause"      │
+#          │      "XF86AudioPlay" = "spawn,playerctl play-pause"      │
+#          ╰──────────────────────────────────────────────────────────╯
 "XF86AudioPrev" = "spawn,playerctl previous"

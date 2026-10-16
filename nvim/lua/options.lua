@@ -75,6 +75,9 @@ for k, v in pairs(options) do
 end
 
 
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+
 -- ============================================================
 -- APPEARANCE
 -- ============================================================

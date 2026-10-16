@@ -41,6 +41,7 @@ vim.pack.add({
 
     -- Editing enhancements
     "https://github.com/windwp/nvim-autopairs",
+    "https://github.com/windwp/nvim-ts-autotag.git",
     "https://github.com/kylechui/nvim-surround",
     "https://github.com/numToStr/Comment.nvim",
     "https://github.com/LudoPinelli/comment-box.nvim",
@@ -75,6 +76,7 @@ require('plugins.nvim_tree')
 require('plugins.telescope')
 
 require('nvim-autopairs').setup()
+require('nvim-ts-autotag').setup()
 require('plugins.surround')
 require('Comment').setup()
 require('comment-box').setup()

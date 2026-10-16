@@ -7,7 +7,9 @@ local ensure_installed = {
     'bash',
     'html',
     'css',
-    'javascript'
+    'javascript',
+    "typescript",
+    "tsx"
 }
 
 local already_installed = require('nvim-treesitter.config').get_installed()

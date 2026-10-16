@@ -76,8 +76,13 @@ polkit_agent = true
 
     [shell.launcher]
     categories = false
+    category_icons_only = true
     fetch_exchange_rates = false
+    layout = "simple"
+    search_position = "top"
     show_app_origin_indicator = false
+    show_session_button = false
+    show_settings_button = false
 
     [shell.screen_corners]
     enabled = true
@@ -86,7 +91,9 @@ polkit_agent = true
     directory = "~/Pictures/Screenshots"
 
 [theme]
+mode = "dark"
 source = "wallpaper"
+wallpaper_scheme = "m3-content"
 
     [theme.templates]
     enable_builtin_templates = false
